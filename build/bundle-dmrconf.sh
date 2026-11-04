@@ -44,6 +44,15 @@ for f in $(find "$APP" -type f); do
   fi
 done
 install_name_tool -add_rpath "@executable_path/../Frameworks" "$BIN" 2>/dev/null || true
+# Each library's own install id still names its Homebrew path; point it inside the bundle.
+FW="$APP/Contents/Frameworks"
+for f in $(find "$FW" -type f); do
+  if file "$f" | grep -q 'Mach-O'; then
+    case "$(otool -D "$f" | tail -n +2)" in
+      "$BREW"*|/usr/local*|/opt/*) install_name_tool -id "@executable_path/../Frameworks/${f#$FW/}" "$f" ;;
+    esac
+  fi
+done
 
 echo "== linkage check"
 BAD=0
