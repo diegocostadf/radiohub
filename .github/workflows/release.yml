@@ -1,0 +1,74 @@
+# Builds RadioHub for Mac (Apple Silicon + Intel) and Windows (x64 + x86)
+# and publishes a GitHub Release when a tag like v0.3.0 is pushed.
+name: Release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Check version matches tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          PKG=$(node -p "require('./package.json').version")
+          [ "v$PKG" = "${GITHUB_REF_NAME}" ] || { echo "package.json $PKG != tag ${GITHUB_REF_NAME}"; exit 1; }
+      - name: Fetch Python runtimes
+        run: bash build/fetch-python.sh
+      - name: Package apps
+        run: |
+          npm run package:mac-arm64
+          npm run package:mac-x64
+          npm run package:win-x64
+          npm run package:win-ia32
+      - name: Windows exe metadata
+        run: |
+          V=$(node -p "require('./package.json').version")
+          node build/set-exe-meta.js dist/RadioHub-win32-x64/RadioHub.exe build/icon.ico "$V"
+          node build/set-exe-meta.js dist/RadioHub-win32-ia32/RadioHub.exe build/icon.ico "$V"
+      - name: Windows installers (NSIS)
+        run: |
+          brew install makensis
+          V=$(node -p "require('./package.json').version")
+          mkdir -p dist/release
+          cd build
+          makensis -V2 -DARCH=x64 -DVERSION="$V" -DSRC="$GITHUB_WORKSPACE/dist/RadioHub-win32-x64" -DOUT="$GITHUB_WORKSPACE/dist/release/RadioHub-Setup-win-x64.exe" installer.nsi
+          makensis -V2 -DARCH=ia32 -DVERSION="$V" -DSRC="$GITHUB_WORKSPACE/dist/RadioHub-win32-ia32" -DOUT="$GITHUB_WORKSPACE/dist/release/RadioHub-Setup-win-x86.exe" installer.nsi
+      - name: Mac DMGs (ad-hoc signed)
+        run: |
+          V=$(node -p "require('./package.json').version")
+          for A in arm64 x64; do
+            APP="dist/RadioHub-darwin-$A/RadioHub.app"
+            xattr -cr "$APP"
+            codesign --force --deep --sign - "$APP"
+            codesign --verify --deep --strict "$APP"
+            STAGE=$(mktemp -d); cp -R "$APP" "$STAGE/"; ln -s /Applications "$STAGE/Aplicativos"
+            hdiutil create -volname "RadioHub $V" -srcfolder "$STAGE" -fs HFS+ -format UDZO -imagekey zlib-level=9 -ov "dist/release/RadioHub-mac-$A.dmg"
+            hdiutil verify "dist/release/RadioHub-mac-$A.dmg"
+          done
+          cd dist/release && shasum -a 256 * > SHA256SUMS.txt && ls -la
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NOTES=build/release-notes.md
+          [ -f "$NOTES" ] || echo "RadioHub ${GITHUB_REF_NAME}" > "$NOTES"
+          gh release create "${GITHUB_REF_NAME}" dist/release/* --title "RadioHub ${GITHUB_REF_NAME#v}" --notes-file "$NOTES"
+      - name: Keep artifacts (manual runs)
+        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: radiohub-builds
+          path: dist/release/

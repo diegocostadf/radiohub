@@ -12,10 +12,10 @@
   },
   "scripts": {
     "start": "electron .",
-    "package:mac-arm64": "electron-packager . RadioHub --platform=darwin --arch=arm64 --icon=build/icon.icns --app-bundle-id=br.radiohub.app --extra-resource=../pybuild/darwin-arm64/python --out=dist --overwrite --extra-resource=engine --ignore=^/dist --ignore=^/python --ignore=^/engine --ignore=^/build --ignore=^/tests --ignore=^/README.md --ignore=^/LICENSE",
-    "package:mac-x64": "electron-packager . RadioHub --platform=darwin --arch=x64 --icon=build/icon.icns --app-bundle-id=br.radiohub.app --extra-resource=../pybuild/darwin-x64/python --out=dist --overwrite --extra-resource=engine --ignore=^/dist --ignore=^/python --ignore=^/engine --ignore=^/build --ignore=^/tests --ignore=^/README.md --ignore=^/LICENSE",
-    "package:win-x64": "electron-packager . RadioHub --platform=win32 --arch=x64 --extra-resource=../pybuild/win32-x64/python --out=dist --overwrite --extra-resource=engine --ignore=^/dist --ignore=^/python --ignore=^/engine --ignore=^/build --ignore=^/tests --ignore=^/README.md --ignore=^/LICENSE",
-    "package:win-ia32": "electron-packager . RadioHub --platform=win32 --arch=ia32 --extra-resource=../pybuild/win32-ia32/python --out=dist --overwrite --extra-resource=engine --ignore=^/dist --ignore=^/python --ignore=^/engine --ignore=^/build --ignore=^/tests --ignore=^/README.md --ignore=^/LICENSE"
+    "package:mac-arm64": "electron-packager . RadioHub --platform=darwin --arch=arm64 --icon=build/icon.icns --app-bundle-id=br.radiohub.app --extra-resource=pybuild/darwin-arm64/python --out=dist --overwrite --extra-resource=engine --ignore=^/dist --ignore=^/python --ignore=^/engine --ignore=^/build --ignore=^/tests --ignore=^/pybuild --ignore=^/\\.github --ignore=^/README.md --ignore=^/LICENSE",
+    "package:mac-x64": "electron-packager . RadioHub --platform=darwin --arch=x64 --icon=build/icon.icns --app-bundle-id=br.radiohub.app --extra-resource=pybuild/darwin-x64/python --out=dist --overwrite --extra-resource=engine --ignore=^/dist --ignore=^/python --ignore=^/engine --ignore=^/build --ignore=^/tests --ignore=^/pybuild --ignore=^/\\.github --ignore=^/README.md --ignore=^/LICENSE",
+    "package:win-x64": "electron-packager . RadioHub --platform=win32 --arch=x64 --extra-resource=pybuild/win32-x64/python --out=dist --overwrite --extra-resource=engine --ignore=^/dist --ignore=^/python --ignore=^/engine --ignore=^/build --ignore=^/tests --ignore=^/pybuild --ignore=^/\\.github --ignore=^/README.md --ignore=^/LICENSE",
+    "package:win-ia32": "electron-packager . RadioHub --platform=win32 --arch=ia32 --extra-resource=pybuild/win32-ia32/python --out=dist --overwrite --extra-resource=engine --ignore=^/dist --ignore=^/python --ignore=^/engine --ignore=^/build --ignore=^/tests --ignore=^/pybuild --ignore=^/\\.github --ignore=^/README.md --ignore=^/LICENSE"
   },
   "devDependencies": {
     "@electron/packager": "18.3.6",
