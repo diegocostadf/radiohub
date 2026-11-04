@@ -1,0 +1,29 @@
+{
+  "name": "radiohub",
+  "productName": "RadioHub",
+  "version": "0.2.1",
+  "description": "Gestão de rádios com os drivers do CHIRP e assistente de frequências com IA",
+  "main": "main.js",
+  "license": "GPL-3.0-or-later",
+  "author": {
+    "name": "Diego Costa",
+    "email": "contato@diegocosta.digital",
+    "url": "https://www.diegocosta.digital"
+  },
+  "scripts": {
+    "start": "electron .",
+    "package:mac": "electron-packager . RadioHub --platform=darwin --arch=arm64 --out=dist --overwrite --icon=build/icon.icns --extra-resource=engine --extra-resource=python --ignore=^/dist --ignore=^/python --ignore=^/engine --ignore=^/build --ignore=^/tests --app-bundle-id=br.radiohub.app"
+  },
+  "devDependencies": {
+    "@electron/packager": "18.3.6",
+    "electron": "37.2.0"
+  },
+  "homepage": "https://www.diegocosta.digital",
+  "radiohub": {
+    "updateRepo": "diegocostadf/radiohub"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diegocostadf/radiohub.git"
+  }
+}

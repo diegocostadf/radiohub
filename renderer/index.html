@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+<title>RadioHub</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <nav class="side" aria-label="Etapas">
+    <div class="brand">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#F5A524"></rect><path d="M9 19c0-4 2-9 5-9s5 5 5 9M6 21c0-6 3-13 8-13s8 7 8 13" stroke="#0F1115" stroke-width="2" fill="none" stroke-linecap="round"></path></svg>
+      <span>RadioHub</span>
+    </div>
+    <ol id="steps" class="steps"></ol>
+    <div id="radioBadge" class="radio-badge" hidden></div>
+    <div class="side-foot">
+      <button type="button" class="side-link" data-go="settings">Configurações</button>
+      <button type="button" class="side-link" data-go="about">Sobre e apoio</button>
+      <div id="devCredit" class="dev-credit"></div>
+    </div>
+  </nav>
+  <main id="view" class="view" tabindex="-1"></main>
+  <aside id="ai" class="ai" aria-label="Assistente de IA" hidden></aside>
+</div>
+<div id="updateBar" class="update-bar" role="status" hidden></div>
+<div id="modal" class="modal" hidden></div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script src="vendor/qrcode.js"></script>
+<script src="radios.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

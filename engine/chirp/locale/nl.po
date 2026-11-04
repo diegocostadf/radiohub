@@ -1,0 +1,4218 @@
+# Dutch translations for CHIRP package.
+# Copyright (C) 2012 Dan Smith <dsmith@danplanet.com>
+# This file is distributed under the same license as the CHIRP package.
+# Dan Smith <dsmith@danplanet.com>, 2012.
+# Michael Tel <m.tel@xs4all.nl>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: CHIRP\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-26 23:50-0400\n"
+"PO-Revision-Date: 2012-03-18 12:01+0100\n"
+"Last-Translator: Michael Tel <m.tel@xs4all.nl>\n"
+"Language-Team: Dutch\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../wxui/query_sources.py:64
+#, python-format
+msgid "%(value)s must be between %(min)i and %(max)i"
+msgstr ""
+
+#: ../wxui/memedit.py:2247
+#, fuzzy, python-format
+msgid "%i Memories and shift all up"
+msgid_plural "%i Memories and shift all up"
+msgstr[0] "Verwijderen (en naar boven verplaatsen)"
+msgstr[1] "Verwijderen (en naar boven verplaatsen)"
+
+#: ../wxui/memedit.py:2238
+#, fuzzy, python-format
+msgid "%i Memory"
+msgid_plural "%i Memories"
+msgstr[0] "Kanalen"
+msgstr[1] "Kanalen"
+
+#: ../wxui/memedit.py:2242
+#, fuzzy, python-format
+msgid "%i Memory and shift block up"
+msgid_plural "%i Memories and shift block up"
+msgstr[0] "Verwijderen (en naar boven verplaatsen)"
+msgstr[1] "Verwijderen (en naar boven verplaatsen)"
+
+#: ../wxui/accessibility.py:177
+#, python-format
+msgid "%s %s, row %d"
+msgstr ""
+
+#: ../wxui/main.py:1533
+#, fuzzy, python-format
+msgid "%s has not been saved. Save before closing?"
+msgstr "Het bestand is aangepast. Wilt u de wijzigingen opslaan?"
+
+#: ../wxui/bugreport.py:512
+msgid "(Describe what actually happened instead)"
+msgstr ""
+
+#: ../wxui/bugreport.py:510
+msgid "(Describe what you expected to happen)"
+msgstr ""
+
+#: ../wxui/bugreport.py:508
+msgid "(Describe what you were doing)"
+msgstr ""
+
+#: ../wxui/bugreport.py:514
+msgid "(Has this ever worked before? New radio? Does it work with OEM software?)"
+msgstr ""
+
+#: ../wxui/radioinfo.py:62
+msgid "(none)"
+msgstr ""
+
+#: ../wxui/memedit.py:2643
+#, python-format
+msgid "...and %i more"
+msgstr ""
+
+#: ../drivers/ft4.py:754
+msgid ""
+"1. Connect programming cable to MIC jack.\n"
+"2. Press OK."
+msgstr ""
+
+#: ../drivers/alinco.py:609 ../drivers/alinco.py:618
+msgid ""
+"1. Ensure your firmware version is 4_10 or higher\n"
+"2. Turn radio off\n"
+"3. Connect your interface cable\n"
+"4. Turn radio on\n"
+"5. Press and release PTT 3 times while holding MONI key\n"
+"6. Supported baud rates: 57600 (default) and 19200\n"
+"   (rotate dial while holding MONI to change)\n"
+"7. Click OK\n"
+msgstr ""
+
+#: ../drivers/ft2900.py:1253
+msgid ""
+"1. Turn Radio off.\n"
+"2. Connect data cable.\n"
+"3. While holding \"A/N LOW\" button, turn radio on.\n"
+"4. <b>After clicking OK</b>, press \"SET MHz\" to send image.\n"
+msgstr ""
+
+#: ../drivers/ft2900.py:1258
+msgid ""
+"1. Turn Radio off.\n"
+"2. Connect data cable.\n"
+"3. While holding \"A/N LOW\" button, turn radio on.\n"
+"4. Press \"MW D/MR\" to receive image.\n"
+"5. Make sure display says \"-WAIT-\" (see note below if not)\n"
+"6. Click OK to dismiss this dialog and start transfer.\n"
+"Note: if you don't see \"-WAIT-\" at step 5, try cycling\n"
+"      power and pressing and holding red \"*L\" button to unlock\n"
+"      radio, then start back at step 1.\n"
+msgstr ""
+
+#: ../drivers/ft8100.py:94
+msgid ""
+"1. Turn Radio off.\n"
+"2. Connect data cable.\n"
+"3. While holding \"F/W\" button, turn radio on.\n"
+"4. <b>After clicking OK</b>, press \"RPT\" to send image.\n"
+msgstr ""
+
+#: ../drivers/ft8100.py:99
+msgid ""
+"1. Turn Radio off.\n"
+"2. Connect data cable.\n"
+"3. While holding \"F/W\" button, turn radio on.\n"
+"4. Press \"REV\" to receive image.\n"
+"5. Click OK to start transfer.\n"
+msgstr ""
+
+#: ../drivers/ft7100.py:1130
+msgid ""
+"1. Turn Radio off.\n"
+"2. Connect data cable.\n"
+"3. While holding \"TONE\" and \"REV\" buttons, turn radio on.\n"
+"4. <b>After clicking OK</b>, press \"TONE\" to send image.\n"
+msgstr ""
+
+#: ../drivers/ft7100.py:1135
+msgid ""
+"1. Turn Radio off.\n"
+"2. Connect data cable.\n"
+"3. While holding \"TONE\" and \"REV\" buttons, turn radio on.\n"
+"4. Press \"REV\" to receive image.\n"
+"5. Make sure display says \"CLONE RX\" and green led is blinking\n"
+"6. Click OK to start transfer.\n"
+msgstr ""
+
+#: ../drivers/ft2800.py:206
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable\n"
+"3. Press and hold in the MHz, Low, and D/MR keys on the radio while turning it on\n"
+"4. Radio is in clone mode when TX/RX is flashing\n"
+"5. <b>After clicking OK</b>, press the MHz key on the radio to send image.\n"
+"    (\"TX\" will appear on the LCD). \n"
+msgstr ""
+
+#: ../drivers/ft2800.py:216
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable\n"
+"3. Press and hold in the MHz, Low, and D/MR keys on the radio while turning it on\n"
+"4. Radio is in clone mode when TX/RX is flashing\n"
+"5. Press the Low key on the radio (\"RX\" will appear on the LCD).\n"
+"6. Click OK."
+msgstr ""
+
+#: ../drivers/ft450d.py:436
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to ACC jack.\n"
+"3. Press and hold in the [MODE &lt;] and [MODE &gt;] keys while\n"
+"     turning the radio on (\"CLONE MODE\" will appear on the\n"
+"     display).\n"
+"4. <b>After clicking OK</b> here, press the [C.S.] key to\n"
+"    send image.\n"
+msgstr ""
+
+#: ../drivers/ft817.py:281
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to ACC jack.\n"
+"3. Press and hold in the [MODE &lt;] and [MODE &gt;] keys while\n"
+"     turning the radio on (\"CLONE MODE\" will appear on the\n"
+"     display).\n"
+"4. <b>After clicking OK</b>, press the [A] key to send image.\n"
+msgstr ""
+
+#: ../drivers/ft450d.py:445
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to ACC jack.\n"
+"3. Press and hold in the [MODE &lt;] and [MODE &gt;] keys while\n"
+"     turning the radio on (\"CLONE MODE\" will appear on the\n"
+"     display).\n"
+"4. Click OK here.\n"
+"    (\"Receiving\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/ft857.py:450
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to ACC jack.\n"
+"3. Press and hold in the [MODE &lt;] and [MODE &gt;] keys while\n"
+"     turning the radio on (\"CLONE MODE\" will appear on the\n"
+"     display).\n"
+"4. Press the [A](RCV) key (\"receiving\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/ft817.py:289
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to ACC jack.\n"
+"3. Press and hold in the [MODE &lt;] and [MODE &gt;] keys while\n"
+"     turning the radio on (\"CLONE MODE\" will appear on the\n"
+"     display).\n"
+"4. Press the [C] key (\"RX\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/ft857.py:441
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to CAT/LINEAR jack.\n"
+"3. Press and hold in the [MODE &lt;] and [MODE &gt;] keys while\n"
+"     turning the radio on (\"CLONE MODE\" will appear on the\n"
+"     display).\n"
+"4. <b>After clicking OK</b>,\n"
+"     press the [C](SEND) key to send image.\n"
+msgstr ""
+
+#: ../drivers/ft7800.py:939 ../drivers/ft7800.py:1261
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA jack.\n"
+"3. Press and hold in the \"left\" [V/M] key while turning the\n"
+"     radio on.\n"
+"4. Rotate the \"right\" DIAL knob to select \"CLONE START\".\n"
+"5. Press the [SET] key. The display will disappear\n"
+"     for a moment, then the \"CLONE\" notation will appear.\n"
+"6. <b>After clicking OK</b>, press the \"left\" [V/M] key to\n"
+"     send image.\n"
+msgstr ""
+
+#: ../drivers/ft7800.py:949 ../drivers/ft7800.py:1271
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA jack.\n"
+"3. Press and hold in the \"left\" [V/M] key while turning the\n"
+"     radio on.\n"
+"4. Rotate the \"right\" DIAL knob to select \"CLONE START\".\n"
+"5. Press the [SET] key. The display will disappear\n"
+"     for a moment, then the \"CLONE\" notation will appear.\n"
+"6. Press the \"left\" [LOW] key (\"CLONE -RX-\" will appear on\n"
+"     the display).\n"
+msgstr ""
+
+#: ../drivers/vx8.py:584
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA jack.\n"
+"3. Press and hold in the [FW] key while turning the radio on\n"
+"     (\"CLONE\" will appear on the display).\n"
+"4. <b>After clicking OK</b>, press the [BAND] key to send image.\n"
+msgstr ""
+
+#: ../drivers/vx8.py:591
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA jack.\n"
+"3. Press and hold in the [FW] key while turning the radio on\n"
+"     (\"CLONE\" will appear on the display).\n"
+"4. Press the [MODE] key (\"-WAIT-\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/ft7800.py:320
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA jack.\n"
+"3. Press and hold in the [MHz(PRI)] key while turning the\n"
+"     radio on.\n"
+"4. Rotate the DIAL job to select \"F-7 CLONE\".\n"
+"5. Press and hold in the [BAND(SET)] key. The display\n"
+"     will disappear for a moment, then the \"CLONE\" notation\n"
+"     will appear.\n"
+"6. Press the [LOW(ACC)] key (\"--RX--\" will appear on the display).\n"
+msgstr ""
+
+#: ../drivers/ft7800.py:309
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA jack.\n"
+"3. Press and hold in the [MHz(PRI)] key while turning the\n"
+" radio on.\n"
+"4. Rotate the DIAL job to select \"F-7 CLONE\".\n"
+"5. Press and hold in the [BAND(SET)] key. The display\n"
+" will disappear for a moment, then the \"CLONE\" notation\n"
+" will appear.\n"
+"6. <b>After clicking OK</b>, press the [V/M(MW)] key to send image.\n"
+msgstr ""
+
+#: ../drivers/ft2d.py:90
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA terminal.\n"
+"3. Press and hold [DISP] key while turning on radio\n"
+"     (\"CLONE\" will appear on radio LCD).\n"
+"4. <b>After clicking OK here in Chirp</b>,\n"
+"     press the [Send] screen button.\n"
+msgstr ""
+
+#: ../drivers/ft2d.py:97
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA terminal.\n"
+"3. Press and hold in [DISP] key while turning on radio\n"
+"     (\"CLONE\" will appear on radio LCD).\n"
+"4. Press [RECEIVE] screen button\n"
+"     (\"-WAIT-\" will appear on radio LCD).\n"
+"5. Finally, press OK button below.\n"
+msgstr ""
+
+#: ../drivers/ft1d.py:902
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA terminal.\n"
+"3. Press and hold in the [F] key while turning the radio on\n"
+"     (\"CLONE\" will appear on the display).\n"
+"4. <b>After clicking OK</b>, press the [BAND] key to send image.\n"
+msgstr ""
+
+#: ../drivers/ft1d.py:909
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA terminal.\n"
+"3. Press and hold in the [F] key while turning the radio on\n"
+"     (\"CLONE\" will appear on the display).\n"
+"4. Press the [Dx] key (\"-WAIT-\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/ftm3200d.py:84
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA terminal.\n"
+"3. Press and hold in the [MHz(SETUP)] key while turning the radio\n"
+"     on (\"CLONE\" will appear on the display).\n"
+"4. <b>After clicking OK</b>, press the [REV(DW)] key\n"
+"     to send image.\n"
+msgstr ""
+
+#: ../drivers/ftm3200d.py:92
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to DATA terminal.\n"
+"3. Press and hold in the [MHz(SETUP)] key while turning the radio\n"
+"     on (\"CLONE\" will appear on the display).\n"
+"4. Press the [MHz(SETUP)] key\n"
+"     (\"-WAIT-\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/ftm7250d.py:84
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC Jack.\n"
+"3. Press and hold in the [MHz(SETUP)] key while turning the radio\n"
+"     on (\"CLONE\" will appear on the display).\n"
+"4. <b>After clicking OK</b>, press the [GM(AMS)] key\n"
+"     to send image.\n"
+msgstr ""
+
+#: ../drivers/ftm7250d.py:92
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC Jack.\n"
+"3. Press and hold in the [MHz(SETUP)] key while turning the radio\n"
+"     on (\"CLONE\" will appear on the display).\n"
+"4. Press the [MHz(SETUP)] key\n"
+"     (\"-WAIT-\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/vx5.py:317
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/EAR jack.\n"
+"3. Press and hold in the [F/W] key while turning the radio on\n"
+"    (\"CLONE\" will appear on the display).\n"
+"4. <b>After clicking OK</b>, press the [VFO(DW)SC] key to receive\n"
+"    the image from the radio.\n"
+msgstr ""
+
+#: ../drivers/vx5.py:325
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/EAR jack.\n"
+"3. Press and hold in the [F/W] key while turning the radio on\n"
+"    (\"CLONE\" will appear on the display).\n"
+"4. Press the [MR(SKP)SC] key (\"CLONE WAIT\" will appear\n"
+"    on the LCD).\n"
+"5. Click OK to send image to radio.\n"
+msgstr ""
+
+#: ../drivers/vx1.py:404
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold [FW] while turning radio on to put into CLONE mode.\n"
+"4. Press OK on chirp prompt.\n"
+"5. <b>After clicking OK</b>, press the [DWN] button on radio to send image. The radio will say CLN OUT while downloading.\n"
+msgstr ""
+
+#: ../drivers/vx1.py:412
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold [FW] while turning radio on to put into CLONE mode.\n"
+"4. Press [UP] button on radio. The radio will say CLN IN.\n"
+"5. <b>After radio says CLN IN</b>, press OK on chirp prompt to upload.\n"
+msgstr ""
+
+#: ../drivers/ft50.py:195
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold [PTT] &amp; Knob while turning the\n"
+"     radio on.\n"
+"4. <b>After clicking OK</b>, press the [PTT] switch to send image.\n"
+msgstr ""
+
+#: ../drivers/ft50.py:202
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold [PTT] &amp; Knob while turning the\n"
+"     radio on.\n"
+"4. Press the [MONI] switch (\"WAIT\" will appear on the LCD).\n"
+"5. Press OK.\n"
+msgstr ""
+
+#: ../drivers/vx6.py:370 ../drivers/vx3.py:373
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold in the [F/W] key while turning the radio on\n"
+"     (\"CLONE\" will appear on the display).\n"
+"4. <b>After clicking OK</b>, press the [BAND] key to send image.\n"
+msgstr ""
+
+#: ../drivers/vx6.py:377 ../drivers/vx3.py:380
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold in the [F/W] key while turning the radio on\n"
+"     (\"CLONE\" will appear on the display).\n"
+"4. Press the [V/M] key (\"-WAIT-\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/vx7.py:192
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold in the [MON-F] key while turning the radio on\n"
+"     (\"CLONE\" will appear on the display).\n"
+"4. <b>After clicking OK</b>, press the [BAND] key to send image.\n"
+msgstr ""
+
+#: ../drivers/vx7.py:200
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold in the [MON-F] key while turning the radio on\n"
+"     (\"CLONE\" will appear on the display).\n"
+"4. Press the [V/M] key (\"CLONE WAIT\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/ft60.py:360
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold in the [MONI] switch while turning the\n"
+"     radio on.\n"
+"4. Rotate the DIAL job to select \"F8 CLONE\".\n"
+"5. Press the [F/W] key momentarily.\n"
+"6. <b>After clicking OK</b>, hold the [PTT] switch\n"
+"     for one second to send image.\n"
+msgstr ""
+
+#: ../drivers/ft60.py:369
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold in the [MONI] switch while turning the\n"
+"     radio on.\n"
+"4. Rotate the DIAL job to select \"F8 CLONE\".\n"
+"5. Press the [F/W] key momentarily.\n"
+"6. Press the [MONI] switch (\"--RX--\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/vx170.py:105
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to MIC/SP jack.\n"
+"3. Press and hold in the [moni] key while turning the radio on.\n"
+"4. Select CLONE in menu, then press F. Radio restarts in clone mode.\n"
+"     (\"CLONE\" will appear on the display).\n"
+"5. <b>After clicking OK</b>, briefly hold [PTT] key to send image.\n"
+"    (\"-TX-\" will appear on the LCD). \n"
+msgstr ""
+
+#: ../drivers/ft1802.py:96
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to mic jack.\n"
+"3. Press and hold in the [LOW(A/N)] key while turning the radio on.\n"
+"4. <b>After clicking OK</b>, press the [MHz(SET)] key to send image.\n"
+msgstr ""
+
+#: ../drivers/ft1802.py:103
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to mic jack.\n"
+"3. Press and hold in the [LOW(A/N)] key while turning the radio on.\n"
+"4. Press the [D/MR(MW)] key (\"--WAIT--\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/ft1500m.py:96
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to mic jack.\n"
+"3. Press and hold in the [MHz], [LOW], and [D/MR] keys\n"
+"   while turning the radio on.\n"
+"4. <b>After clicking OK</b>, press the [MHz(SET)] key to send image.\n"
+msgstr ""
+
+#: ../drivers/ft1500m.py:103
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to mic jack.\n"
+"3. Press and hold in the [MHz], [LOW], and [D/MR] keys\n"
+"   while turning the radio on.\n"
+"4. Press the [D/MR(MW)] key (\"--WAIT--\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/uv5r.py:834
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to mic/spkr connector.\n"
+"3. Make sure connector is firmly connected.\n"
+"4. Turn radio on (volume may need to be set at 100%).\n"
+"5. Ensure that the radio is tuned to channel with no activity.\n"
+"6. Click OK to download image from device.\n"
+msgstr ""
+
+#: ../drivers/uv5r.py:842
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to mic/spkr connector.\n"
+"3. Make sure connector is firmly connected.\n"
+"4. Turn radio on (volume may need to be set at 100%).\n"
+"5. Ensure that the radio is tuned to channel with no activity.\n"
+"6. Click OK to upload image to device.\n"
+msgstr ""
+
+#: ../drivers/uvb5.py:293 ../drivers/wouxun.py:222 ../drivers/tg_uv2p.py:237
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to mic/spkr connector.\n"
+"3. Make sure connector is firmly connected.\n"
+"4. Turn radio on.\n"
+"5. Ensure that the radio is tuned to channel with no activity.\n"
+"6. Click OK to download image from device.\n"
+msgstr ""
+
+#: ../drivers/uvb5.py:301 ../drivers/wouxun.py:230 ../drivers/tg_uv2p.py:245
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect cable to mic/spkr connector.\n"
+"3. Make sure connector is firmly connected.\n"
+"4. Turn radio on.\n"
+"5. Ensure that the radio is tuned to channel with no activity.\n"
+"6. Click OK to upload image to device.\n"
+msgstr ""
+
+#: ../drivers/vx150.py:352
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect clone cable to the MIC/SP jack.\n"
+"3. Press and hold [PTT] and [Lamp] while turning the radio on.\n"
+"4. Rotate the dial to select \"CLONE\", then press [F].\n"
+"     (\"CLONE\" will appear on the display)\n"
+"5. <b>After clicking OK</b>, hold [PTT] briefly to transmit.\n"
+"     (\"SENDING\" will appear on the display)\n"
+msgstr ""
+
+#: ../drivers/vx150.py:360
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect clone cable to the MIC/SP jack.\n"
+"3. Press and hold [PTT] and [Lamp] while turning the radio on.\n"
+"4. Rotate the dial to select \"CLONE\", then press [F].\n"
+"     (\"CLONE\" will appear on the display)\n"
+"5. Press [MONI] to receive.\n"
+"     (\"SAVING\" will appear on the display)\n"
+msgstr ""
+
+#: ../drivers/yaesu_clone.py:247
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect data cable.\n"
+"3. Prepare radio for clone.\n"
+"4. <b>After clicking OK</b>, press the key to send image.\n"
+msgstr ""
+
+#: ../drivers/yaesu_clone.py:252
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect data cable.\n"
+"3. Prepare radio for clone.\n"
+"4. Press the key to receive the image.\n"
+msgstr ""
+
+#: ../drivers/ft90.py:194
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect mic and hold [ACC] on mic while powering on.\n"
+"    (\"CLONE\" will appear on the display)\n"
+"3. Replace mic with PC programming cable.\n"
+"4. <b>After clicking OK</b>, press the [SET] key to send image.\n"
+msgstr ""
+
+#: ../drivers/ft90.py:201
+msgid ""
+"1. Turn radio off.\n"
+"2. Connect mic and hold [ACC] on mic while powering on.\n"
+"    (\"CLONE\" will appear on the display)\n"
+"3. Replace mic with PC programming cable.\n"
+"4. Press the [DISP/SS] key\n"
+"    (\"R\" will appear on the lower left of LCD).\n"
+msgstr ""
+
+#: ../drivers/bj9900.py:102
+msgid ""
+"1. Turn radio off.\n"
+"2. Remove front head.\n"
+"3. Connect data cable to radio, use the same connector where\n"
+"     head was connected to, <b>not the mic connector</b>.\n"
+"4. Click OK.\n"
+msgstr ""
+
+#: ../drivers/vx170.py:116
+msgid ""
+"1. Turn radio off.\n"
+"3. Press and hold in the [moni] key while turning the radio on.\n"
+"4. Select CLONE in menu, then press F. Radio restarts in clone mode.\n"
+"     (\"CLONE\" will appear on the display).\n"
+"5. Press the [moni] key (\"-RX-\" will appear on the LCD).\n"
+msgstr ""
+
+#: ../drivers/ft70.py:573
+msgid ""
+"1. Turn radio on.\n"
+"2. Connect cable to DATA terminal.\n"
+"3. Unclip battery.\n"
+"4. Press and hold in the [AMS] key and power key while clipping \n"
+" in back battery the (\"ADMS\" will appear on the display).\n"
+"5. Press the [MODE] key (\"-WAIT-\" will appear on the LCD).\n"
+"<b>Then click OK</b>"
+msgstr ""
+
+#: ../drivers/ft70.py:565
+msgid ""
+"1. Turn radio on.\n"
+"2. Connect cable to DATA terminal.\n"
+"3. Unclip battery.\n"
+"4. Press and hold in the [AMS] key and power key while clipping \n"
+" in back battery the(\"ADMS\" will appear on the display).\n"
+"5. <b>After clicking OK</b>, press the [BAND] key.\n"
+msgstr ""
+
+#: ../drivers/uvk5.py:702
+msgid ""
+"1. Turn radio on.\n"
+"2. Connect cable to mic/spkr connector.\n"
+"3. Make sure connector is firmly connected.\n"
+"4. Click OK to download image from device.\n"
+"\n"
+"It will may not work if you turn on the radio with the cable already attached\n"
+msgstr ""
+
+#: ../drivers/uvk5.py:709
+msgid ""
+"1. Turn radio on.\n"
+"2. Connect cable to mic/spkr connector.\n"
+"3. Make sure connector is firmly connected.\n"
+"4. Click OK to upload the image to device.\n"
+"\n"
+"It will may not work if you turn on the radio with the cable already attached"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:505
+msgid ""
+"1. Turn the radio on.\n"
+"2. Connect the cable to the mic/speaker connector.\n"
+"3. Make sure the connector is firmly seated.\n"
+"4. Click OK to download the image from the device.\n"
+"\n"
+"It may not work if you turn the radio on with the cable already attached."
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:512
+msgid ""
+"1. Turn the radio on.\n"
+"2. Connect the cable to the mic/speaker connector.\n"
+"3. Make sure the connector is firmly seated.\n"
+"4. Click OK to upload the image to the device.\n"
+"\n"
+"It may not work if you turn the radio on with the cable already attached."
+msgstr ""
+
+#: ../wxui/main.py:2170
+msgid "A new CHIRP version is available. Please visit the website as soon as possible to download it!"
+msgstr ""
+
+#: ../drivers/ga510.py:1090
+msgid "AM mode does not allow duplex or tone"
+msgstr ""
+
+#: ../wxui/main.py:977
+msgid "About"
+msgstr ""
+
+#: ../wxui/main.py:1924
+msgid "About CHIRP"
+msgstr ""
+
+#: ../wxui/main.py:1979
+msgid "Agree"
+msgstr ""
+
+#: ../chirp_common.py:1883
+msgid "Aircraft frequencies must be aligned to 25kHz, 8.33kHz, be or a valid channel"
+msgstr ""
+
+#: ../wxui/query_sources.py:452 ../wxui/query_sources.py:453
+msgid "All"
+msgstr "Alles"
+
+#: ../wxui/main.py:1362
+#, fuzzy
+msgid "All Files"
+msgstr "Komma gescheiden bestanden"
+
+#: ../wxui/main.py:1373
+msgid "All supported formats"
+msgstr ""
+
+#: ../drivers/ft450d.py:1646
+msgid "Allows tuning away from a recalled memory or Home channel with the MAIN DIAL, as with a VFO. The stored channel does not change unless you write the new settings to it."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:743
+msgid "Always On keeps it lit all the time."
+msgstr ""
+
+#: ../wxui/clone.py:626
+msgid "Always start with recent list"
+msgstr ""
+
+#: ../wxui/query_sources.py:354 ../wxui/query_sources.py:444
+msgid "Amateur"
+msgstr ""
+
+#: ../wxui/bugreport.py:345 ../wxui/bugreport.py:480 ../wxui/common.py:849
+msgid "An error has occurred"
+msgstr "Er is een fout opgetreden"
+
+#: ../drivers/baofeng_uv17Pro.py:728
+msgid "Announces the channel number and other operations out loud as you use the radio. It can be intrusive in quiet surroundings."
+msgstr ""
+
+#: ../wxui/clone.py:145
+msgid "Applying settings"
+msgstr ""
+
+#: ../drivers/ft450d.py:1847
+msgid "Assigns one of the radio's functions to the DWN key of the microphone. DOWN, its normal function, steps the frequency or memory channel down."
+msgstr ""
+
+#: ../drivers/ft450d.py:1855
+msgid "Assigns one of the radio's functions to the FST key of the microphone. FAST, its normal function, speeds up tuning like the front panel FAST button."
+msgstr ""
+
+#: ../drivers/ft450d.py:1863
+msgid "Assigns one of the radio's functions to the UP key of the microphone. UP, its normal function, steps the frequency or memory channel up."
+msgstr ""
+
+#: ../drivers/ft450d.py:1676
+msgid "Assigns one of the radio's functions to the front panel C.S/VOICE button, for example MONI to listen to your own transmission, SWR to transmit a 10 W carrier and measure the antenna SWR, or PLAY1 to send CW beacon message 1. Choices named after a front panel button act like that button."
+msgstr ""
+
+#: ../drivers/ft450d.py:1663
+msgid "Assigns the second function the DSP/SEL knob takes on after it is pressed briefly: adjusting the CW sidetone volume, the CW keyer speed, the microphone gain or the RF power, or tuning in 100 kHz or 1 MHz steps."
+msgstr ""
+
+#: ../wxui/main.py:1630
+#, fuzzy
+msgid "Automatic from system"
+msgstr "Automatische repeater offset"
+
+#: ../drivers/baofeng_uv17Pro.py:748
+msgid "Automatically locks the keypad to prevent accidental changes."
+msgstr ""
+
+#: ../wxui/developer.py:665
+msgid "Available modules"
+msgstr ""
+
+#: ../wxui/main.py:2094
+msgid "Bandplan"
+msgstr ""
+
+#: ../wxui/query_sources.py:481 ../wxui/query_sources.py:700
+#: ../wxui/query_sources.py:858
+msgid "Bands"
+msgstr ""
+
+#: ../wxui/main.py:211
+msgid "Banks"
+msgstr "Banken"
+
+#: ../wxui/developer.py:282
+msgid "Bin"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1089
+msgid "Blocks use of the broadcast FM radio receiver. When it is off, the FM radio can be used as normal."
+msgstr ""
+
+#: ../wxui/main.py:222
+msgid "Browser"
+msgstr ""
+
+#: ../wxui/bugreport.py:490
+#, python-format
+msgid "Bug number %s is closed"
+msgstr ""
+
+#: ../wxui/bugreport.py:479
+msgid "Bug number not found"
+msgstr ""
+
+#: ../wxui/bugreport.py:456
+msgid "Bug number:"
+msgstr ""
+
+#: ../wxui/bugreport.py:388
+msgid "Bug subject:"
+msgstr ""
+
+#: ../wxui/developer.py:494
+msgid "Building Radio Browser"
+msgstr ""
+
+#: ../wxui/main.py:1659
+msgid "CHIRP must be restarted for the new selection to take effect"
+msgstr ""
+
+#: ../drivers/ft450d.py:1511
+msgid "CW beacon message 1, up to 40 characters, sent in CW mode by the PLAY1 function of a programmable button. The radio can send A to Z, 0 to 9, /, space and @."
+msgstr ""
+
+#: ../drivers/ft450d.py:1520
+msgid "CW beacon message 2, up to 40 characters, sent in CW mode by the PLAY2 function of a programmable button. The radio can send A to Z, 0 to 9, /, space and @."
+msgstr ""
+
+#: ../drivers/ft450d.py:1529
+msgid "CW beacon message 3, up to 40 characters, sent in CW mode by the PLAY3 function of a programmable button. The radio can send A to Z, 0 to 9, /, space and @."
+msgstr ""
+
+#: ../wxui/query_sources.py:178
+#, python-format
+msgid "Cached results can only be included for a proximity query with Latitude, Longitude, and Distance set. Please uncheck \"%s\""
+msgstr ""
+
+#: ../wxui/query_sources.py:1067
+msgid "Canada"
+msgstr ""
+
+#: ../wxui/common.py:720
+msgid "Changing this setting requires refreshing the settings from the image, which will happen now."
+msgstr ""
+
+#: ../drivers/retevis_rt97s.py:213
+msgid "Channel frequencies are from the repeater's point of view. The receive frequency is the 467 MHz input. Duplex is minus and the offset is 5 MHz, so the repeater transmits on the 462 MHz output. A station using this repeater listens on the repeater output and transmits on the input."
+msgstr ""
+
+#: ../wxui/memedit.py:1884
+#, python-format
+msgid "Channels with equivalent TX and RX %s are represented by tone mode of \"%s\""
+msgstr ""
+
+#: ../wxui/main.py:1361
+msgid "Chirp Image Files"
+msgstr ""
+
+#: ../wxui/memedit.py:500
+msgid "Choice Required"
+msgstr ""
+
+#: ../wxui/memedit.py:1863
+#, fuzzy, python-format
+msgid "Choose %s DTCS Code"
+msgstr "DTCS code"
+
+#: ../wxui/memedit.py:1860
+#, python-format
+msgid "Choose %s Tone"
+msgstr ""
+
+#: ../wxui/memedit.py:1894
+#, fuzzy
+msgid "Choose Cross Mode"
+msgstr "Cross-mode"
+
+#: ../wxui/main.py:1198
+msgid "Choose Diff Target"
+msgstr ""
+
+#: ../wxui/clone.py:607
+#, fuzzy
+msgid "Choose a recent model"
+msgstr "Cross-mode"
+
+#: ../wxui/memedit.py:1924
+msgid "Choose duplex"
+msgstr ""
+
+#: ../wxui/developer.py:664
+#, fuzzy, python-format
+msgid "Choose the module to load from issue %i:"
+msgstr "Kies n om vanuit te importeren:"
+
+#: ../drivers/baofeng_uv17Pro.py:710
+msgid "Chooses the startup display, such as a logo or the battery voltage."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:952
+#, python-format
+msgid "Chooses what a long press of side key %i does."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:951
+#, python-format
+msgid "Chooses what a short press of side key %i does."
+msgstr ""
+
+#: ../drivers/ft450d.py:1594
+msgid "Chooses what the SQL/RF GAIN knob controls. RF-Gain sets the gain of the receiver's RF and IF stages, Squelch mutes the receiver while no signal is present. Scanning needs Squelch, because the scanner stops on signals strong enough to open the squelch."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:858
+msgid "Chooses what the emergency alarm does. Local sounds the alarm on this radio only, Send Tone transmits a repeating alarm tone, and Send Code transmits the digits 119 followed by the ANI code."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:900
+msgid "Chooses where a CTCSS or DCS code found by scanning in Frequency (VFO) mode is saved: Both saves it as the receive and transmit code, RX only as the receive code, and TX only as the transmit code."
+msgstr ""
+
+#: ../drivers/ft450d.py:987
+msgid "Chooses whether the contour filter boosts (Peak) or cuts (Null) the part of the passband it is set to."
+msgstr ""
+
+#: ../drivers/ft450d.py:1617
+msgid "Chooses which knob sets the clarifier offset after CLAR is pressed: the MAIN DIAL or the DSP/SEL knob. The clarifier shifts the receive frequency without changing the transmit frequency."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:830
+msgid "Chooses which transmitted DTMF tones are also heard through the radio speaker. Off mutes all; KB Side Tone sounds manually keyed tones; ANI Side Tone sounds automatic ANI/PTT-ID tones; KB + ANI Side Tone sounds both."
+msgstr ""
+
+#: ../wxui/query_sources.py:563
+msgid "City"
+msgstr ""
+
+#: ../wxui/main.py:1965
+msgid "Click here for full license text"
+msgstr ""
+
+#: ../wxui/main.py:1944
+msgid "Click here for online documentation"
+msgstr ""
+
+#: ../drivers/ts590.py:678
+msgid ""
+"Click on the \"Special Channels\" toggle-button of the memory\n"
+"editor to see/set the EXT channels. P-VFO channels 100-109\n"
+"are considered Settings.\n"
+"Only a subset of the over 200 available radio settings\n"
+"are supported in this release.\n"
+"Ignore the beeps from the radio on upload and download.\n"
+msgstr ""
+
+#: ../drivers/ft817.py:360
+msgid "Clone completed, checking for spurious bytes"
+msgstr ""
+
+#: ../wxui/common.py:145
+msgid "Cloning"
+msgstr "Klonen"
+
+#: ../drivers/bj9900.py:133 ../drivers/ft450d.py:517 ../drivers/ft4.py:327
+#: ../drivers/ft817.py:343
+#, fuzzy
+msgid "Cloning from radio"
+msgstr "Download van radio"
+
+#: ../drivers/bj9900.py:165 ../drivers/ft450d.py:546 ../drivers/ft4.py:328
+#: ../drivers/ft817.py:381
+#, fuzzy
+msgid "Cloning to radio"
+msgstr "Naar radio uploaden"
+
+#: ../wxui/main.py:1075 ../wxui/main.py:1980
+msgid "Close"
+msgstr ""
+
+#: ../wxui/memquery.py:151
+msgid "Close String"
+msgstr ""
+
+#: ../wxui/main.py:1076
+msgid "Close file"
+msgstr ""
+
+#: ../wxui/memquery.py:209
+msgid "Close string value with double-quote (\")"
+msgstr ""
+
+#: ../wxui/memedit.py:2306
+#, fuzzy, python-format
+msgid "Cluster %i memory"
+msgid_plural "Cluster %i memories"
+msgstr[0] "Verschillen ruwe kanalen"
+msgstr[1] "Verschillen ruwe kanalen"
+
+#: ../wxui/memedit.py:706
+msgid "Comment"
+msgstr "Opmerking"
+
+#: ../wxui/clone.py:319
+msgid "Communicate with radio"
+msgstr ""
+
+#: ../wxui/clone.py:153
+#, fuzzy
+msgid "Complete"
+msgstr "Volbracht"
+
+#: ../wxui/memedit.py:158
+msgid "Complex or non-standard tone squelch mode (starts the tone mode selection wizard)"
+msgstr ""
+
+#: ../drivers/tmd710.py:187 ../drivers/tmd710.py:190
+msgid ""
+"Connect your interface cable to the PC Port on the\n"
+"back of the 'TX/RX' unit. NOT the Com Port on the head.\n"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:848
+msgid "Controls what scanning does after finding a signal. Time resumes after a preset time, Carrier resumes after the signal disappears, and Search stops scanning on the detected frequency or channel."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:642
+msgid "Controls when the ANI code is sent: BOT when PTT is pressed, EOT when PTT is released, Both at both times, or Off."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1576
+msgid "Controls when this channel sends the selected DTMF PTT-ID: BOT when PTT is pressed, EOT when PTT is released, Both at both times, or Off."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1024
+msgid "Controls whether the radio's front-panel RESET menu is available. This does not reset the radio by itself."
+msgstr ""
+
+#: ../wxui/query_sources.py:407
+msgid "Convert to FM"
+msgstr ""
+
+#: ../wxui/memedit.py:2217
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: ../wxui/memedit.py:2221
+msgid "Copy portable"
+msgstr ""
+
+#: ../wxui/query_sources.py:352 ../wxui/query_sources.py:569
+#: ../wxui/query_sources.py:659
+msgid "Country"
+msgstr ""
+
+#: ../wxui/memedit.py:689
+#, fuzzy
+msgid "Cross Mode"
+msgstr "Cross-mode"
+
+#: ../wxui/clone.py:568
+msgid "Custom Port"
+msgstr ""
+
+#: ../wxui/clone.py:42
+msgid "Custom..."
+msgstr ""
+
+#: ../wxui/memedit.py:2212
+msgid "Cut"
+msgstr "Knippen"
+
+#: ../wxui/memedit.py:2486
+#, python-format
+msgid "Cut %i memories"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:800
+msgid "Cuts standby power consumption by switching the receiver off and on in a repeating cycle once no signal has been received for a few seconds. It considerably extends battery life, at the cost of occasionally clipping the first moment of an incoming transmission."
+msgstr ""
+
+#: ../wxui/memedit.py:620
+#, fuzzy
+msgid "DTCS"
+msgstr "DTCS Pol"
+
+#: ../wxui/memedit.py:666
+#, fuzzy
+msgid ""
+"DTCS\n"
+"Polarity"
+msgstr "DTCS Pol"
+
+#: ../drivers/uvk5.py:926
+msgid "DTMF decode"
+msgstr ""
+
+#: ../wxui/memedit.py:2945
+msgid "DV Memory"
+msgstr ""
+
+#: ../wxui/main.py:2003
+msgid "Danger Ahead"
+msgstr ""
+
+#: ../wxui/developer.py:281
+#, fuzzy
+msgid "Dec"
+msgstr "Detecteren"
+
+#: ../drivers/baofeng_uv17Pro.py:891
+msgid "Delays transmission of the automatic ANI/PTT-ID code after PTT is pressed, allowing the receiving path time to open before the code is sent."
+msgstr ""
+
+#: ../wxui/memedit.py:2232
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: ../wxui/memedit.py:2095
+msgid "Delete memories"
+msgstr ""
+
+#: ../wxui/bugreport.py:570
+#, fuzzy
+msgid "Detailed information"
+msgstr "Informatie van de bank ophalen"
+
+#: ../wxui/main.py:982
+#, fuzzy
+msgid "Developer Mode"
+msgstr "Ontwerper"
+
+#: ../wxui/main.py:2012
+#, python-format
+msgid "Developer state is now %s. CHIRP must be restarted to take effect"
+msgstr ""
+
+#: ../wxui/memedit.py:2343 ../wxui/developer.py:98
+msgid "Diff Raw Memories"
+msgstr "Verschillen ruwe kanalen"
+
+#: ../wxui/memedit.py:2351
+msgid "Diff against another editor"
+msgstr ""
+
+#: ../wxui/memedit.py:2862
+msgid "Digital Code"
+msgstr "Digitale code"
+
+#: ../wxui/query_sources.py:411
+#, fuzzy
+msgid "Digital Modes"
+msgstr "Digitale code"
+
+#: ../wxui/main.py:2025
+msgid "Disable reporting"
+msgstr ""
+
+#: ../wxui/memedit.py:596
+msgid "Disabled"
+msgstr ""
+
+#: ../drivers/retevis_rt97s.py:309
+msgid "Disabling Transit Function disables repeating. The repeater will not repeat until this setting is enabled."
+msgstr ""
+
+#: ../wxui/query_sources.py:104 ../wxui/query_sources.py:383
+#: ../wxui/query_sources.py:682 ../wxui/query_sources.py:840
+msgid "Distance"
+msgstr ""
+
+#: ../drivers/ft450d.py:1312
+msgid "Divides the 500 regular memory channels into ten groups of 50, numbered M-01-01 to M-10-50. Channels are then selected and scanned one group at a time."
+msgstr ""
+
+#: ../wxui/clone.py:207
+#, python-format
+msgid "Do not prompt again for %s"
+msgstr ""
+
+#: ../wxui/clone.py:204
+msgid "Do you accept the risk?"
+msgstr ""
+
+#: ../wxui/bankedit.py:199
+msgid "Double-click to change bank name"
+msgstr ""
+
+#: ../wxui/main.py:1077
+msgid "Download"
+msgstr ""
+
+#: ../wxui/main.py:1078
+#, fuzzy
+msgid "Download from radio"
+msgstr "Download van radio"
+
+#: ../wxui/main.py:868
+#, fuzzy
+msgid "Download from radio..."
+msgstr "Download van radio"
+
+#: ../wxui/clone.py:791
+#, fuzzy
+msgid "Download instructions"
+msgstr "Download van radio"
+
+#: ../wxui/radioinfo.py:76
+msgid "Driver"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:703 ../drivers/uvk5.py:1343
+msgid "Driver information"
+msgstr ""
+
+#: ../wxui/main.py:574
+msgid "Driver messages"
+msgstr ""
+
+#: ../wxui/query_sources.py:409
+msgid "Dual-mode digital repeaters that support analog will be shown as FM"
+msgstr ""
+
+#: ../wxui/memedit.py:559
+msgid "Duplex"
+msgstr "Duplex"
+
+#: ../drivers/uvk5_cn.py:719
+msgid "EEPROM size"
+msgstr ""
+
+#: ../wxui/memedit.py:2373
+#, python-format
+msgid "Edit %i memories"
+msgstr ""
+
+#: ../wxui/memedit.py:2892
+#, python-format
+msgid "Edit details for %i memories"
+msgstr ""
+
+#: ../wxui/memedit.py:2890
+#, python-format
+msgid "Edit details for memory %i"
+msgstr ""
+
+#: ../wxui/main.py:926
+msgid "Enable Automatic Edits"
+msgstr ""
+
+#: ../wxui/memedit.py:596
+msgid "Enabled"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:866
+msgid "Enables or disables the alarm sound."
+msgstr ""
+
+#: ../drivers/ft450d.py:1284
+msgid "Enables the RTS line of the CAT jack. Turn it off when the computer or cable does not provide RTS. A radio that follows the frequency of another radio set to F-TRANS also needs it off."
+msgstr ""
+
+#: ../drivers/ft450d.py:1353
+msgid "Enables transmit and receive on the Alaska emergency channel, 5167.5 kHz, which then appears as MEM-EMG in Memory mode. It may only be used by stations in or within 92.6 km of Alaska, and only for emergency communications involving the immediate protection of life or property."
+msgstr ""
+
+#: ../wxui/memedit.py:404
+#, fuzzy
+msgid "Enter Frequency"
+msgstr "Frequentie"
+
+#: ../wxui/memedit.py:1911
+msgid "Enter Offset (MHz)"
+msgstr ""
+
+#: ../wxui/memedit.py:1903
+msgid "Enter TX Frequency (MHz)"
+msgstr ""
+
+#: ../wxui/bankedit.py:212
+#, python-format
+msgid "Enter a new name for bank %s:"
+msgstr ""
+
+#: ../wxui/clone.py:567
+msgid "Enter custom port:"
+msgstr ""
+
+#: ../wxui/bugreport.py:504
+msgid "Enter details about this update. Be descriptive about what you were doing, what you expected to happen, and what actually happened."
+msgstr ""
+
+#: ../wxui/bugreport.py:371
+msgid "Enter information about the bug including a short but meaningful subject and information about the radio model (if applicable) in question. In the next step you will have a chance to add more details about the problem. Before proceeding, please search for duplicate issues!"
+msgstr ""
+
+#: ../wxui/bugreport.py:523
+msgid "Enter information to add to the bug here"
+msgstr ""
+
+#: ../wxui/bugreport.py:447
+msgid "Enter the bug number that should be updated"
+msgstr ""
+
+#: ../wxui/bugreport.py:249
+msgid "Enter your username and password for chirpmyradio.com. If you do not have an account click below to create one before proceeding."
+msgstr ""
+
+#: ../wxui/common.py:408
+#, fuzzy, python-format
+msgid "Erased memory %s"
+msgstr "Wis kanaal {loc}"
+
+#: ../wxui/memquery.py:336
+#, fuzzy
+msgid "Error applying filter"
+msgstr "Fout bij het instellen van het geheugen"
+
+#: ../wxui/settingsedit.py:165
+#, fuzzy
+msgid "Error applying settings"
+msgstr "Fout bij het instellen van het geheugen"
+
+#: ../wxui/clone.py:696
+msgid "Error communicating with radio"
+msgstr ""
+
+#: ../wxui/memquery.py:236
+msgid "Example: \"foo\""
+msgstr ""
+
+#: ../wxui/memquery.py:244
+msgid "Example: ( expression )"
+msgstr ""
+
+#: ../wxui/memquery.py:238
+msgid "Example: 123"
+msgstr ""
+
+#: ../wxui/memquery.py:240
+msgid "Example: 146.52"
+msgstr ""
+
+#: ../wxui/memquery.py:242
+msgid "Example: AND, OR"
+msgstr ""
+
+#: ../wxui/memquery.py:250
+msgid "Example: freq<146.0,148.0>"
+msgstr ""
+
+#: ../wxui/memquery.py:248
+msgid "Example: name=\"myrepeater"
+msgstr ""
+
+#: ../wxui/memquery.py:246
+msgid "Example: name~\"myrepea\""
+msgstr ""
+
+#: ../wxui/query_sources.py:404
+msgid "Exclude private and closed repeaters"
+msgstr ""
+
+#: ../wxui/clone.py:750
+msgid "Experimental driver"
+msgstr ""
+
+#: ../wxui/memedit.py:2805
+msgid "Export can only write CSV files"
+msgstr ""
+
+#: ../wxui/main.py:1518
+#, fuzzy
+msgid "Export to CSV"
+msgstr "Exporteren naar bestand"
+
+#: ../wxui/main.py:740
+#, fuzzy
+msgid "Export to CSV..."
+msgstr "Exporteren naar bestand"
+
+#: ../wxui/memedit.py:2934
+msgid "Extra"
+msgstr ""
+
+#: ../drivers/uvk5.py:1341
+msgid "FM Radio"
+msgstr ""
+
+#: ../wxui/query_sources.py:998
+msgid ""
+"FREE repeater database, which provides information\n"
+"about repeaters in Europe. No account is required."
+msgstr ""
+"GRATIS repeater database, die informatie\n"
+"biedt over repeaters in Europa. Er is geen account vereist."
+
+#: ../wxui/query_sources.py:714
+msgid ""
+"FREE repeater database, which provides most up-to-date\n"
+"information about repeaters in Europe. No account is\n"
+"required."
+msgstr ""
+
+#: ../wxui/memedit.py:2843
+msgid "Failed to export some memories"
+msgstr ""
+
+#: ../wxui/developer.py:502
+msgid "Failed to load radio browser"
+msgstr ""
+
+#: ../sources/przemienniki_eu.py:57 ../sources/przemienniki_net.py:59
+#: ../sources/mapy73pl.py:61
+msgid "Failed to parse result"
+msgstr ""
+
+#: ../wxui/bugreport.py:731
+msgid "Failed to send bug report:"
+msgstr ""
+
+#: ../wxui/radioinfo.py:57
+msgid "Features"
+msgstr ""
+
+#: ../wxui/bugreport.py:213
+msgid "File a new bug"
+msgstr ""
+
+#: ../wxui/main.py:581
+#, python-format
+msgid "File does not exist: %s"
+msgstr ""
+
+#: ../wxui/main.py:1365 ../wxui/main.py:1445 ../wxui/main.py:1455
+#: ../wxui/main.py:1514 ../wxui/main.py:1894 ../wxui/main.py:1895
+#, fuzzy
+msgid "Files"
+msgstr "_Bestanden"
+
+#: ../wxui/bugreport.py:568
+#, fuzzy
+msgid "Files:"
+msgstr "_Bestanden"
+
+#: ../wxui/query_sources.py:389
+msgid "Filter"
+msgstr ""
+
+#: ../wxui/query_sources.py:387
+msgid "Filter results with location matching this string"
+msgstr ""
+
+#: ../wxui/memquery.py:270
+msgid "Filter..."
+msgstr ""
+
+#: ../wxui/main.py:1588
+msgid "Find"
+msgstr ""
+
+#: ../wxui/main.py:808
+msgid "Find Next"
+msgstr ""
+
+#: ../wxui/main.py:794
+msgid "Find..."
+msgstr ""
+
+#: ../wxui/memquery.py:155
+msgid "Finish Float"
+msgstr ""
+
+#: ../wxui/memquery.py:211
+msgid "Finish float value like: 146.52"
+msgstr ""
+
+#: ../wxui/common.py:410
+#, python-format
+msgid "Finished radio job %s"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:712
+msgid "Firmware version"
+msgstr ""
+
+#: ../drivers/ts590.py:685
+msgid ""
+"Follow these instructions to download the radio memory:\n"
+"1 - Connect your interface cable\n"
+"2 - Radio > Download from radio: DO NOT mess with the radio\n"
+"during download!\n"
+"3 - Disconnect your interface cable\n"
+msgstr ""
+
+#: ../drivers/ts480.py:524
+msgid ""
+"Follow these instructions to download the radio memory:\n"
+"1 - Connect your interface cable\n"
+"2 - Radio > Download from radio: Don't adjust any settings\n"
+"on the radio head!\n"
+"3 - Disconnect your interface cable\n"
+msgstr ""
+
+#: ../drivers/th_uv8000.py:521
+msgid ""
+"Follow these instructions to download the radio memory:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio, volume @ 50%\n"
+"4 - CHIRP Menu - Radio - Download from radio\n"
+msgstr ""
+
+#: ../drivers/ic2730.py:311
+msgid ""
+"Follow these instructions to download your config:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable to the Speaker-2 jack\n"
+"3 - Turn on your radio\n"
+"4 - Radio > Download from radio\n"
+"5 - Disconnect the interface cable! Otherwise there will be\n"
+"    no right-side audio!\n"
+msgstr ""
+
+#: ../drivers/mursv1.py:341 ../drivers/baofeng_wp970i.py:327
+#: ../drivers/btech.py:636 ../drivers/gmrsuv1.py:395
+#: ../drivers/tdxone_tdq8a.py:444 ../drivers/uv6r.py:343
+#: ../drivers/uv5x3.py:421 ../drivers/gmrsv2.py:363
+#: ../drivers/baofeng_uv17Pro.py:514 ../drivers/bf_t1.py:484
+msgid ""
+"Follow these instructions to download your info:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio\n"
+"4 - Do the download of your radio data\n"
+msgstr ""
+
+#: ../drivers/tk690.py:569 ../drivers/tk760g.py:686
+msgid ""
+"Follow these instructions to download your radio:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio (unlock it if password protected)\n"
+"4 - Click OK to start\n"
+msgstr ""
+
+#: ../drivers/tk760.py:343
+msgid ""
+"Follow these instructions to read your radio:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio\n"
+"4 - Click OK to start\n"
+msgstr ""
+
+#: ../drivers/ts590.py:691
+msgid ""
+"Follow these instructions to upload the radio memory:\n"
+"1 - Connect your interface cable\n"
+"2 - Radio > Upload to radio: DO NOT mess with the radio\n"
+"during upload!\n"
+"3 - Disconnect your interface cable\n"
+msgstr ""
+
+#: ../drivers/ts480.py:530
+msgid ""
+"Follow these instructions to upload the radio memory:\n"
+"1 - Connect your interface cable\n"
+"2 - Radio > Upload to radio: Don't adjust any settings\n"
+"on the radio head!\n"
+"3 - Disconnect your interface cable\n"
+msgstr ""
+
+#: ../drivers/th_uv8000.py:527
+msgid ""
+"Follow these instructions to upload the radio memory:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio, volume @ 50%\n"
+"4 - CHIRP Menu - Radio - Upload to radio\n"
+msgstr ""
+
+#: ../drivers/ic2730.py:319
+msgid ""
+"Follow these instructions to upload your config:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable to the Speaker-2 jack\n"
+"3 - Turn on your radio\n"
+"4 - Radio > Upload to radio\n"
+"5 - Disconnect the interface cable, otherwise there will be\n"
+"    no right-side audio!\n"
+"6 - Cycle power on the radio to exit clone mode\n"
+msgstr ""
+
+#: ../drivers/btech.py:642 ../drivers/bf_t1.py:490
+msgid ""
+"Follow these instructions to upload your info:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio\n"
+"4 - Do the upload of your radio data\n"
+msgstr ""
+
+#: ../drivers/tk690.py:575 ../drivers/tk760g.py:692
+msgid ""
+"Follow these instructions to upload your radio:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio (unlock it if password protected)\n"
+"4 - Click OK to start\n"
+msgstr ""
+
+#: ../drivers/tk760.py:349
+msgid ""
+"Follow these instructions to write your radio:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio\n"
+"4 - Click OK to start\n"
+msgstr ""
+
+#: ../drivers/vgc.py:586 ../drivers/lt725uv.py:486
+msgid ""
+"Follow this instructions to download your info:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio\n"
+"4 - Do the download of your radio data\n"
+msgstr ""
+
+#: ../drivers/tk270.py:323
+msgid ""
+"Follow this instructions to read your radio:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio\n"
+"4 - Do the download of your radio data\n"
+msgstr ""
+
+#: ../drivers/vgc.py:592 ../drivers/mursv1.py:347
+#: ../drivers/baofeng_wp970i.py:333 ../drivers/gmrsuv1.py:401
+#: ../drivers/lt725uv.py:492 ../drivers/tdxone_tdq8a.py:450
+#: ../drivers/uv6r.py:349 ../drivers/uv5x3.py:427 ../drivers/gmrsv2.py:369
+#: ../drivers/baofeng_uv17Pro.py:520
+msgid ""
+"Follow this instructions to upload your info:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio\n"
+"4 - Do the upload of your radio data\n"
+msgstr ""
+
+#: ../drivers/tk270.py:329
+msgid ""
+"Follow this instructions to write your radio:\n"
+"1 - Turn off your radio\n"
+"2 - Connect your interface cable\n"
+"3 - Turn on your radio\n"
+"4 - Do the upload of your radio data\n"
+msgstr ""
+
+#: ../wxui/memedit.py:238
+#, python-format
+msgid "Found empty list value for %(name)s: %(value)r"
+msgstr ""
+
+#: ../wxui/memedit.py:350
+msgid "Frequency"
+msgstr "Frequentie"
+
+#: ../import_logic.py:77
+#, python-format
+msgid "Frequency %s is out of supported ranges %s"
+msgstr ""
+
+#: ../wxui/memedit.py:162
+msgid "Frequency granularity in kHz"
+msgstr ""
+
+#: ../drivers/ga510.py:1094 ../drivers/mml_jc8810.py:1383
+#: ../drivers/tdh8.py:2540 ../drivers/retevis_ha1g.py:1439
+#: ../drivers/uv5r.py:2249 ../drivers/baofeng_uv17Pro.py:1478
+msgid "Frequency in this range must not be AM mode"
+msgstr ""
+
+#: ../drivers/retevis_ha1g.py:1430
+msgid "Frequency in this range not supported by firmware"
+msgstr ""
+
+#: ../drivers/ga510.py:1087 ../drivers/radtel_rt900.py:1623
+#: ../drivers/mml_jc8810.py:1380 ../drivers/tdh8.py:2537
+#: ../drivers/retevis_ha1g.py:1435 ../drivers/uv5r.py:2245
+#: ../drivers/baofeng_uv17Pro.py:1475
+msgid "Frequency in this range requires AM mode"
+msgstr ""
+
+#: ../drivers/tdh8.py:2544
+msgid "Frequency outside TX bands must be duplex=off"
+msgstr ""
+
+#: ../wxui/query_sources.py:355 ../wxui/query_sources.py:435
+#: ../wxui/query_sources.py:536
+msgid "GMRS"
+msgstr ""
+
+#: ../wxui/settingsedit.py:86
+msgid "Getting settings"
+msgstr ""
+
+#: ../wxui/memedit.py:1408
+#, fuzzy
+msgid "Goto Memory"
+msgstr "Toon ruw kanaal"
+
+#: ../wxui/memedit.py:1407
+msgid "Goto Memory:"
+msgstr ""
+
+#: ../wxui/memedit.py:1354
+msgid "Goto..."
+msgstr ""
+
+#: ../wxui/common.py:584 ../wxui/accessibility.py:310
+#, python-format
+msgid "Group: %s"
+msgstr ""
+
+#: ../wxui/main.py:1043
+msgid "Help"
+msgstr "Help"
+
+#: ../wxui/clone.py:41
+msgid "Help Me..."
+msgstr ""
+
+#: ../wxui/developer.py:280
+msgid "Hex"
+msgstr ""
+
+#: ../wxui/memedit.py:1363
+#, fuzzy
+msgid "Hide empty memories"
+msgstr "Overschrijven?"
+
+#: ../drivers/baofeng_uv17Pro.py:874
+msgid "Hold the * key on the radio to lock or unlock the keypad."
+msgstr ""
+
+#: ../drivers/ft450d.py:1654
+msgid "Holds the peak S-meter reading for one second, which makes the meter easier to read."
+msgstr ""
+
+#: ../drivers/retevis_rt98.py:998
+msgid "Honor the CTCSS/DCS receive squelch configuration when enabled, else only carrier squelch"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1057
+msgid "How long the transmitter stays keyed after you stop speaking. A longer delay avoids dropping the transmission during natural pauses in speech."
+msgstr ""
+
+#: ../wxui/memedit.py:165
+msgid "Human-readable comment (not stored in radio)"
+msgstr ""
+
+#: ../wxui/bugreport.py:414
+msgid "I have"
+msgstr ""
+
+#: ../wxui/query_sources.py:366 ../wxui/query_sources.py:372
+#: ../wxui/query_sources.py:666 ../wxui/query_sources.py:672
+#: ../wxui/query_sources.py:818 ../wxui/query_sources.py:824
+msgid "If set, sort results by distance from these coordinates"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:592
+#, python-format
+msgid ""
+"Image is %(image)i bytes from firmware %(image_fw)r (profile %(image_profile)s). The radio reports firmware %(radio_fw)r (profile %(radio_profile)s), which suggests %(default)i bytes, and the EEPROM size setting is %(size)i bytes.\n"
+"Load an image of the right size, or set the EEPROM size to the real size."
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:584
+#, python-format
+msgid "Image is %(image)i bytes, but this driver only writes below 0x%(limit)x; 0x%(limit)x and above is the multi-bootloader on these firmwares and writing there can destroy the radio. Use an image that stops before it."
+msgstr ""
+
+#: ../wxui/main.py:1500
+msgid "Import"
+msgstr "Importeren"
+
+#: ../wxui/memedit.py:2522
+#, python-format
+msgid "Import %i memories"
+msgstr ""
+
+#: ../wxui/main.py:734
+#, fuzzy
+msgid "Import from file..."
+msgstr "Importeren van bestand"
+
+#: ../wxui/main.py:1504
+msgid "Import messages"
+msgstr ""
+
+#: ../wxui/main.py:1498
+#, fuzzy
+msgid "Import not recommended"
+msgstr "Importeren uit RFinder"
+
+#: ../drivers/baofeng_uv17Pro.py:777
+msgid "In channel mode, chooses whether display line A shows the memory channel number, its programmed name, or its frequency."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:786
+msgid "In channel mode, chooses whether display line B shows the memory channel number, its programmed name, or its frequency."
+msgstr ""
+
+#: ../wxui/query_sources.py:424
+msgid "Include Cached"
+msgstr ""
+
+#: ../drivers/ft450d.py:1871
+#, python-format
+msgid "Includes %s in the modes the MODE buttons step through. Turn off the modes you never use to reach the others with fewer presses."
+msgstr ""
+
+#: ../drivers/ft450d.py:1914
+#, python-format
+msgid "Includes the %s band in the bands the BAND buttons step through. Turn off the bands you never use to reach the others with fewer presses."
+msgstr ""
+
+#: ../wxui/bankedit.py:64
+msgid "Index"
+msgstr "Index"
+
+#: ../wxui/main.py:224
+msgid "Info"
+msgstr ""
+
+#: ../wxui/memedit.py:1886
+msgid "Information"
+msgstr ""
+
+#: ../wxui/memedit.py:2206
+#, fuzzy
+msgid "Insert Row Above"
+msgstr "Regel hierboven invoegen"
+
+#: ../wxui/__init__.py:60
+msgid "Install desktop icon?"
+msgstr ""
+
+#: ../wxui/main.py:966
+msgid "Interact with driver"
+msgstr ""
+
+#: ../drivers/ft450d.py:959
+msgid "Intercept point optimization. Bypasses the receiver's RF preamplifier so that the incoming signal goes straight to the first mixer. This gives up some sensitivity in exchange for better handling of strong signals and high noise levels."
+msgstr ""
+
+#: ../wxui/clone.py:813
+#, fuzzy
+msgid "Internal driver error"
+msgstr "Interne fout"
+
+#: ../chirp_common.py:674
+msgid "Internal driver error: Attempt to modify frozen memory; Please report this as a bug using \"Report or update a bug\" in the Help menu"
+msgstr ""
+
+#: ../wxui/query_sources.py:62
+#, fuzzy, python-format
+msgid "Invalid %(value)s (use decimal degrees)"
+msgstr "Ongeldige waarde. Het moet een integer zijn."
+
+#: ../wxui/query_sources.py:70 ../wxui/query_sources.py:124
+#: ../wxui/memedit.py:2049
+#, fuzzy
+msgid "Invalid Entry"
+msgstr "Ongeldige waarde voor dit veld"
+
+#: ../wxui/query_sources.py:151
+msgid "Invalid ZIP code"
+msgstr ""
+
+#: ../wxui/memedit.py:2048 ../wxui/memedit.py:3027
+#, python-format
+msgid "Invalid edit: %s"
+msgstr ""
+
+#: ../wxui/query_sources.py:124
+#, fuzzy
+msgid "Invalid locator"
+msgstr "Ongeldige waarde voor dit veld"
+
+#: ../wxui/main.py:1891
+msgid "Invalid or unsupported module file"
+msgstr ""
+
+#: ../wxui/memedit.py:296 ../wxui/memedit.py:302
+#, fuzzy, python-format
+msgid "Invalid value: %r"
+msgstr "Ongeldige waarde voor dit veld"
+
+#: ../wxui/developer.py:631
+#, python-format
+msgid "Issue %i is not in a valid state to load modules. It is highly recommended that you not attempt to manually load modules from this issue as it is likely to cause problems."
+msgstr ""
+
+#: ../wxui/developer.py:686
+msgid "Issue number:"
+msgstr ""
+
+#: ../wxui/main.py:353
+msgid "LIVE"
+msgstr ""
+
+#: ../drivers/radtel_rt490.py:1024 ../wxui/main.py:854 ../wxui/main.py:1644
+#, fuzzy
+msgid "Language"
+msgstr "Taal wijzigen"
+
+#: ../wxui/query_sources.py:92 ../wxui/query_sources.py:374
+#: ../wxui/query_sources.py:674 ../wxui/query_sources.py:826
+msgid "Latitude"
+msgstr ""
+
+#: ../wxui/developer.py:261
+#, python-format
+msgid "Length must be %i"
+msgstr ""
+
+#: ../drivers/ft450d.py:1482
+msgid "Lets the KEY jack send CW while the radio is in SSB mode, so you can answer a station in CW without changing mode. When off, the KEY jack only works in CW mode."
+msgstr ""
+
+#: ../drivers/ft450d.py:1541
+msgid "Lets the MAIN DIAL knob change the frequency in AM and FM modes. When off, the MAIN DIAL does not tune in these modes."
+msgstr ""
+
+#: ../wxui/query_sources.py:395 ../wxui/query_sources.py:634
+#: ../wxui/query_sources.py:787
+msgid "Limit Bands"
+msgstr ""
+
+#: ../wxui/query_sources.py:400 ../wxui/query_sources.py:1287
+msgid "Limit Modes"
+msgstr ""
+
+#: ../wxui/query_sources.py:649 ../wxui/query_sources.py:802
+msgid "Limit Status"
+msgstr ""
+
+#: ../wxui/query_sources.py:811
+msgid "Limit prefixes"
+msgstr ""
+
+#: ../wxui/query_sources.py:381 ../wxui/query_sources.py:680
+#: ../wxui/query_sources.py:838
+msgid "Limit results to this distance (km) from coordinates"
+msgstr ""
+
+#: ../wxui/query_sources.py:405
+msgid "Limit use"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:737
+msgid "Limits disabled for modified firmware"
+msgstr ""
+
+#: ../drivers/ft450d.py:1274 ../drivers/baofeng_uv17Pro.py:682
+msgid "Limits how long a single transmission may last. When the time runs out the radio stops transmitting until PTT is released, which prevents overheating and stops a stuck PTT from blocking the channel for everyone else."
+msgstr ""
+
+#: ../wxui/main.py:1746
+#, fuzzy
+msgid "Live Radio"
+msgstr "Radio"
+
+#: ../wxui/main.py:746
+#, fuzzy
+msgid "Load Module..."
+msgstr "Toonmodus"
+
+#: ../wxui/developer.py:687
+#, fuzzy
+msgid "Load module from issue"
+msgstr "Toonmodus"
+
+#: ../wxui/main.py:1019
+#, fuzzy
+msgid "Load module from issue..."
+msgstr "Toonmodus"
+
+#: ../wxui/main.py:2061
+msgid "Loading a module will not affect open tabs. It is recommended (unless instructed otherwise) to close all tabs before loading a module."
+msgstr ""
+
+#: ../wxui/main.py:1898
+msgid "Loading modules can be extremely dangerous, leading to damage to your computer, radio, or both. NEVER load a module from a source you do not trust, and especially not from anywhere other than the main CHIRP website (chirpmyradio.com). Loading a module from another source is akin to giving them direct access to your computer and everything on it! Proceed despite this risk?"
+msgstr ""
+
+#: ../wxui/clone.py:147
+msgid "Loading settings"
+msgstr ""
+
+#: ../wxui/query_sources.py:110
+msgid "Locator"
+msgstr ""
+
+#: ../drivers/ft450d.py:1729
+msgid "Locks the controls selected by Lock Mode against accidental changes, as the LOCK button does."
+msgstr ""
+
+#: ../wxui/bugreport.py:343
+msgid "Login failed: Check your username and password"
+msgstr ""
+
+#: ../drivers/uvk5.py:1845
+msgid "Logo string 1 (12 characters)"
+msgstr ""
+
+#: ../drivers/uvk5.py:1852
+msgid "Logo string 2 (12 characters)"
+msgstr ""
+
+#: ../wxui/query_sources.py:98 ../wxui/query_sources.py:375
+#: ../wxui/query_sources.py:675 ../wxui/query_sources.py:827
+msgid "Longitude"
+msgstr ""
+
+#: ../drivers/ft450d.py:1447
+msgid "Makes the CW sidetone volume follow the AF GAIN knob, offset by the CW sidetone linked volume. When off, the sidetone plays at the CW sidetone fixed volume whatever the AF GAIN setting."
+msgstr ""
+
+#: ../drivers/ft450d.py:1556
+msgid "Makes the beep volume follow the AF GAIN knob, offset by the Linked beep volume. When off, the beep plays at the Fixed beep volume whatever the AF GAIN setting."
+msgstr ""
+
+#: ../wxui/memedit.py:2061
+#, python-format
+msgid "Manual edit of memory %i"
+msgstr ""
+
+#: ../wxui/main.py:203
+msgid "Memories"
+msgstr "Kanalen"
+
+#: ../drivers/uvk5.py:2164
+msgid "Memories are read-only due to unsupported firmware version"
+msgstr ""
+
+#: ../wxui/bankedit.py:263
+#, python-format
+msgid "Memory %i could not be loaded, so its bank membership cannot be changed"
+msgstr ""
+
+#: ../wxui/memedit.py:2090
+#, python-format
+msgid "Memory %i is not deletable"
+msgstr ""
+
+#: ../wxui/memedit.py:120
+msgid "Memory List"
+msgstr ""
+
+#: ../wxui/memquery.py:203
+#, python-format
+msgid "Memory field name (one of %s)"
+msgstr ""
+
+#: ../wxui/memedit.py:150
+msgid "Memory label (stored in radio)"
+msgstr ""
+
+#: ../wxui/bankedit.py:251
+msgid "Memory must be in a bank to be edited"
+msgstr ""
+
+#: ../drivers/vx5.py:133
+#, python-brace-format
+msgid "Memory {num} not in bank {bank}"
+msgstr ""
+
+#: ../wxui/query_sources.py:626 ../wxui/query_sources.py:779
+#: ../wxui/memedit.py:675
+#, fuzzy
+msgid "Mode"
+msgstr "Mode"
+
+#: ../wxui/clone.py:357
+msgid "Model"
+msgstr "Model"
+
+#: ../wxui/query_sources.py:502 ../wxui/query_sources.py:1300
+#, fuzzy
+msgid "Modes"
+msgstr "Mode"
+
+#: ../wxui/main.py:1895
+msgid "Module"
+msgstr ""
+
+#: ../wxui/main.py:1867
+msgid "Module Loaded"
+msgstr ""
+
+#: ../wxui/main.py:2072
+msgid "Module loaded successfully"
+msgstr ""
+
+#: ../wxui/common.py:865
+msgid "More Info"
+msgstr ""
+
+#: ../wxui/clone.py:515
+#, python-format
+msgid "More than one port found: %s"
+msgstr ""
+
+#: ../wxui/memedit.py:2743
+#, python-format
+msgid "Move %i memories"
+msgstr ""
+
+#: ../wxui/memedit.py:1350
+#, fuzzy
+msgid "Move Down"
+msgstr "Verplaats omlaa_g"
+
+#: ../wxui/memedit.py:1340
+#, fuzzy
+msgid "Move Up"
+msgstr "Verplaats om_hoog"
+
+#: ../wxui/memedit.py:2713
+msgid "Move operations are disabled while the view is sorted"
+msgstr ""
+
+#: ../drivers/ft450d.py:1003
+msgid "Moves the part of the passband the contour filter acts on, from -2 at the low end through Center to +2 at the high end."
+msgstr ""
+
+#: ../wxui/main.py:692
+msgid "New Window"
+msgstr ""
+
+#: ../wxui/main.py:2172
+msgid "New version available"
+msgstr ""
+
+#: ../wxui/memedit.py:2390
+#, fuzzy
+msgid "No empty rows below!"
+msgstr "Regel hieronder invoegen"
+
+#: ../wxui/memquery.py:254
+#, python-format
+msgid "No example for %s"
+msgstr ""
+
+#: ../wxui/developer.py:706
+msgid "No modules found"
+msgstr ""
+
+#: ../wxui/developer.py:705
+#, python-format
+msgid "No modules found in issue %i"
+msgstr ""
+
+#: ../wxui/memedit.py:2576
+msgid "No more space available; some memories were not applied"
+msgstr ""
+
+#: ../sources/przemienniki_eu.py:53 ../sources/przemienniki_net.py:55
+#: ../sources/mapy73pl.py:57
+msgid "No results"
+msgstr ""
+
+#: ../sources/repeaterbook.py:371
+msgid "No results!"
+msgstr ""
+
+#: ../wxui/main.py:2082
+msgid "No traces stored"
+msgstr ""
+
+#: ../wxui/query_sources.py:45 ../wxui/memedit.py:1407
+msgid "Number"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:672
+msgid "Off is level 0."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:867
+msgid "Off keeps the alarm silent on this radio's own speaker."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:687
+msgid "Off places no limit on the length of a transmission."
+msgstr ""
+
+#: ../wxui/memedit.py:346
+msgid "Offset"
+msgstr "Offset"
+
+#: ../wxui/memedit.py:344
+msgid ""
+"Offset/\n"
+"TX Freq"
+msgstr ""
+
+#: ../wxui/memquery.py:252
+#, python-format
+msgid "One of: %s"
+msgstr ""
+
+#: ../wxui/query_sources.py:393 ../wxui/query_sources.py:632
+#: ../wxui/query_sources.py:785
+msgid "Only certain bands"
+msgstr ""
+
+#: ../wxui/query_sources.py:398 ../wxui/query_sources.py:1283
+msgid "Only certain modes"
+msgstr ""
+
+#: ../wxui/query_sources.py:809
+msgid "Only certain prefixes"
+msgstr ""
+
+#: ../wxui/main.py:334
+msgid "Only memory tabs may be exported"
+msgstr ""
+
+#: ../wxui/query_sources.py:643 ../wxui/query_sources.py:796
+msgid "Only working repeaters"
+msgstr ""
+
+#: ../wxui/main.py:1071 ../wxui/main.py:1500
+msgid "Open"
+msgstr ""
+
+#: ../wxui/main.py:721
+#, fuzzy
+msgid "Open Recent"
+msgstr "_Recent"
+
+#: ../wxui/main.py:703
+#, fuzzy
+msgid "Open Stock Config"
+msgstr "Openen aanwezige configuratie"
+
+#: ../wxui/main.py:1072 ../wxui/main.py:1376
+msgid "Open a file"
+msgstr ""
+
+#: ../wxui/main.py:1913
+msgid "Open a module"
+msgstr ""
+
+#: ../wxui/main.py:1003
+msgid "Open debug log"
+msgstr ""
+
+#: ../wxui/main.py:545
+msgid "Open in new window"
+msgstr ""
+
+#: ../wxui/main.py:1034
+msgid "Open last serial trace"
+msgstr ""
+
+#: ../wxui/query_sources.py:402
+msgid "Open repeaters only"
+msgstr ""
+
+#: ../wxui/main.py:650
+#, fuzzy
+msgid "Open stock config directory"
+msgstr "Openen van aanwezige configuratie {name}"
+
+#: ../wxui/memquery.py:143
+msgid "Operator"
+msgstr ""
+
+#: ../wxui/query_sources.py:994
+msgid "Option"
+msgstr "Optie"
+
+#: ../wxui/query_sources.py:371 ../wxui/query_sources.py:671
+msgid "Optional: -122.0000"
+msgstr ""
+
+#: ../wxui/query_sources.py:380 ../wxui/query_sources.py:679
+#: ../wxui/query_sources.py:837
+#, fuzzy
+msgid "Optional: 100"
+msgstr "Opties"
+
+#: ../wxui/query_sources.py:823
+#, fuzzy
+msgid "Optional: 20.0000"
+msgstr "Opties"
+
+#: ../wxui/query_sources.py:365 ../wxui/query_sources.py:665
+msgid "Optional: 45.0000"
+msgstr ""
+
+#: ../wxui/query_sources.py:817
+#, fuzzy
+msgid "Optional: 52.0000"
+msgstr "Opties"
+
+#: ../wxui/query_sources.py:831
+#, fuzzy
+msgid "Optional: AA00 - AA00aa11"
+msgstr "Opties"
+
+#: ../wxui/query_sources.py:386
+msgid "Optional: County, Hospital, etc."
+msgstr ""
+
+#: ../wxui/memedit.py:2556
+#, fuzzy
+msgid "Overwrite memories?"
+msgstr "Overschrijven?"
+
+#: ../drivers/ts480.py:520
+msgid ""
+"P-VFO channels 100-109 are considered Settings.\n"
+"Only a subset of the over 130 available radio settings\n"
+"are supported in this release.\n"
+msgstr ""
+
+#: ../sources/przemienniki_eu.py:48 ../sources/przemienniki_net.py:50
+#: ../sources/mapy73pl.py:52
+msgid "Parsing"
+msgstr ""
+
+#: ../wxui/bugreport.py:276
+msgid "Password"
+msgstr ""
+
+#: ../wxui/memedit.py:2226
+msgid "Paste"
+msgstr "Plakken"
+
+#: ../wxui/common.py:1020
+msgid "Paste external memories"
+msgstr ""
+
+#: ../wxui/memedit.py:2656
+msgid "Paste memories"
+msgstr ""
+
+#: ../wxui/memedit.py:2550
+#, python-format
+msgid "Pasted memories will overwrite %s existing memories"
+msgstr ""
+
+#: ../wxui/memedit.py:2553
+#, python-format
+msgid "Pasted memories will overwrite memories %s"
+msgstr ""
+
+#: ../wxui/memedit.py:2547
+#, python-format
+msgid "Pasted memories will overwrite memory %s"
+msgstr ""
+
+#: ../wxui/memedit.py:2544
+#, python-format
+msgid "Pasted memory will overwrite memory %s"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:697
+msgid "Periodically checks both the A and B displayed frequencies. When either receives a signal, the radio stays on it until that signal disappears."
+msgstr ""
+
+#: ../drivers/ft450d.py:1023
+msgid "Places the IF notch filter below the center of the passband, at the center or above it. The exact notch frequency is fine tuned on the radio with the DSP/SEL knob."
+msgstr ""
+
+#: ../wxui/main.py:2176
+msgid "Please be sure to quit CHIRP before installing the new version!"
+msgstr ""
+
+#: ../wxui/bugreport.py:487
+msgid "Please check the bug number and try again. If you do actually want to report against this bug, please comment on it via the website and ask for it to be re-opened."
+msgstr ""
+
+#: ../wxui/main.py:1997
+msgid "Please note that developer mode is intended for use by developers of the CHIRP project, or under the direction of a developer. It enables behaviors and functions that can damage your computer and your radio if not used with EXTREME care. You have been warned! Proceed anyway?"
+msgstr ""
+
+#: ../wxui/common.py:225
+msgid "Please wait"
+msgstr ""
+
+#: ../wxui/clone.py:492
+msgid "Plug in your cable and then click OK"
+msgstr ""
+
+#: ../wxui/query_sources.py:889
+msgid "Polish repeaters database"
+msgstr ""
+
+#: ../wxui/clone.py:342
+msgid "Port"
+msgstr "Poort"
+
+#: ../wxui/memedit.py:425
+msgid "Power"
+msgstr "Vermogen"
+
+#: ../wxui/query_sources.py:877
+msgid "Prefixes"
+msgstr ""
+
+#: ../wxui/developer.py:158
+#, fuzzy
+msgid "Press enter to set this in memory"
+msgstr "Fout bij het instellen van het geheugen"
+
+#: ../drivers/baofeng_uv17Pro.py:1568
+msgid "Prevents transmitting on a channel that is already in use. Pressing PTT on a busy channel sounds an alert tone instead of keying the transmitter."
+msgstr ""
+
+#: ../wxui/main.py:757
+msgid "Print Preview"
+msgstr ""
+
+#: ../wxui/printing.py:29
+msgid "Printing"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:572
+#, python-format
+msgid "Programs DTMF code %i. A channel or VFO can select this code as its PTT-ID and send it when PTT is pressed, released, or both."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:2697
+msgid "Programs the DTMF code sent at the beginning of a transmission (BOT)."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:2708
+msgid "Programs the DTMF code sent at the end of a transmission (EOT)."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:602
+msgid "Programs the radio's numeric Automatic Number Identification code. ANI is a DTMF PTT-ID that can identify this radio to a dispatcher or other compatible equipment."
+msgstr ""
+
+#: ../wxui/clone.py:526
+msgid "Prolific USB device"
+msgstr ""
+
+#: ../wxui/memedit.py:2199
+msgid "Properties"
+msgstr ""
+
+#: ../wxui/memquery.py:139
+msgid "Property Name"
+msgstr ""
+
+#: ../wxui/memquery.py:147
+msgid "Property Value"
+msgstr ""
+
+#: ../wxui/query_sources.py:833
+msgid "QTH Locator"
+msgstr ""
+
+#: ../wxui/main.py:2110
+#, python-format
+msgid "Query %s"
+msgstr ""
+
+#: ../wxui/main.py:882
+msgid "Query Source"
+msgstr ""
+
+#: ../wxui/memquery.py:330
+msgid "Query string is invalid"
+msgstr ""
+
+#: ../wxui/memquery.py:186
+msgid "Query syntax OK"
+msgstr ""
+
+#: ../wxui/memquery.py:170
+msgid "Query syntax help"
+msgstr ""
+
+#: ../sources/przemienniki_eu.py:36 ../sources/przemienniki_net.py:36
+#: ../sources/mapy73pl.py:36
+msgid "Querying"
+msgstr ""
+
+#: ../wxui/memedit.py:622
+msgid "RX DTCS"
+msgstr ""
+
+#: ../wxui/main.py:1042
+msgid "Radio"
+msgstr "Radio"
+
+#: ../wxui/radioinfo.py:75
+msgid "Radio Info: Driver"
+msgstr ""
+
+#: ../wxui/radioinfo.py:56
+msgid "Radio Info: Features"
+msgstr ""
+
+#: ../wxui/radioinfo.py:102
+msgid "Radio Info: Icom"
+msgstr ""
+
+#: ../wxui/radioinfo.py:130
+msgid "Radio Info: Image Metadata"
+msgstr ""
+
+#: ../drivers/ft60.py:89 ../drivers/ft60.py:91 ../drivers/ft450d.py:582
+#: ../drivers/ft817.py:410
+#, python-format
+msgid "Radio did not ack block %i"
+msgstr ""
+
+#: ../wxui/clone.py:783 ../wxui/clone.py:883
+#, fuzzy
+msgid "Radio information"
+msgstr "Informatie van de bank ophalen"
+
+#: ../wxui/bugreport.py:398
+msgid "Radio model:"
+msgstr ""
+
+#: ../drivers/ft817.py:365
+msgid "Radio sent data after the last awaited block, this happens when the selected model is a non-US but the radio is a US one. Please choose the correct model and try again."
+msgstr ""
+
+#: ../wxui/query_sources.py:1214
+msgid "RadioReference Canada requires a login before you can query"
+msgstr ""
+
+#: ../wxui/query_sources.py:1025
+msgid ""
+"RadioReference.com is the world's largest\n"
+"radio communications data provider\n"
+"<small>Premium account required</small>"
+msgstr ""
+
+#: ../wxui/memedit.py:156
+msgid "Receive DTCS code"
+msgstr ""
+
+#: ../wxui/memedit.py:149
+#, fuzzy
+msgid "Receive frequency"
+msgstr "Frequentie"
+
+#: ../wxui/clone.py:608
+#, fuzzy
+msgid "Recent"
+msgstr "_Recent"
+
+#: ../wxui/clone.py:349
+#, fuzzy
+msgid "Recent..."
+msgstr "_Recent"
+
+#: ../drivers/retevis_rt98.py:1219
+msgid "Recommend using 55.2"
+msgstr ""
+
+#: ../wxui/memedit.py:1035
+msgid "Redo"
+msgstr ""
+
+#: ../drivers/ft450d.py:968
+msgid "Reduces all incoming signals by 20 dB, for use when extremely strong nearby stations or high noise levels degrade reception. Between 30 kHz and 1.7 MHz the radio always attenuates, whatever this setting."
+msgstr ""
+
+#: ../wxui/common.py:722
+msgid "Refresh required"
+msgstr ""
+
+#: ../wxui/common.py:400
+#, python-format
+msgid "Refreshed memory %s"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:372
+#, python-format
+msgid "Refusing to read 0x%4.4x..0x%4.4x: this driver only reads below 0x%4.4x"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:399
+#, python-format
+msgid "Refusing to write 0x%4.4x..0x%4.4x: 0x%4.4x is the start of the multi-bootloader on this firmware and writing there can destroy the radio"
+msgstr ""
+
+#: ../wxui/main.py:943
+msgid "Reload Driver"
+msgstr ""
+
+#: ../wxui/main.py:952
+msgid "Reload Driver and File"
+msgstr ""
+
+#: ../wxui/memedit.py:1395
+msgid "Reload required"
+msgstr ""
+
+#: ../wxui/clone.py:628
+msgid "Remove"
+msgstr ""
+
+#: ../wxui/clone.py:629
+msgid "Remove selected model from list"
+msgstr ""
+
+#: ../wxui/bankedit.py:214
+#, fuzzy
+msgid "Rename bank"
+msgstr "Naam van de bank instellen"
+
+#: ../wxui/query_sources.py:329
+msgid ""
+"RepeaterBook is Amateur Radio's most comprehensive,\n"
+"worldwide, FREE repeater directory."
+msgstr ""
+
+#: ../wxui/main.py:1025
+msgid "Report or update a bug..."
+msgstr ""
+
+#: ../wxui/bugreport.py:565
+#, fuzzy, python-format
+msgid "Reporting a new bug: %r"
+msgstr "Rapportering is uitgeschakeld"
+
+#: ../wxui/main.py:991
+#, fuzzy
+msgid "Reporting enabled"
+msgstr "Rapportering is uitgeschakeld"
+
+#: ../wxui/main.py:2021
+msgid "Reporting helps the CHIRP project know which radio models and OS platforms to spend our limited efforts on. We would really appreciate if you left it enabled. Really disable reporting?"
+msgstr ""
+
+#: ../wxui/main.py:1661 ../wxui/main.py:2014
+msgid "Restart Required"
+msgstr ""
+
+#: ../wxui/main.py:715
+#, python-format
+msgid "Restore %i tab"
+msgid_plural "Restore %i tabs"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../wxui/main.py:847
+msgid "Restore tabs on start"
+msgstr ""
+
+#: ../wxui/query_sources.py:415
+msgid "Results from other areas"
+msgstr ""
+
+#: ../wxui/common.py:404
+msgid "Retrieved settings"
+msgstr ""
+
+#: ../wxui/query_sources.py:1263
+msgid ""
+"SatNOGS DB provides a live, community-maintained database\n"
+"of satellite transmitter information. This source queries\n"
+"the SatNOGS API directly for the most granular and\n"
+"up-to-date transmitter data."
+msgstr ""
+
+#: ../wxui/main.py:1073
+msgid "Save"
+msgstr ""
+
+#: ../wxui/main.py:1535
+msgid "Save before closing?"
+msgstr ""
+
+#: ../wxui/main.py:1074 ../wxui/main.py:1459
+msgid "Save file"
+msgstr ""
+
+#: ../wxui/common.py:406
+msgid "Saved settings"
+msgstr ""
+
+#: ../wxui/memedit.py:163
+msgid "Scan control (skip, include, priority, etc)"
+msgstr ""
+
+#: ../drivers/uvk5.py:940
+msgid "Scanlists"
+msgstr ""
+
+#: ../drivers/ksun_m6.py:418 ../drivers/uvk5.py:936
+msgid "Scrambler"
+msgstr ""
+
+#: ../wxui/developer.py:677
+msgid "Security Risk"
+msgstr ""
+
+#: ../wxui/main.py:933
+#, fuzzy
+msgid "Select Bandplan..."
+msgstr "Kolommen selecteren"
+
+#: ../wxui/query_sources.py:481 ../wxui/query_sources.py:700
+#: ../wxui/query_sources.py:858
+#, fuzzy
+msgid "Select Bands"
+msgstr "Kolommen selecteren"
+
+#: ../wxui/main.py:1644
+#, fuzzy
+msgid "Select Language"
+msgstr "Kolommen selecteren"
+
+#: ../wxui/query_sources.py:502
+#, fuzzy
+msgid "Select Modes"
+msgstr "Kolommen selecteren"
+
+#: ../wxui/query_sources.py:1300
+msgid "Select Modes to Import"
+msgstr ""
+
+#: ../wxui/main.py:2093
+msgid "Select a bandplan"
+msgstr ""
+
+#: ../wxui/main.py:1202
+msgid "Select a tab and memory to diff"
+msgstr ""
+
+#: ../wxui/query_sources.py:877
+#, fuzzy
+msgid "Select prefixes"
+msgstr "Kolommen selecteren"
+
+#: ../drivers/baofeng_uv17Pro.py:990
+msgid "Selects Frequency (VFO) mode for direct tuning or Channel (MR) mode for programmed memories on display A."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:999
+msgid "Selects Frequency (VFO) mode for direct tuning or Channel (MR) mode for programmed memories on display B."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1211
+msgid "Selects VFO A's transmitter power. Use the lowest power that provides reliable communication."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1222
+msgid "Selects VFO B's transmitter power. Use the lowest power that provides reliable communication."
+msgstr ""
+
+#: ../drivers/ft450d.py:1706
+msgid "Selects how quickly the automatic gain control lets the receiver recover after a strong signal. Fast suits CW and data, Slow suits SSB and AM, and Auto picks Slow for SSB and AM and Fast for the other modes. With AGC off the S-meter no longer moves and strong signals are likely to distort."
+msgstr ""
+
+#: ../drivers/ft450d.py:1817
+msgid "Selects one of ten DSP equalizer curves for your transmitted voice. 0 is flat, 1 to 3 reduce the low, middle or high frequencies, and 4 to 6 boost the high, middle or low frequencies. 7 boosts the lows and reduces the highs, 8 reduces the lows and boosts the middle, and 9 reduces the lows and boosts the highs."
+msgstr ""
+
+#: ../drivers/ft450d.py:1474
+msgid "Selects the characters the CW training feature sends: digits only, letters only, or both mixed. Training plays random five character Morse groups through the sidetone at the CW speed, without transmitting."
+msgstr ""
+
+#: ../drivers/ft450d.py:949
+msgid "Selects the data mode a DIG channel uses. RTTY is FSK radioteletype keyed by a terminal unit or RTTY software, while USER-L and USER-U carry audio based data modes such as packet on the lower or upper sideband. N/A is for channels that are not in DIG mode."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:722
+msgid "Selects the language of the menus and the spoken voice prompts."
+msgstr ""
+
+#: ../drivers/ft450d.py:1791
+msgid "Selects the mark tone for RTTY: 2125 Hz for high tone operation or 1275 Hz for low tone operation."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:2686
+msgid "Selects the special DTMF digit interpreted as a group-call wildcard by the decoder. Off assigns no group-call digit."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:2678
+msgid "Selects the special DTMF digit interpreted as a separator by the decoder."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1008
+msgid "Selects the squelch-tail elimination setting used for communication through a compatible repeater. Use 0 ms when the repeater does not support this feature."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:822
+msgid "Selects the tone-burst frequency sent for repeater access."
+msgstr ""
+
+#: ../drivers/ft450d.py:1605
+msgid "Selects what the LOCK button locks. Frequencies locks the controls that change the frequency, including the microphone UP, DWN and FAST keys. Panel locks all front panel keys and knobs, and All locks both the front panel and the microphone keys. POWER and LOCK always remain usable."
+msgstr ""
+
+#: ../drivers/ft450d.py:1372
+msgid "Selects what the TUNE button controls. ATAS is the optional ATAS-100/-120 active-tuning antenna, EXT ATU the optional FC-40 external tuner, and INT ATU the built-in tuner acting on the transmit signal only, while INTRATU puts the built-in tuner in the receive path as well. F-TRANS instead sends this radio's frequency to a second radio of the same model whenever TUNE is pressed, for single operator two radio (SO2R) operation."
+msgstr ""
+
+#: ../drivers/ft450d.py:1737
+msgid "Selects what the meter shows while transmitting: PO the average power output, ALC the relative ALC voltage, or SWR the standing wave ratio of the antenna. While receiving it always shows the signal strength."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1611
+msgid "Selects whether the radio uses DTMF codes, together with CTCSS or DCS, to decide when to unmute the speaker on this channel. Off unmutes it on the correct CTCSS or DCS alone."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1257
+#, python-format
+msgid "Selects which of the %i programmed DTMF PTT-ID codes VFO A uses. Edit the code itself under DTMF Encode Settings."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1269
+#, python-format
+msgid "Selects which of the %i programmed DTMF PTT-ID codes VFO B uses. Edit the code itself under DTMF Encode Settings."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1585
+#, python-format
+msgid "Selects which of the %i programmed DTMF PTT-ID codes this channel transmits. Edit the code itself under DTMF Encode Settings."
+msgstr ""
+
+#: ../drivers/ft450d.py:1055
+msgid "Selects which of the eleven noise reduction algorithms is used. Each one is designed for a different kind of noise, so try them in turn to find the one that best suppresses the noise currently heard. Off also turns DSP Noise Reduction off."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1233
+msgid "Selects wide or narrow FM for VFO A. Use Narrow where required by the channel plan to reduce interference to adjacent channels."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1245
+msgid "Selects wide or narrow FM for VFO B. Use Narrow where required by the channel plan to reduce interference to adjacent channels."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:769
+msgid "Sends a short tone at the end of each transmission so other stations can hear that you released PTT."
+msgstr ""
+
+#: ../wxui/query_sources.py:357
+msgid "Service"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1150
+msgid "Sets VFO A's repeater shift direction. + transmits above the receive frequency, - transmits below it, and Off uses the same frequency for transmit and receive."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1163
+msgid "Sets VFO B's repeater shift direction. + transmits above the receive frequency, - transmits below it, and Off uses the same frequency for transmit and receive."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1281
+msgid "Sets how far VFO A moves for each tuning step and while scanning in Frequency mode. Choose the spacing used by the frequencies you intend to tune."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1294
+msgid "Sets how far VFO B moves for each tuning step and while scanning in Frequency mode. Choose the spacing used by the frequencies you intend to tune."
+msgstr ""
+
+#: ../drivers/ft450d.py:1630
+msgid "Sets how far the frequency moves for each step of the MAIN DIAL knob: 1, 10 or 20 Hz in SSB and CW, 100 or 200 Hz in AM and FM."
+msgstr ""
+
+#: ../drivers/ft450d.py:1639
+msgid "Sets how long a button has to be held to activate its press and hold function. A shorter press activates the button's normal function."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:620
+msgid "Sets how long each DTMF tone is transmitted. Increase this if the receiving system does not reliably decode the digits."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:654
+msgid "Sets how long the DTMF decoder remains active after a valid code before returning to its normal state."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:882
+msgid "Sets how long the menu stays open without a key press before the radio leaves it."
+msgstr ""
+
+#: ../drivers/ft450d.py:1397
+msgid "Sets how long the transmitter stays on after you stop sending in semi break-in CW, in steps of 10 ms, so 25 means 250 ms. A longer delay suits operators who pause often while sending. The radio can also be set to FULL, full break-in, which lets you hear between the characters you send."
+msgstr ""
+
+#: ../drivers/ft450d.py:1749
+msgid "Sets how long the transmitter stays on after you stop speaking in VOX operation, in steps of 100 ms, so 5 means 500 ms. A longer delay keeps short pauses in your speech from switching the radio back to receive."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:741
+msgid "Sets how many seconds the display backlight remains on after a key press or radio activity."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:666
+msgid "Sets how strong a received signal must be before the speaker unmutes. 0 leaves the squelch open so you hear noise all the time, higher values reject more weak signals and noise. Raise this value if the speaker keeps unmuting on interference, lower it if distant stations are being cut off."
+msgstr ""
+
+#: ../drivers/ft450d.py:995
+msgid "Sets how strongly the contour filter boosts or cuts. Low gives a gentle effect, High a stronger one."
+msgstr ""
+
+#: ../drivers/ft450d.py:1466
+msgid "Sets the CW sidetone volume, from 0 to 100, used when CW sidetone volume Linked is off."
+msgstr ""
+
+#: ../drivers/ft450d.py:1767
+msgid "Sets the VOX sensitivity used in DIG mode, so that the audio from the data equipment switches the transmitter on without a PTT line. 0 turns VOX off in DIG mode."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1041
+msgid "Sets the VOX sensitivity. Too sensitive a setting keys the transmitter on the noise around the radio, too insensitive a setting fails to pick up your voice."
+msgstr ""
+
+#: ../drivers/ft450d.py:1758
+msgid "Sets the VOX sensitivity. Too sensitive a setting keys the transmitter on the noise around the radio, too insensitive a setting fails to pick up your voice. 1 is the least sensitive setting and 100 the most."
+msgstr ""
+
+#: ../drivers/ft450d.py:1303
+msgid "Sets the baud rate of the CAT jack, which must match the computer control software. Data turns the CAT jack into an RTTY interface instead: RTTY software keys the FSK shift through the serial data input and uses RTS as PTT."
+msgstr ""
+
+#: ../drivers/ft450d.py:1564
+msgid "Sets the beep volume relative to the receive audio level set by AF GAIN, when Beep volume Linked is on. 0 makes the beep as loud as the received audio, negative values make it quieter and positive values louder."
+msgstr ""
+
+#: ../drivers/ft450d.py:1573
+msgid "Sets the beep volume, from 0 to 100, used when Beep volume Linked is off."
+msgstr ""
+
+#: ../drivers/ft450d.py:1586
+msgid "Sets the brightness of the display illumination, from 1 to 8."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:592
+#, python-format
+msgid "Sets the call name for DTMF code %i, up to 10 characters long."
+msgstr ""
+
+#: ../drivers/ft450d.py:1579
+msgid "Sets the contrast of the display, from 1 to 24. Changing it here has not been seen to have a visible effect on the radio."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:873
+msgid "Sets the current keypad-lock state."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1017
+msgid "Sets the delay before repeater squelch-tail elimination is applied. Match this timing to the repeater; use 0 ms when the feature is not required."
+msgstr ""
+
+#: ../drivers/ft450d.py:1438
+msgid "Sets the delay between closing the key and the carrier being transmitted in QSK operation with the built-in keyer. At 25 ms keep the CW speed at 50 wpm or below, and at 30 ms at 42 wpm or below, or the radio cannot transmit."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1186
+msgid "Sets the difference in MHz between VFO A's receive and transmit frequencies. The Shift setting determines whether this offset is added or subtracted."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1197
+msgid "Sets the difference in MHz between VFO B's receive and transmit frequencies. The Shift setting determines whether this offset is added or subtracted."
+msgstr ""
+
+#: ../drivers/ft450d.py:1429
+msgid "Sets the dot to dash ratio of the built-in electronic keyer. At 1:3.0, the standard weighting, a dash lasts three times as long as a dot."
+msgstr ""
+
+#: ../drivers/ft450d.py:1783
+msgid "Sets the frequency shift between the mark and space tones in FSK RTTY. Most amateur RTTY uses 170 Hz."
+msgstr ""
+
+#: ../drivers/ft450d.py:1829
+msgid "Sets the microphone gain for SSB, AM and FM. Use Low with a microphone that has a high output, Normal with the supplied hand microphone and High with a microphone that has a low output. The speech processor is off at Low and on at the other settings."
+msgstr ""
+
+#: ../drivers/ft450d.py:1345
+msgid "Sets the offset Quick Split applies. Holding SPLIT/STEP for a second sets the transmit VFO to the receive frequency plus this offset, in the same mode as the receive VFO, and turns split operation on."
+msgstr ""
+
+#: ../drivers/ft450d.py:1501
+msgid "Sets the pause in seconds between repeats of a CW beacon message. 0 turns the repeat off, so that each message is sent once per button press, as with a CW message keyer."
+msgstr ""
+
+#: ../drivers/ft450d.py:1409
+msgid "Sets the pitch of the CW sidetone, which is also the offset of the transmitted carrier and the center of the CW receive filter. Tuning a station in until its tone matches the sidetone puts you on its frequency."
+msgstr ""
+
+#: ../drivers/ft450d.py:1550
+msgid "Sets the pitch of the beep the radio sounds to confirm button presses."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1130
+msgid "Sets the receive frequency shown on display line A in Frequency (VFO) mode."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1139
+msgid "Sets the receive frequency shown on display line B in Frequency (VFO) mode."
+msgstr ""
+
+#: ../drivers/ft450d.py:1417
+msgid "Sets the sending speed of the built-in electronic keyer in words per minute. The radio can also show it in characters per minute, five times the wpm value. With a CW QSK delay of 25 ms keep it at 50 wpm or below, and with 30 ms at 42 wpm or below, or the radio cannot transmit."
+msgstr ""
+
+#: ../drivers/ft450d.py:1456
+msgid "Sets the sidetone volume relative to the receive audio level set by AF GAIN, when CW sidetone volume Linked is on. 0 makes the sidetone as loud as the received audio, negative values make it quieter and positive values louder."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:632
+msgid "Sets the silent gap between transmitted DTMF tones. Increase this if the receiving system cannot separate adjacent digits."
+msgstr ""
+
+#: ../drivers/ft450d.py:1294
+msgid "Sets the time-out timer for computer control commands arriving on the CAT jack. Command input that continues for longer than this time is cut off."
+msgstr ""
+
+#: ../drivers/ft450d.py:1385
+msgid "Sets the transmit power in watts. Use the lowest power that provides reliable communication, and a half to a third of full power for data transmissions longer than a few minutes."
+msgstr ""
+
+#: ../drivers/ft450d.py:1033
+msgid "Sets the width of the DSP IF filter. A narrower filter rejects interference close to the signal, a wider one sounds more natural when the band is quiet. The widths depend on the mode: 1.8, 2.4 or 3.0 kHz for SSB, 300 Hz, 500 Hz or 2.4 kHz for CW, 300 Hz, 2.4 or 3.0 kHz for DIG, 3.0, 6.0 or 9.0 kHz for AM, and 2.5 or 5.0 kHz for FM. A width the mode does not offer is replaced with the closest one it does."
+msgstr ""
+
+#: ../drivers/ft450d.py:1319
+msgid "Sets when the scan resumes after it has paused on a signal. 1 to 10 resumes after that many seconds, 0 selects BUSY, which waits until the signal has gone. In SSB, CW and SSB based data modes the scanner instead steps slowly across a signal, giving you time to stop it."
+msgstr ""
+
+#: ../wxui/main.py:216
+msgid "Settings"
+msgstr ""
+
+#: ../drivers/uvk5.py:2168
+msgid "Settings are read-only due to unsupported firmware version"
+msgstr ""
+
+#: ../wxui/common.py:464
+#, python-format
+msgid "Settings: %s"
+msgstr ""
+
+#: ../wxui/memedit.py:161
+msgid "Shift amount (or transmit frequency) controlled by duplex"
+msgstr ""
+
+#: ../drivers/ft450d.py:1329
+msgid "Shifts the frequency of the radio's CPU clock slightly. Only use it to move an internally generated spurious signal, or birdie, off a frequency you want to listen on."
+msgstr ""
+
+#: ../drivers/ft450d.py:1775
+msgid "Shifts the frequency shown on the display in the USER-L and USER-U data modes by this many hertz."
+msgstr ""
+
+#: ../wxui/memedit.py:2335 ../wxui/developer.py:101
+msgid "Show Raw Memory"
+msgstr "Toon ruw kanaal"
+
+#: ../wxui/main.py:1009
+msgid "Show debug log location"
+msgstr ""
+
+#: ../wxui/memedit.py:1359
+msgid "Show extra fields"
+msgstr ""
+
+#: ../wxui/main.py:1014
+msgid "Show image backup location"
+msgstr ""
+
+#: ../drivers/ft450d.py:1254
+msgid "Shows all 62 items of the radio's Menu Mode. When off, the menu on the radio offers only the 16 most often used items."
+msgstr ""
+
+#: ../wxui/memedit.py:697
+msgid "Skip"
+msgstr "Overslaan"
+
+#: ../wxui/memedit.py:2647
+#, fuzzy
+msgid "Some memories are incompatible with this radio"
+msgstr "Geplakt kanaal {number} is niet compatibel met deze radio omdat:"
+
+#: ../wxui/memedit.py:2485
+msgid "Some memories are not deletable"
+msgstr ""
+
+#: ../wxui/memedit.py:2161
+#, python-format
+msgid "Sort %i memories"
+msgstr ""
+
+#: ../wxui/memedit.py:2291
+#, fuzzy, python-format
+msgid "Sort %i memory"
+msgid_plural "Sort %i memories"
+msgstr[0] "Verschillen ruwe kanalen"
+msgstr[1] "Verschillen ruwe kanalen"
+
+#: ../wxui/memedit.py:2295
+#, fuzzy, python-format
+msgid "Sort %i memory ascending"
+msgid_plural "Sort %i memories ascending"
+msgstr[0] "Verschillen ruwe kanalen"
+msgstr[1] "Verschillen ruwe kanalen"
+
+#: ../wxui/memedit.py:2317
+#, fuzzy, python-format
+msgid "Sort %i memory descending"
+msgid_plural "Sort %i memories descending"
+msgstr[0] "Verschillen ruwe kanalen"
+msgstr[1] "Verschillen ruwe kanalen"
+
+#: ../wxui/memedit.py:2176
+msgid "Sort by column:"
+msgstr ""
+
+#: ../wxui/memedit.py:2175
+#, fuzzy
+msgid "Sort memories"
+msgstr "Overschrijven?"
+
+#: ../sources/przemienniki_eu.py:60 ../sources/przemienniki_net.py:62
+#: ../sources/mapy73pl.py:64
+msgid "Sorting"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:762
+msgid "Sounds a short confirmation tone as you operate the radio. Turn it off when the radio has to be used discreetly."
+msgstr ""
+
+#: ../drivers/ft450d.py:1723
+msgid "Speeds up tuning: the MAIN DIAL knob tunes ten times faster and the DSP/SEL knob twice as fast."
+msgstr ""
+
+#: ../wxui/query_sources.py:566
+msgid "State"
+msgstr ""
+
+#: ../wxui/query_sources.py:360
+msgid "State/Province"
+msgstr ""
+
+#: ../wxui/main.py:2073
+msgid "Success"
+msgstr ""
+
+#: ../wxui/bugreport.py:734
+msgid "Successfully sent bug report:"
+msgstr ""
+
+#: ../drivers/ft450d.py:1492
+msgid "Swaps the dot and dash sides of a keyer paddle without rewiring it, for example for a left-handed operator. Normal sends dots from the plug tip and dashes from the ring, Reverse the other way round."
+msgstr ""
+
+#: ../drivers/ft450d.py:1807
+msgid "Swaps the mark and space tones of your transmitted RTTY signal."
+msgstr ""
+
+#: ../drivers/ft450d.py:1799
+msgid "Swaps the mark and space tones when receiving RTTY. Try Reverse if a station with a good signal cannot be decoded."
+msgstr ""
+
+#: ../wxui/memedit.py:348
+msgid "TX Frequency"
+msgstr ""
+
+#: ../wxui/memedit.py:157
+msgid "TX-RX DTCS polarity (normal or reversed)"
+msgstr ""
+
+#: ../drivers/ft4.py:748
+msgid ""
+"Tested and mostly works, but may give you issues\n"
+"when using lesser common radio variants.\n"
+"Proceed at your own risk, and let us know about issues!"
+msgstr ""
+
+#: ../wxui/query_sources.py:574
+msgid "The DMR-MARC Worldwide Network"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:568
+#, python-format
+msgid "The EEPROM size is set to 0x%(size)x bytes, but this driver only reads below 0x%(limit)x; 0x%(limit)x and above is the multi-bootloader on these firmwares. Correct the \"EEPROM size\" setting."
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:577
+#, python-format
+msgid "The EEPROM size is set to 0x%(size)x bytes, but this driver only writes below 0x%(limit)x; 0x%(limit)x and above is the multi-bootloader on these firmwares. Correct the \"EEPROM size\" setting."
+msgstr ""
+
+#: ../drivers/ft450d.py:422
+msgid ""
+"The FT-450D radio driver loads the 'Special Channels' tab\n"
+"with the PMS scanning range memories (group 11), 60meter\n"
+"channels (group 12), the QMB (STO/RCL) memory, the HF and\n"
+"50m HOME memories and all the A and B VFO memories.\n"
+"There are VFO memories for the last frequency dialed in\n"
+"each band. The last mem-tune config is also stored.\n"
+"These Special Channels allow limited field editing.\n"
+"This driver also populates the 'Other' tab in the channel\n"
+"memory Properties window. This tab contains values for\n"
+"those channel memory settings that don't fall under the\n"
+"standard Chirp display columns. With FT450 support, the gui now\n"
+"uses the mode 'DIG' to represent data modes and a new column\n"
+"'DATA MODE' to select USER-U, USER-L and RTTY \n"
+msgstr ""
+
+#: ../drivers/boblov_x3plus.py:124
+msgid ""
+"The X3Plus driver is currently experimental.\n"
+"There are no known issues but you should proceed with caution.\n"
+"Please save an unedited copy of your first successful\n"
+"download to a CHIRP Radio Images (*.img) file.\n"
+msgstr ""
+
+#: ../wxui/developer.py:674
+msgid "The author of this module is not a recognized CHIRP developer. It is recommended that you not load this module as it could pose a security risk. Proceed anyway?"
+msgstr ""
+
+#: ../wxui/bugreport.py:230
+msgid "The debug log file is not available when CHIRP is run interactively from the command-line. Thus, this tool will not upload what you expect. It is recommended that you quit now and run CHIRP non-interactively (or with stdin redirected to /dev/null)"
+msgstr ""
+
+#: ../wxui/bugreport.py:550
+msgid "The following information will be submitted:"
+msgstr ""
+
+#: ../wxui/memedit.py:1391
+msgid "The memory editor requires a reload in order to change the workflow. That will happen now. Any other open tabs will be updated the next time they are loaded."
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:697
+#, python-format
+msgid "The name needs more than the %i bytes this name field holds"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:723
+#, python-format
+msgid "The profile %(profile)s suggests %(default)i bytes; this is only a guess and the radio is the authority. A loaded image sets this automatically, and anything at or above 0x%(limit)x is refused because that is the multi-bootloader region."
+msgstr ""
+
+#: ../wxui/main.py:1491
+#, python-format
+msgid "The recommended procedure for importing memories is to open the source file and copy/paste memories from it into your target image. If you continue with this import function, CHIRP will replace all memories in your currently-open file with those in %(file)s. Would you like to open this file to copy/paste memories across, or proceed with the import?"
+msgstr ""
+
+#: ../wxui/memedit.py:2252
+#, fuzzy
+msgid "This Memory"
+msgstr "Toon ruw kanaal"
+
+#: ../drivers/id5100.py:332
+msgid "This driver has been tested with v3 of the ID-5100. If your radio is not fully updated please help by opening a bug report with a debug log so we can add support for the other revisions."
+msgstr ""
+
+#: ../drivers/tyt_uvl15w.py:575
+msgid "This driver is built from TYT's published protocol and memory layout and has not yet been tested widely. Save a copy of a fresh download from your radio before uploading. The radio restarts at the end of every download and upload."
+msgstr ""
+
+#: ../drivers/radtel_rt490.py:1356 ../drivers/radtel_rt490.py:1358
+#: ../drivers/radtel_rt490.py:1360
+msgid "This driver is in development and should be considered as experimental."
+msgstr ""
+
+#: ../drivers/uvk5.py:767
+msgid "This image is missing firmware information. It may have been generated with an old or modified version of CHIRP. It is advised that you download a fresh image from your radio and use that going forward for the best safety and compatibility."
+msgstr ""
+
+#: ../drivers/uvk5.py:2172
+msgid "This image is read-only due to being from a radio with unsupported firmware"
+msgstr ""
+
+#: ../wxui/main.py:1743
+msgid "This is a live-mode radio, which means changes are sent to the radio in real-time as you make them. Upload is not necessary!"
+msgstr ""
+
+#: ../wxui/main.py:1749
+msgid "This is a radio-independent file and cannot be uploaded directly to a radio. Open a radio image (or download one from a radio) and then copy/paste items from this tab into that one in order to upload"
+msgstr ""
+
+#: ../drivers/th_uv88.py:571
+msgid "This is an early stage beta driver\n"
+msgstr ""
+
+#: ../drivers/th_uv88.py:573
+msgid "This is an early stage beta driver - upload at your own risk\n"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:485
+msgid ""
+"This is an experimental driver for Quansheng UV-K5/UV-K6 radios running expanded Chinese third-party firmware (LOSEHU, LTS, UVE), which store channel names as GB2312 and use the split address EEPROM commands.\n"
+"\n"
+"It has been verified against one such radio, a LOSEHU131HS build: downloading, uploading and a whole-image read-back were checked there. Other builds in this family may behave differently, and a wrong write can harm your radio. Use at your own risk, and keep the image you download before changing anything: it can be used to restore the radio.\n"
+"\n"
+"- Writing at or above 0x40000 would overwrite the multi-bootloader that some of these builds install there, so this driver never writes that high and refuses an image that extends into it.\n"
+"- The default EEPROM size is derived from the reported firmware version and is only a guess; check the \"EEPROM size\" setting against your radio before uploading.\n"
+"- Settings (keys, DTMF, MDC, scan lists, boot logo, satellite data, calibration) are not supported."
+msgstr ""
+
+#: ../drivers/uvk5.py:694
+msgid ""
+"This is an experimental driver for the Quansheng UV-K5. It may harm your radio, or worse. Use at your own risk.\n"
+"\n"
+"Before attempting to do any changes please download the memory image from the radio with chirp and keep it. This can be later used to recover the original settings. \n"
+"\n"
+"some details are not yet implemented"
+msgstr ""
+
+#: ../drivers/bj9900.py:108
+msgid ""
+"This is experimental support for BJ-9900 which is still under development.\n"
+"Please ensure you have a good backup with OEM software.\n"
+"Also please send in bug and enhancement requests!\n"
+"You have been warned. Proceed at your own risk!"
+msgstr ""
+
+#: ../wxui/bugreport.py:461
+msgid "This is the ticket number for an already-created issue on the chirpmyradio.com website"
+msgstr ""
+
+#: ../wxui/memedit.py:2256
+#, fuzzy
+msgid "This memory and shift all up"
+msgstr "Verwijderen (en naar boven verplaatsen)"
+
+#: ../wxui/memedit.py:2254
+#, fuzzy
+msgid "This memory and shift block up"
+msgstr "Verwijderen (en naar boven verplaatsen)"
+
+#: ../drivers/uvk5_egzumer.py:1468
+msgid "This option may break your radio! Each radio has a unique set of calibration data and uploading the data from the image will cause physical harm to the radio if it is from a different piece of hardware. Do not use this unless you know what you are doing and accept the risk of destroying your radio!"
+msgstr ""
+
+#: ../drivers/fd268.py:303 ../drivers/fd268.py:309
+msgid ""
+"This radio has a tricky way of enter into program mode,\n"
+"even the original software has a few tries to get inside.\n"
+"I will try 8 times (most of the time ~3 will doit) and this\n"
+"can take a few seconds, if don't work, try again a few times.\n"
+"If you can get into it, please check the radio and cable.\n"
+msgstr ""
+
+#: ../drivers/uvk5_cn.py:739 ../drivers/uvk5.py:1930
+msgid "This should only be enabled if you are using modified firmware that supports wider frequency coverage. Enabling this will cause CHIRP not to enforce OEM restrictions and may lead to undefined or unregulated behavior. Use at your own risk!"
+msgstr ""
+
+#: ../wxui/query_sources.py:1235
+msgid ""
+"This source provides a curated list of active amateur radio\n"
+"satellites, mirrored from the JE9PEL database via GitHub.\n"
+"It is a stable, simplified list of popular frequencies."
+msgstr ""
+
+#: ../wxui/bugreport.py:198
+msgid "This tool will upload details about your system to an existing issue on the CHIRP tracker. It requires your username and password for chirpmyradio.com in order to work. Information about your system, including your debug log, config file, and any open image files will be uploaded. An attempt will be made to redact any personal information before it leaves your system."
+msgstr ""
+
+#: ../wxui/developer.py:684
+msgid "This will load a module from a website issue"
+msgstr ""
+
+#: ../wxui/memedit.py:525
+msgid "Tone"
+msgstr "Toon"
+
+#: ../wxui/memedit.py:1452
+msgid "Tone Mode"
+msgstr "Toonmodus"
+
+#: ../wxui/memedit.py:527
+#, fuzzy
+msgid "Tone Squelch"
+msgstr "Toon squelch"
+
+#: ../wxui/memedit.py:151
+#, fuzzy
+msgid "Tone squelch mode"
+msgstr "Toon squelch"
+
+#: ../wxui/memedit.py:164
+msgid "Transmit Power"
+msgstr ""
+
+#: ../drivers/tyt_uvl15w.py:967
+msgid "Transmit frequency is outside the radio's transmit bands and may be refused by the radio"
+msgstr ""
+
+#: ../wxui/memedit.py:160
+msgid "Transmit shift, split mode, or transmit inhibit"
+msgstr ""
+
+#: ../wxui/memedit.py:152
+msgid "Transmit tone"
+msgstr ""
+
+#: ../wxui/memedit.py:155
+msgid "Transmit/receive DTCS code for DTCS mode, else transmit code"
+msgstr ""
+
+#: ../wxui/memedit.py:154
+msgid "Transmit/receive modulation (FM, AM, SSB, etc)"
+msgstr ""
+
+#: ../wxui/memedit.py:153
+msgid "Transmit/receive tone for TSQL mode, else receive tone"
+msgstr ""
+
+#: ../drivers/ft450d.py:1363
+msgid "Transmits a short beep when PTT is released, before the radio returns to receive, to tell other stations that your transmission has ended."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:839
+msgid "Transmits a special end-of-transmission signal intended to reduce the squelch burst heard by another compatible handheld."
+msgstr ""
+
+#: ../wxui/memedit.py:462 ../wxui/memedit.py:1464
+#, fuzzy
+msgid "Tuning Step"
+msgstr "Kanaal-afstand"
+
+#: ../drivers/baofeng_uv17Pro.py:1083
+msgid "Turns on Bluetooth so that the radio can be programmed wirelessly from a phone app."
+msgstr ""
+
+#: ../drivers/ft450d.py:1337
+msgid "Turns on split frequency operation: the radio receives on VFO-A and transmits on VFO-B, or the other way round. The two VFOs may use different modes and even different bands."
+msgstr ""
+
+#: ../drivers/ft450d.py:976
+msgid "Turns on the DSP contour filter, which gently cuts or boosts one part of the receive passband. Cutting suppresses interference or excessive components of a signal, boosting brings out the components that make it easier to understand."
+msgstr ""
+
+#: ../drivers/ft450d.py:1045
+msgid "Turns on the DSP digital noise reduction, which reduces random background noise on the HF and 50 MHz bands. It is especially effective on SSB."
+msgstr ""
+
+#: ../drivers/ft450d.py:1686
+msgid "Turns on the IF noise blanker, which reduces short pulses of noise such as those from vehicle ignition systems."
+msgstr ""
+
+#: ../drivers/ft450d.py:1010
+msgid "Turns on the IF notch filter, a narrow and deep filter that removes a single interfering carrier or whistle from inside the receive passband."
+msgstr ""
+
+#: ../drivers/ft450d.py:1716
+msgid "Turns on the built-in electronic CW keyer, for a keyer paddle plugged into the KEY jack. Turn it off to use a straight key or an external keyer."
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:1619
+msgid "Turns on the privacy function the manual calls Encryption for this channel. Other radios can only understand the conversation if they have it turned on as well and use the same DCS code."
+msgstr ""
+
+#: ../drivers/ft450d.py:1261
+msgid "Turns the radio off automatically once no button, knob or microphone key has been used and nothing has been transmitted for the selected number of hours. APO flashes on the display and a tone sounds in the last minute before the radio switches off. 0 disables automatic power off."
+msgstr ""
+
+#: ../wxui/memquery.py:188
+msgid "Type a simple search string or a formatted query and press enter"
+msgstr ""
+
+#: ../wxui/clone.py:486 ../wxui/clone.py:493 ../wxui/clone.py:504
+#: ../wxui/clone.py:512 ../wxui/clone.py:516
+msgid "USB Port Finder"
+msgstr ""
+
+#: ../wxui/clone.py:502
+msgid "Unable to determine port for your cable. Check your drivers and connections."
+msgstr ""
+
+#: ../wxui/memedit.py:1969
+msgid "Unable to edit memory before radio is loaded"
+msgstr ""
+
+#: ../wxui/main.py:1417
+#, fuzzy, python-format
+msgid "Unable to find stock config %r"
+msgstr "Openen aanwezige configuratie"
+
+#: ../wxui/memedit.py:2502
+#, fuzzy
+msgid "Unable to import while the view is sorted"
+msgstr "Niet in staat om de radio op {port} te detecteren"
+
+#: ../wxui/common.py:306
+#, fuzzy
+msgid "Unable to open the clipboard"
+msgstr "Niet in staat om de radio op {port} te detecteren"
+
+#: ../sources/przemienniki_eu.py:46 ../sources/przemienniki_net.py:48
+#: ../sources/mapy73pl.py:50
+msgid "Unable to query"
+msgstr ""
+
+#: ../drivers/ft817.py:322
+msgid "Unable to read last block. This often happens when the selected model is US but the radio is a non-US one (or widebanded). Please choose the correct model and try again."
+msgstr ""
+
+#: ../wxui/common.py:917
+#, fuzzy, python-format
+msgid "Unable to reveal %s on this system"
+msgstr "Niet in staat om wijzigingen voor dit model te maken"
+
+#: ../wxui/memedit.py:274
+#, fuzzy, python-format
+msgid "Unable to set %s on this memory"
+msgstr "Niet in staat om wijzigingen voor dit model te maken"
+
+#: ../wxui/main.py:1753
+#, fuzzy
+msgid "Unable to upload this file"
+msgstr "Niet in staat om wijzigingen voor dit model te maken"
+
+#: ../wxui/memedit.py:1034
+msgid "Undo"
+msgstr ""
+
+#: ../wxui/query_sources.py:1066
+msgid "United States"
+msgstr ""
+
+#: ../wxui/clone.py:485
+msgid "Unplug your cable (if needed) and then click OK"
+msgstr ""
+
+#: ../drivers/thd74.py:337
+#, fuzzy, python-format
+msgid "Unsupported model %r"
+msgstr "Niet-ondersteunende bestandstype"
+
+#: ../wxui/bugreport.py:219
+msgid "Update an existing bug"
+msgstr ""
+
+#: ../wxui/bugreport.py:567
+#, fuzzy, python-format
+msgid "Updating bug %s"
+msgstr "Bijwerken URCALL lijst"
+
+#: ../wxui/clone.py:898
+msgid "Upload instructions"
+msgstr ""
+
+#: ../drivers/uvk5.py:2160
+msgid "Upload is disabled due to unsupported firmware version"
+msgstr ""
+
+#: ../wxui/main.py:1080
+#, fuzzy
+msgid "Upload to radio"
+msgstr "Naar radio uploaden"
+
+#: ../wxui/main.py:876
+#, fuzzy
+msgid "Upload to radio..."
+msgstr "Naar radio uploaden"
+
+#: ../wxui/common.py:402
+#, python-format
+msgid "Uploaded memory %s"
+msgstr ""
+
+#: ../wxui/memedit.py:1367
+msgid "Use TX Frequency Workflow"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:576 ../drivers/baofeng_uv17Pro.py:607
+msgid "Use at most 3 digits."
+msgstr ""
+
+#: ../wxui/main.py:832
+msgid "Use fixed-width font"
+msgstr ""
+
+#: ../wxui/main.py:840
+msgid "Use larger font"
+msgstr ""
+
+#: ../wxui/bugreport.py:266
+msgid "Username"
+msgstr ""
+
+#: ../wxui/developer.py:314
+#, python-format
+msgid "Value does not fit in %i bits"
+msgstr ""
+
+#: ../wxui/common.py:759
+#, python-format
+msgid "Value must be at least %.4f"
+msgstr ""
+
+#: ../wxui/common.py:763
+#, python-format
+msgid "Value must be at most %.4f"
+msgstr ""
+
+#: ../wxui/developer.py:358
+#, python-format
+msgid "Value must be exactly %i decimal digits"
+msgstr ""
+
+#: ../wxui/developer.py:312 ../wxui/developer.py:356
+msgid "Value must be zero or greater"
+msgstr ""
+
+#: ../wxui/memquery.py:206
+msgid "Value to search memory field for"
+msgstr ""
+
+#: ../wxui/memedit.py:2925
+msgid "Values"
+msgstr ""
+
+#: ../wxui/clone.py:353
+msgid "Vendor"
+msgstr "Merk"
+
+#: ../wxui/main.py:1041
+#, fuzzy
+msgid "View"
+msgstr "Bee_ld"
+
+#: ../drivers/baofeng_uv17Pro.py:1031
+msgid "Voice operated transmit. The radio starts transmitting when you speak towards the microphone, so hands-free conversation is possible without pressing PTT."
+msgstr ""
+
+#: ../wxui/common.py:707
+msgid "WARNING!"
+msgstr ""
+
+#: ../wxui/bugreport.py:235 ../wxui/memedit.py:2055 ../wxui/main.py:1907
+#: ../wxui/main.py:2065
+msgid "Warning"
+msgstr ""
+
+#: ../wxui/memedit.py:2054
+#, python-format
+msgid "Warning: %s"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:812
+msgid "Warns you the selected number of seconds before the time-out timer ends a transmission. Off turns the warning off."
+msgstr ""
+
+#: ../wxui/main.py:462
+msgid "Welcome"
+msgstr ""
+
+#: ../drivers/baofeng_uv17Pro.py:750
+msgid "When it is off, the keypad can still be locked by hand."
+msgstr ""
+
+#: ../drivers/ft450d.py:1838
+msgid "When on, holding the microphone UP or DWN key for about a second starts a scan that continues after the key is released. When off, the radio only scans while the key is held down."
+msgstr ""
+
+#: ../wxui/query_sources.py:418
+msgid "With this option checked, a proximity search will include cached results from other localities if they are in range, match other filter parameters, and have been downloaded before."
+msgstr ""
+
+#: ../wxui/__init__.py:59
+msgid "Would you like CHIRP to install a desktop icon for you?"
+msgstr ""
+
+#: ../wxui/bugreport.py:326
+msgid "You have opened multiple issues within the last week. CHIRP limits the number of issues you can open to avoid abuse. If you really need to open another, please do so via the website."
+msgstr ""
+
+#: ../wxui/clone.py:523
+msgid "Your Prolific-based USB device will not work without reverting to an older version of the driver. Visit the CHIRP website to read more about how to resolve this?"
+msgstr ""
+
+#: ../wxui/query_sources.py:832
+msgid "Your QTH Locator"
+msgstr ""
+
+#: ../wxui/clone.py:510
+msgid "Your cable appears to be on port:"
+msgstr ""
+
+#: ../wxui/developer.py:194
+msgid "bits"
+msgstr ""
+
+#: ../wxui/developer.py:190
+msgid "bytes"
+msgstr ""
+
+#: ../wxui/developer.py:185
+msgid "bytes each"
+msgstr ""
+
+#: ../wxui/common.py:545
+msgid "checkbox"
+msgstr ""
+
+#: ../wxui/common.py:521
+msgid "checked"
+msgstr ""
+
+#: ../wxui/main.py:1994
+msgid "disabled"
+msgstr ""
+
+#: ../wxui/accessibility.py:176
+msgid "empty"
+msgstr ""
+
+#: ../wxui/main.py:1994
+msgid "enabled"
+msgstr ""
+
+#: ../wxui/common.py:547
+msgid "list"
+msgstr ""
+
+#: ../wxui/common.py:566
+msgid "locked"
+msgstr ""
+
+#: ../wxui/common.py:550
+msgid "number"
+msgstr ""
+
+#: ../wxui/bugreport.py:421
+msgid "searched for duplicate issues"
+msgstr ""
+
+#: ../wxui/common.py:552
+msgid "text"
+msgstr ""
+
+#: ../wxui/common.py:521
+msgid "unchecked"
+msgstr ""
+
+#: ../wxui/common.py:564
+msgid "unspecified"
+msgstr ""
+
+#: ../drivers/vx5.py:116
+#, python-brace-format
+msgid "{bank} is full"
+msgstr ""
+
+#~ msgid "Adding memory {number}"
+#~ msgstr "Kanaal toevoegen {number}"
+
+#~ msgid "Adjust New Location"
+#~ msgstr "Nieuwe locatie aanpassen"
+
+#~ msgid "Auto"
+#~ msgstr "Auto"
+
+#~ msgid "Bad value for {col}: {val}"
+#~ msgstr "Foute waarde voor {col}: {val}"
+
+#~ msgid "Bank"
+#~ msgstr "Bank"
+
+#~ msgid "Bank Names"
+#~ msgstr "Banknamen"
+
+#~ msgid "CHIRP Files"
+#~ msgstr "CHIRP bestanden"
+
+#~ msgid "CHIRP Native File"
+#~ msgstr "CHIRP oorspronkelijk bestand"
+
+#~ msgid "CHIRP Radio Images"
+#~ msgstr "CHIRP radio afbeeldingen"
+
+#~ msgid "CSV File"
+#~ msgstr "Komma gescheiden bestand"
+
+#~ msgid "Callsign"
+#~ msgstr "Roepletters"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuleren"
+
+#~ msgid "Cancelled"
+#~ msgstr "Geannuleerd"
+
+#~ msgid "Cannot be imported because"
+#~ msgstr "Kan niet worden gemporteerd, omdat"
+
+#~ msgid "Choose a language or Auto to use the operating system default. You will need to restart the application before the change will take effect"
+#~ msgstr "Kies een taal of Auto voor het gebruik van het standaard besturingssysteem. U dient de toepassing opnieuw te starten voordat de wijziging wordt doorgevoerd"
+
+#~ msgid "Clone Progress"
+#~ msgstr "Vooruitgang van het klonen"
+
+#~ msgid "Clone failed: {error}"
+#~ msgstr "Klonen mislukt: {error}"
+
+#~ msgid "Columns"
+#~ msgstr "Kolommen"
+
+#~ msgid "Confirm overwrites"
+#~ msgstr "Overschrijven bevestigen"
+
+#~ msgid "Cutting memory {number}"
+#~ msgstr "Knippen kanaal {number}"
+
+#~ msgid "D-STAR"
+#~ msgstr "D-STAR"
+
+#~ msgid "Delete all"
+#~ msgstr "Alles verwijderen"
+
+#, fuzzy
+#~ msgid "Delete and shift all up"
+#~ msgstr "Verwijderen (en naar boven verplaatsen)"
+
+#, fuzzy
+#~ msgid "Delete and shift block up"
+#~ msgstr "Verwijderen (en naar boven verplaatsen)"
+
+#~ msgid "Diff of {a} and {b}"
+#~ msgstr "Verschil tussen {a} en {b}"
+
+#~ msgid "Diff raw memories"
+#~ msgstr "Verschil ruwe kanalen"
+
+#~ msgid "Diff tabs"
+#~ msgstr "Verschillen van tabs"
+
+#~ msgid "Discard Changes?"
+#~ msgstr "Wijzigen verwerpen?"
+
+#~ msgid "Don't show this again"
+#~ msgstr "Deze melding niet opnieuw weergeven"
+
+#~ msgid "Downloading MYCALL list"
+#~ msgstr "Downloaden van MYCALL lijst"
+
+#~ msgid "Downloading RPTCALL list"
+#~ msgstr "Downloaden van RPTCALL lijst"
+
+#~ msgid "Downloading URCALL list"
+#~ msgstr "Downloaden van URCALL lijst"
+
+#~ msgid "E_xchange"
+#~ msgstr "W_isselen"
+
+#~ msgid "Editing new item, taking defaults"
+#~ msgstr "Bewerken van een nieuw item. Standaardwaarden worden genomen"
+
+#~ msgid "Enable Developer Functions"
+#~ msgstr "Ontwikkelaars functies inschakelen"
+
+#~ msgid "Erasing memory {number}"
+#~ msgstr "Wis kanaal {number}"
+
+#~ msgid "Error importing memories:"
+#~ msgstr "Fout bij het importen van geheugen"
+
+#~ msgid "Error reporting is enabled"
+#~ msgstr "Foutrapportage is aangezet"
+
+#~ msgid "Exchange memories"
+#~ msgstr "Kanalen wisselen"
+
+#~ msgid "Export"
+#~ msgstr "Exporteren"
+
+#, fuzzy, python-format
+#~ msgid "Failed to upload details: %s"
+#~ msgstr "Niet in staat om wijzigingen voor dit model te maken"
+
+#~ msgid "File Exists"
+#~ msgstr "Bestand bestaat"
+
+#~ msgid "From"
+#~ msgstr "Van"
+
+#~ msgid "Getting bank for memory {num}"
+#~ msgstr "Bank voor kanaal {num} ophalen"
+
+#~ msgid "Getting bank information"
+#~ msgstr "Informatie van de bank ophalen"
+
+#~ msgid "Getting bank information for memory {num}"
+#~ msgstr "Informatie van de bank voor kanaal {num} ophalen"
+
+#~ msgid "Getting channel {chan}"
+#~ msgstr "Ophalen kanaal {chan}"
+
+#~ msgid "Getting memory {number}"
+#~ msgstr "Ophalen kanaal {number}"
+
+#~ msgid "Getting memory {num}"
+#~ msgstr "Ophalen kanaal {num}"
+
+#~ msgid "Getting raw memory {number}"
+#~ msgstr "Ophalen van onbewerkt kanaal {number}"
+
+#~ msgid "Go"
+#~ msgstr "Ga"
+
+#~ msgid "Hide Unused Fields"
+#~ msgstr "Ongebruikte velden verbergen"
+
+#~ msgid "ICF Files"
+#~ msgstr "ICF bestanden"
+
+#~ msgid "ICF files cannot be edited, only displayed or imported into another file. Open in read-only mode?"
+#~ msgstr "ICF bestanden kunnen niet worden bewerkt, alleen worden weergegeven of in een ander bestand gemporteerd. Openen in de modus alleen-lezen?"
+
+#~ msgid "If you wish to disable this feature you may do so in the <u>Help</u> menu"
+#~ msgstr "Als u deze functie wilt uitschakelen, dan kunt u dit doen in het menu <u>Help</u>"
+
+#~ msgid "Import from RepeaterBook"
+#~ msgstr "Importeren van RepeaterBook"
+
+#~ msgid "Import from stock config"
+#~ msgstr "Importeren van aanwezige configuratie"
+
+#~ msgid "Import stock configuration {name}"
+#~ msgstr "Importeren van aanwezige configuratie {name}"
+
+#~ msgid "Importing bank information"
+#~ msgstr "Importeren van informatie van de bank"
+
+#~ msgid "Incompatible Memory"
+#~ msgstr "Onverenigbaar kanaal"
+
+#~ msgid "Internal Error: Column {name} not found"
+#~ msgstr "Interne fout: Kolom {name} niet gevonden"
+
+# You are missing the last bracket
+#~ msgid "Internal Error: Invalid limit {number}"
+#~ msgstr "Interne fout: Ongeldige limiet {number}"
+
+#~ msgid "Internal error: Unable to upload to {model}"
+#~ msgstr "Interne fout: Niet in staat om te uploaden naar {model}"
+
+#~ msgid "Inverse"
+#~ msgstr "Tegengesteld"
+
+#~ msgid "Loc"
+#~ msgstr "Plaats"
+
+#~ msgid "Location memory will be imported into"
+#~ msgstr "Geheugenplaatsen zullen ook gemporteerd worden naar"
+
+#~ msgid "Location of memory in the file being imported"
+#~ msgstr "Plaats van het kanaal in het bestand wordt gemporteerd"
+
+#~ msgid "Location {number} is already being imported"
+#~ msgstr "Plaats {number} is reeds gemporteerd"
+
+#~ msgid "Location {number} is already being imported. Choose another value for 'New Location' before selection 'Import'"
+#~ msgstr "Plaats {number} wordt al gemporteerd. Kies een andere waarde voor 'Nieuwe locatie' vr 'Importeren' te selecteren"
+
+#~ msgid "Looking for a free spot ({number})"
+#~ msgstr "Zoeken naar een vrije plaats ({number})"
+
+#~ msgid "Memories must be contiguous"
+#~ msgstr "De kanalen moeten aangrenzend zijn"
+
+#~ msgid "Memory range:"
+#~ msgstr "Geheugenbereik:"
+
+#~ msgid "Memory {number}"
+#~ msgstr "Kanaal {number}"
+
+#~ msgid "Move down"
+#~ msgstr "Verplaats omlaag"
+
+#~ msgid "Move up"
+#~ msgstr "Verplaats omhoog"
+
+#~ msgid "Moved {count} memories"
+#~ msgstr "{count} kanalen verplaatst"
+
+#~ msgid "Moving memory from {old} to {new}"
+#~ msgstr "Verplaats kanaal van {old} naar {new}"
+
+#~ msgid "Moving {src} to {dst}"
+#~ msgstr "Verplaatsen van {src} naar {dst}"
+
+#~ msgid "My callsign"
+#~ msgstr "Mijn roepletters"
+
+#~ msgid "Name"
+#~ msgstr "Naam"
+
+#~ msgid "None"
+#~ msgstr "Geen"
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "Noot:"
+
+#~ msgid "Open recent file {name}"
+#~ msgstr "Recent geopend bestand {name}"
+
+#~ msgid "Overwrite"
+#~ msgstr "Overschrijven"
+
+#~ msgid "Overwrite location {number}?"
+#~ msgstr "Plaats {number} overschrijven?"
+
+#~ msgid "Preparing memory list..."
+#~ msgstr "Lijst van het kanaal wordt voorbereid..."
+
+#~ msgid "Priming memory"
+#~ msgstr "Voorbereiden van geheugen"
+
+#~ msgid "RPT1CALL"
+#~ msgstr "RPT1CALL"
+
+#~ msgid "RPT2CALL"
+#~ msgstr "RPT2CALL"
+
+#~ msgid "Raw memory {number}"
+#~ msgstr "Ruw kanaal {number}"
+
+#~ msgid "Repeater callsign"
+#~ msgstr "Roepletters van de repeater"
+
+#~ msgid "Report statistics"
+#~ msgstr "Statistieken raporteren"
+
+#~ msgid "Reverse"
+#~ msgstr "Omkeren"
+
+#~ msgid "Select"
+#~ msgstr "Selecteren"
+
+#~ msgid "Setting index for memory {num}"
+#~ msgstr "Instellen van de index voor kanaal {num}"
+
+#~ msgid "Setting memory {number}"
+#~ msgstr "Kanaal {number} instellen"
+
+#~ msgid "Shift"
+#~ msgstr "Shift"
+
+#~ msgid "Show Empty"
+#~ msgstr "Lege tonen"
+
+#~ msgid "Show raw memory"
+#~ msgstr "Toon ruw geheugen"
+
+#~ msgid "Special Channels"
+#~ msgstr "Speciale kanalen"
+
+#~ msgid "The file {name} already exists. Do you want to overwrite it?"
+#~ msgstr "Het bestand {name} bestaat al. Wilt u het overschrijven?"
+
+#~ msgid ""
+#~ "The reporting feature of CHIRP is designed to help <u>improve quality</u> by allowing the authors to focus on the radio drivers used most often and errors experienced by the users. The reports contain no identifying information and are used only for statistical purposes by the authors. Your privacy is extremely important, but <u>please consider leaving this feature enabled to help make CHIRP better!</u>\n"
+#~ "\n"
+#~ "<b>Are you sure you want to disable this feature?</b>"
+#~ msgstr ""
+#~ "De rapportagefunctie van CHIRP is ontworpen om de <u>kwaliteit te helpen verbeteren</u> door de auteurs toe te staan zich te concentreren op de radio stuurprogramma's die het meest gebruikt worden en fouten ervaren door de gebruikers. De verslagen bevatten geen identificerende informatie en worden alleen voor statistische doeleinden gebruikt door de auteurs. Uw privacy is uiterst belangrijk, <u>maar kunt u overwegen deze functie ingeschakeld te laten om zo te helpen CHIRP beter maken!</u>\n"
+#~ "\n"
+#~ "<b>Weet u zeker dat u deze functie wilt uitschakelen?</b>"
+
+#~ msgid "The {vendor} {model} has multiple independent sub-devices"
+#~ msgstr "De {vendor} {model} heeft meerdere onafhankelijke sub-apparaten"
+
+#~ msgid "The {vendor} {model} operates in <b>live mode</b>. This means that any changes you make are immediately sent to the radio. Because of this, you cannot perform the <u>Save</u> or <u>Upload</u> operations. If you wish to edit the contents offline, please <u>Export</u> to a CSV file, using the <b>File menu</b>."
+#~ msgstr "De {vendor} {model} opereert in de <b>live modus</b>. Dit betekent dat wijzigingen die u aanbrengt onmiddellijk naar de radio verzonden worden. Hierdoor kunt u het niet <u>Opslaan</u> of <u>uploaden</u> . Als u wenst de inhoud off line te bewerken, gelieve <u>exporteren</u> naar een CSV-bestand, met behulp van het <b>menu bestand</b>."
+
+#~ msgid "There was an error during export: {error}"
+#~ msgstr "Er is een fout opgetreden tijdens het exporteren: {error}"
+
+#~ msgid "There was an error during import: {error}"
+#~ msgstr "Er is een fout ontstaan tijdens het importeren: {error}"
+
+#~ msgid "There was an error opening {fname}: {error}"
+#~ msgstr "Er is een fout opgetreden bij het openen van {fname}: {error}"
+
+#~ msgid "There were errors while opening {file}. The affected memories will not be importable!"
+#~ msgstr "Er zijn fouten opgetreden tijdens het openen van {file}. De getroffen kanalen zijn niet importeerbaar!"
+
+#~ msgid "This operation requires moving all subsequent channels by one spot until an empty location is reached.  This can take a LONG time.  Are you sure you want to do this?"
+#~ msgstr "Deze bewerking vereist het verplaatsen van alle volgende kanalen totdat een lege locatie is bereikt. Dit kan een lange tijd duren. Weet u zeker dat u dit wilt doen?"
+
+#~ msgid "To"
+#~ msgstr "Aan"
+
+#~ msgid "URCALL"
+#~ msgstr "URCALL"
+
+#~ msgid "Untitled"
+#~ msgstr "Naamloos"
+
+#~ msgid "Updating RPTCALL list"
+#~ msgstr "Bijwerken RPTCALL lijst"
+
+#~ msgid "Updating bank index for memory {num}"
+#~ msgstr "Index van de bank voor kanaal {num} bijwerken"
+
+#~ msgid "Updating bank information for memory {num}"
+#~ msgstr "Informatie van de bank voor kanaal {num} bijwerken"
+
+#~ msgid "VX7 Commander"
+#~ msgstr "VX7 Commander"
+
+#~ msgid "VX7 Commander Files"
+#~ msgstr "VX7 Commander bestanden"
+
+#~ msgid "Visible columns for {radio}"
+#~ msgstr "Zichtbare kolommen voor {radio}"
+
+#~ msgid "With significant contributions by:"
+#~ msgstr "Met dank aan:"
+
+#~ msgid "Writing memory {number}"
+#~ msgstr "Schrijven kanaal {number}"
+
+#~ msgid "You can only diff two memories!"
+#~ msgstr "U kunt maar van 2 kanalen de verschillen zien"
+
+#~ msgid "Your callsign"
+#~ msgstr "Uw roepletters"
+
+#~ msgid "_Copy"
+#~ msgstr "_Kopiren"
+
+#~ msgid "_Cut"
+#~ msgstr "_Knippen"
+
+#~ msgid "_Delete"
+#~ msgstr "_Verwijderen"
+
+#~ msgid "_Edit"
+#~ msgstr "Be_werken"
+
+#~ msgid "_Paste"
+#~ msgstr "_Plakken"
+
+#~ msgid "_Radio"
+#~ msgstr "_Radio"
+
+#~ msgid "idle"
+#~ msgstr "luieren"
+
+#~ msgid "{num} errors during open:"
+#~ msgstr "{num} fouten tijdens het openen:"
+
+#~ msgid "{vendor} {model} image file"
+#~ msgstr "{vendor} {model} afbeeldingsbestand"
+
+#~ msgid "{vendor} {model} on {port}"
+#~ msgstr "{vendor} {model} op {port}"

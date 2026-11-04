@@ -1,0 +1,9 @@
+node_modules/
+dist/
+python/
+tests/
+*.dmg
+*.zip
+__pycache__/
+*.pyc
+.DS_Store
