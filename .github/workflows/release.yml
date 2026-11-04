@@ -1,9 +1,11 @@
 # Builds RadioHub for Mac (Apple Silicon + Intel) and Windows (x64 + x86)
-# and publishes a GitHub Release when a tag like v0.3.0 is pushed.
+# and publishes a GitHub Release whenever package.json on main carries a
+# version that has no release yet (bump the version = publish).
 name: Release
 on:
   push:
-    tags: ['v*']
+    branches: [main]
+    paths: ['package.json']
   workflow_dispatch:
 permissions:
   contents: write
@@ -17,27 +19,39 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - name: Install dependencies
-        run: npm ci
-      - name: Check version matches tag
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Version and release check
+        id: ver
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          PKG=$(node -p "require('./package.json').version")
-          [ "v$PKG" = "${GITHUB_REF_NAME}" ] || { echo "package.json $PKG != tag ${GITHUB_REF_NAME}"; exit 1; }
+          V=$(node -p "require('./package.json').version")
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          if gh release view "v$V" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release v$V already exists; nothing to publish."; echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Install dependencies
+        if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
+        run: npm ci
       - name: Fetch Python runtimes
+        if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
         run: bash build/fetch-python.sh
       - name: Package apps
+        if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           npm run package:mac-arm64
           npm run package:mac-x64
           npm run package:win-x64
           npm run package:win-ia32
       - name: Windows exe metadata
+        if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           V=$(node -p "require('./package.json').version")
           node build/set-exe-meta.js dist/RadioHub-win32-x64/RadioHub.exe build/icon.ico "$V"
           node build/set-exe-meta.js dist/RadioHub-win32-ia32/RadioHub.exe build/icon.ico "$V"
       - name: Windows installers (NSIS)
+        if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           brew install makensis
           V=$(node -p "require('./package.json').version")
@@ -46,6 +60,7 @@ jobs:
           makensis -V2 -DARCH=x64 -DVERSION="$V" -DSRC="$GITHUB_WORKSPACE/dist/RadioHub-win32-x64" -DOUT="$GITHUB_WORKSPACE/dist/release/RadioHub-Setup-win-x64.exe" installer.nsi
           makensis -V2 -DARCH=ia32 -DVERSION="$V" -DSRC="$GITHUB_WORKSPACE/dist/RadioHub-win32-ia32" -DOUT="$GITHUB_WORKSPACE/dist/release/RadioHub-Setup-win-x86.exe" installer.nsi
       - name: Mac DMGs (ad-hoc signed)
+        if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           V=$(node -p "require('./package.json').version")
           for A in arm64 x64; do
@@ -59,15 +74,16 @@ jobs:
           done
           cd dist/release && shasum -a 256 * > SHA256SUMS.txt && ls -la
       - name: Publish release
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: steps.ver.outputs.publish == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          V=${{ steps.ver.outputs.version }}
           NOTES=build/release-notes.md
-          [ -f "$NOTES" ] || echo "RadioHub ${GITHUB_REF_NAME}" > "$NOTES"
-          gh release create "${GITHUB_REF_NAME}" dist/release/* --title "RadioHub ${GITHUB_REF_NAME#v}" --notes-file "$NOTES"
-      - name: Keep artifacts (manual runs)
-        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
+          [ -f "$NOTES" ] || echo "RadioHub $V" > "$NOTES"
+          gh release create "v$V" dist/release/* --target "$GITHUB_SHA" --title "RadioHub $V" --notes-file "$NOTES"
+      - name: Keep artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: radiohub-builds
