@@ -152,3 +152,7 @@ table.wide td:nth-child(1),table.wide th:nth-child(1){position:sticky;left:0;bac
 table.wide td:nth-child(2),table.wide th:nth-child(2){position:sticky;left:46px;background:var(--card);z-index:2;box-shadow:1px 0 0 var(--line)}
 table.wide th:nth-child(-n+2){z-index:3}
 table.wide tr.new td:nth-child(-n+2){background:#13261F} table.wide tr.chg td:nth-child(-n+2){background:#272112} table.wide tr.err td:nth-child(-n+2){background:#2C1815}
+.radio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.radio-item{display:flex;align-items:center;gap:12px;padding:10px 16px;background:transparent;border:0;border-bottom:1px solid #1F2430;border-right:1px solid #1F2430;color:var(--txt);font:inherit;cursor:pointer;text-align:left}
+.radio-item:hover{background:#1F2430}
+.radio-item:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}

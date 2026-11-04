@@ -1,7 +1,7 @@
 {
   "name": "radiohub",
   "productName": "RadioHub",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Gestão de rádios analógicos (CHIRP) e DMR (qdmr), com assistente de frequências com IA",
   "main": "main.js",
   "license": "GPL-3.0-or-later",

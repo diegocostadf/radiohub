@@ -22,6 +22,7 @@ Veja o passo a passo de cada sistema em [radiohub.diegocosta.digital](https://ra
   - `engine/providers/chirp.py` rádios analógicos sobre a biblioteca do CHIRP (`engine/chirp`)
   - `engine/providers/qdmr.py` rádios DMR pelo `dmrconf` do qdmr
   - `engine/providers/base.py` descreve o formato de canal comum aos dois
+- `build/gen-radios.py` gera `site/radios.json`, a lista de rádios suportados que o site mostra (rode a cada versão)
 - `build/bundle-dmrconf.sh` empacota o `dmrconf` com as bibliotecas Qt para ir dentro do app
 - O GitHub Actions (`.github/workflows/release.yml`) gera e publica tudo quando a versão do `package.json` muda
 

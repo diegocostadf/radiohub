@@ -1,3 +1,6 @@
+## Novidades da 0.4.1
+- Nova tela **Rádios suportados**: os 526 modelos de 59 marcas, com busca, filtro por marca e por tipo (analógico ou DMR). Clique num modelo para começar a programar.
+
 ## Novidades da 0.4.0: rádios DMR
 - **Suporte a rádios DMR** de AnyTone (AT-D868UV, D878UV, D878UVII, D578UV), TYT (MD-390, MD-UV390, MD-2017), Retevis (RT3S, RT8, RT82, RT84), Radioddity (GD-77, GD-73), Baofeng (RD-5R, DM-1701, DR-1801UV, DM-32UV) e firmwares OpenGD77 / OpenUV380
 - Na tabela de canais, os canais DMR ganham **color code, time slot, contato de transmissão e lista de escuta**

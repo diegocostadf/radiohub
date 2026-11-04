@@ -19,7 +19,7 @@
     view: 'connect', ports: [], knownPorts: null, newPorts: new Set(), port: null,
     models: [], modelQuery: '', model: null, prompts: null, photos: {},
     busy: false, progress: null, radio: null, original: [], working: [], errors: {},
-    filter: 'Todos', tab: 'channels', extras: null, extrasOrig: null, chat: [], aiHistory: null, chatBusy: false,
+    filter: 'Todos', rq: '', rbrand: '', rtype: 'all', tab: 'channels', extras: null, extrasOrig: null, chat: [], aiHistory: null, chatBusy: false,
     settings: { hasKey: {}, providers: [], models: {}, dev: {} }, done: new Set(), keyWaiting: false, providerModels: {}
   };
 
@@ -150,7 +150,7 @@
   function render() {
     renderSteps();
     const v = $('#view');
-    ({ connect: vConnect, download: vDownload, channels: vChannels, review: vReview, settings: vSettings, about: vAbout })[st.view](v);
+    ({ connect: vConnect, download: vDownload, channels: vChannels, review: vReview, settings: vSettings, about: vAbout, radios: vRadios })[st.view](v);
     const ai = $('#ai');
     ai.hidden = st.view !== 'channels';
     if (!ai.hidden) renderAI();
@@ -684,6 +684,36 @@
       const ok = await modal(credit ? 'Faltam créditos ou cota' : 'A IA não respondeu', credit ? (st.settings.provider === 'claude' ? 'A chave foi salva, mas a conta da API ainda não tem créditos. Adicione créditos e teste de novo.' : 'A cota grátis deste provedor acabou por hoje ou exige créditos. Tente outro provedor grátis.\n\n' + msg) : msg, credit && st.settings.provider === 'claude' ? [{ label: 'Depois', value: false }, { label: 'Adicionar créditos', value: true, primary: true }] : [{ label: 'OK', primary: true }]);
       if (ok) rh.openBilling();
     }
+  }
+
+  // ------------------------------------------------------------ supported radios
+  function vRadios(v) {
+    const brands = {}; st.models.forEach((m) => { brands[m.vendor] = (brands[m.vendor] || 0) + 1; });
+    const names = Object.keys(brands).sort((a, b) => a.localeCompare(b));
+    const dmrCount = st.models.filter((m) => m.dmr).length;
+    v.innerHTML = '<header style="display:flex;flex-direction:column;gap:8px"><span class="eyebrow">Compatibilidade</span><h1>Rádios suportados</h1><p class="lead">' + st.models.length + ' modelos de ' + names.length + ' marcas: ' + (st.models.length - dmrCount) + ' analógicos (drivers do CHIRP) e ' + dmrCount + ' DMR (qdmr).</p></header>' +
+      '<section class="card" style="gap:12px"><div class="row" style="gap:10px;align-items:flex-end">' +
+      '<div style="display:flex;flex-direction:column;gap:6px;flex:1 1 260px"><label for="rq" class="muted" style="font-size:13px">Buscar modelo</label><input id="rq" class="input" type="search" placeholder="UV-K5, FT-60, D878…" value="' + esc(st.rq) + '"></div>' +
+      '<div style="display:flex;flex-direction:column;gap:6px;flex:0 1 240px"><label for="rb" class="muted" style="font-size:13px">Marca</label><select id="rb" class="input"><option value="">Todas as marcas (' + names.length + ')</option>' + names.map((n) => '<option value="' + esc(n) + '"' + (st.rbrand === n ? ' selected' : '') + '>' + esc(n) + ' (' + brands[n] + ')</option>').join('') + '</select></div></div>' +
+      '<div class="chips" role="group" aria-label="Tipo de rádio">' + [['all', 'Todos'], ['analog', 'Analógicos'], ['dmr', 'DMR']].map((t) => '<button type="button" class="chip ' + (st.rtype === t[0] ? 'on' : '') + '" aria-pressed="' + (st.rtype === t[0]) + '" data-rtype="' + t[0] + '">' + t[1] + '</button>').join('') + '</div></section>' +
+      '<div id="rlist" style="display:flex;flex-direction:column;gap:14px"></div>';
+    const draw = () => {
+      const q = st.rq.trim().toLowerCase();
+      const list = st.models.filter((m) => (!st.rbrand || m.vendor === st.rbrand) && (st.rtype === 'all' || (st.rtype === 'dmr') === !!m.dmr) && (!q || m.label.toLowerCase().includes(q)));
+      const groups = {}; list.forEach((m) => { (groups[m.vendor] = groups[m.vendor] || []).push(m); });
+      const keys = Object.keys(groups).sort((a, b) => a.localeCompare(b));
+      $('#rlist').innerHTML = (keys.length ? '<div class="muted" style="font-size:13px">' + list.length + ' modelos encontrados</div>' : '<div class="card muted">Nenhum modelo encontrado. O seu rádio não está na lista? Fale com a gente em Sobre e apoio.</div>') +
+        keys.map((k) => '<section class="card" style="padding:0;overflow:hidden"><div class="spread" style="padding:14px 16px;border-bottom:1px solid var(--line)"><h2 style="margin:0;font-size:16px">' + esc(k) + '</h2><span class="muted" style="font-size:13px">' + groups[k].length + ' modelos</span></div>' +
+          '<div class="radio-grid">' + groups[k].map((m) => '<button type="button" class="radio-item" data-pick="' + esc(m.id) + '"><span class="mini-art" aria-hidden="true">' + window.RadioArt.svg(m, { freq: '' }) + '</span><span style="flex:1;min-width:0;text-align:left"><span style="display:block;font-weight:600">' + esc(m.model) + (m.variant ? ' <span class="muted" style="font-weight:400">' + esc(m.variant) + '</span>' : '') + '</span><span class="muted" style="font-size:12px">' + esc(window.RadioArt.formLabel(m.form)) + (m.dmr && !m.available ? ' · ' + esc(dmrUnavailable()) : '') + '</span></span><span class="pill ' + (m.dmr ? 'acc' : 'mute') + '">' + (m.dmr ? 'DMR' : 'Analógico') + '</span></button>').join('') + '</div></section>').join('');
+    };
+    draw();
+    $('#rq').addEventListener('input', (e) => { st.rq = e.target.value; draw(); });
+    $('#rb').onchange = (e) => { st.rbrand = e.target.value; draw(); };
+    v.querySelector('.chips').onclick = (e) => { const t = e.target.getAttribute('data-rtype'); if (t) { st.rtype = t; v.querySelectorAll('[data-rtype]').forEach((b) => { b.classList.toggle('on', b === e.target); b.setAttribute('aria-pressed', b === e.target); }); draw(); } };
+    $('#rlist').onclick = async (e) => {
+      const b = e.target.closest('[data-pick]'); if (!b || st.busy) return;
+      await selectModel(b.getAttribute('data-pick')); st.modelQuery = ''; go('connect'); toast('Modelo escolhido: ' + (st.model ? st.model.label : ''));
+    };
   }
 
   // ------------------------------------------------------------ about
