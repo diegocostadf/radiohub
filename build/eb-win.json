@@ -1,0 +1,25 @@
+{
+  "appId": "br.radiohub.app",
+  "productName": "RadioHub",
+  "copyright": "© 2026 Diego Costa",
+  "directories": { "output": "dist/installers" },
+  "win": { "signAndEditExecutable": false, "icon": "build/icon.ico" },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowElevation": true,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "RadioHub",
+    "runAfterFinish": true,
+    "installerIcon": "build/icon.ico",
+    "uninstallerIcon": "build/icon.ico",
+    "installerLanguages": ["pt_BR"],
+    "language": "1046",
+    "license": "LICENSE",
+    "artifactName": "RadioHub-Setup-win-${env.RH_ARCH}.exe",
+    "deleteAppDataOnUninstall": false
+  },
+  "publish": null
+}

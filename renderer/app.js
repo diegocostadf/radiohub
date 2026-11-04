@@ -619,7 +619,11 @@
         $('#updBtns').hidden = true; $('#updProg').hidden = false;
         try {
           const r = await rh.downloadUpdate();
-          m.innerHTML = '<div class="box" role="dialog" aria-modal="true" aria-labelledby="ud"><h2 id="ud">Quase lá</h2><div class="muted" style="white-space:pre-line">O instalador da versão ' + esc(info.version) + ' foi aberto.\n\n1. Feche o RadioHub (botão abaixo).\n2. Na janela do instalador, arraste o RadioHub para a pasta Aplicativos e escolha Substituir.\n3. Abra o RadioHub de novo.\n\nSeus backups, chaves e configurações continuam onde estão.</div><div class="muted mono" style="font-size:12px">' + esc(r.path) + '</div><div class="row" style="justify-content:flex-end"><button type="button" class="btn" data-u="stay">Depois</button><button type="button" class="btn primary" data-u="quit">Fechar o RadioHub</button></div></div>';
+          const isWin = st.settings.platform === 'win32';
+          const steps = isWin
+            ? 'O instalador da versão ' + esc(info.version) + ' foi aberto.\n\n1. Feche o RadioHub (botão abaixo).\n2. Siga os passos do instalador.\n3. O RadioHub abre sozinho no final.\n\nSeus backups, chaves e configurações continuam onde estão.'
+            : 'O instalador da versão ' + esc(info.version) + ' foi aberto.\n\n1. Feche o RadioHub (botão abaixo).\n2. Na janela do instalador, arraste o RadioHub para a pasta Aplicativos e escolha Substituir.\n3. Abra o RadioHub de novo.\n\nSeus backups, chaves e configurações continuam onde estão.';
+          m.innerHTML = '<div class="box" role="dialog" aria-modal="true" aria-labelledby="ud"><h2 id="ud">Quase lá</h2><div class="muted" style="white-space:pre-line">' + steps + '</div><div class="muted mono" style="font-size:12px">' + esc(r.path) + '</div><div class="row" style="justify-content:flex-end"><button type="button" class="btn" data-u="stay">Depois</button><button type="button" class="btn primary" data-u="quit">Fechar o RadioHub</button></div></div>';
           m.onclick = (ev) => { const b = ev.target.getAttribute('data-u'); if (b === 'quit') rh.quit(); if (b === 'stay') m.hidden = true; };
         } catch (err) {
           $('#updBtns').hidden = false; $('#updProg').hidden = true;
@@ -649,6 +653,7 @@
   });
   (async function boot() {
     st.settings = await rh.getSettings();
+    document.body.classList.add('plat-' + (st.settings.platform || 'darwin'));
     $('#devCredit').innerHTML = 'por <a href="#" data-go="about">' + esc((st.settings.dev || {}).name || '') + '</a>';
     render();
     for (let i = 0; i < 40 && !st.models.length; i++) {

@@ -131,3 +131,9 @@ td.n{font-family:var(--mono);color:var(--mute);padding-left:10px}
 details.notice summary{list-style:revert}
 @media (max-width:1180px){.connect-grid{grid-template-columns:1fr}.connect-grid > aside{position:static}.prov-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.about-grid{grid-template-columns:1fr}}
 .update-bar{position:fixed;top:12px;right:16px;z-index:9;display:flex;align-items:center;gap:10px;padding:8px 10px 8px 14px;border-radius:12px;background:#1F1B12;border:1px solid var(--acc);box-shadow:0 8px 24px rgba(0,0,0,.4);font-size:13px}
+/* Windows: no traffic-light inset, Segoe UI */
+.plat-win32,.plat-win32 button,.plat-win32 input,.plat-win32 select{font-family:"Segoe UI",system-ui,sans-serif}
+.plat-win32 .side{padding-top:18px;-webkit-app-region:no-drag}
+.plat-win32 .ai-head{padding-top:18px}
+.plat-win32 .view{padding-top:28px}
+.plat-win32 .update-bar{top:8px}

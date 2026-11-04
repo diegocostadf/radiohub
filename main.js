@@ -29,18 +29,19 @@ function logLine(text) {
 
 // ------------------------------------------------------------ engine
 function enginePaths() {
+  const win = process.platform === 'win32';
   if (app.isPackaged) {
     const res = process.resourcesPath;
-    return { py: path.join(res, 'python', 'bin', 'python3'), script: path.join(res, 'engine', 'engine.py') };
+    return { py: win ? path.join(res, 'python', 'python.exe') : path.join(res, 'python', 'bin', 'python3'), script: path.join(res, 'engine', 'engine.py') };
   }
-  const local = path.join(__dirname, 'python', 'bin', 'python3');
-  const py = process.env.RADIOHUB_PYTHON || (fs.existsSync(local) && process.platform === 'darwin' ? local : 'python3');
+  const local = win ? path.join(__dirname, 'python', 'python.exe') : path.join(__dirname, 'python', 'bin', 'python3');
+  const py = process.env.RADIOHUB_PYTHON || (fs.existsSync(local) ? local : 'python3');
   return { py, script: path.join(__dirname, 'engine', 'engine.py') };
 }
 
 function startEngine() {
   const { py, script } = enginePaths();
-  engine = spawn(py, ['-I', '-u', script], { stdio: ['pipe', 'pipe', 'pipe'], env: { ...process.env, PYTHONNOUSERSITE: '1' } });
+  engine = spawn(py, ['-I', '-u', script], { stdio: ['pipe', 'pipe', 'pipe'], windowsHide: true, env: { ...process.env, PYTHONNOUSERSITE: '1', PYTHONIOENCODING: 'utf-8', PYTHONUTF8: '1' } });
   const rl = readline.createInterface({ input: engine.stdout });
   rl.on('line', (line) => {
     let msg;
@@ -109,7 +110,7 @@ function publicSettings() {
   return {
     ...s, provider, models: s.models || {},
     hasKey: Object.fromEntries(Object.keys(ai.PROVIDERS).map((id) => [id, ai.PROVIDERS[id].noKey || !!keys[id]])),
-    providers: ai.publicProviders(), dev: DEV, version: app.getVersion()
+    providers: ai.publicProviders(), dev: DEV, version: app.getVersion(), platform: process.platform, arch: process.arch
   };
 }
 
@@ -224,7 +225,9 @@ ipcMain.handle('clipboard:write', (_e, text) => { clipboard.writeText(String(tex
 // Releases live on GitHub; the site (radiohub.diegocosta.digital) reads the
 // same releases. The app checks on launch and every 6 h, asks the user, then
 // downloads the DMG itself (no browser, so no quarantine prompt) and opens it.
-const UPDATE = { repo: require('./package.json').radiohub.updateRepo, asset: 'RadioHub-mac-arm64.dmg', site: 'https://radiohub.diegocosta.digital' };
+const PLATFORM = process.platform + '-' + process.arch; // darwin-arm64, darwin-x64, win32-x64, win32-ia32
+const ASSETS = { 'darwin-arm64': 'RadioHub-mac-arm64.dmg', 'darwin-x64': 'RadioHub-mac-x64.dmg', 'win32-x64': 'RadioHub-Setup-win-x64.exe', 'win32-ia32': 'RadioHub-Setup-win-x86.exe' };
+const UPDATE = { repo: require('./package.json').radiohub.updateRepo, asset: ASSETS[PLATFORM] || ASSETS['darwin-arm64'], site: 'https://radiohub.diegocosta.digital' };
 let latestRelease = null;
 function newer(a, b) { // a > b ?
   const pa = String(a).replace(/^v/, '').split(/[.-]/).map((x) => parseInt(x, 10) || 0);
@@ -241,7 +244,11 @@ async function resolveRepo() {
     clearTimeout(t);
     if (r.ok) {
       const j = await r.json();
-      if (j && /^[\w.-]+\/[\w.-]+$/.test(j.repo || '') && !/OWNER/.test(j.repo)) { if (j.asset) UPDATE.asset = j.asset; return j.repo; }
+      if (j && /^[\w.-]+\/[\w.-]+$/.test(j.repo || '') && !/OWNER/.test(j.repo)) {
+        if (j.assets && j.assets[PLATFORM]) UPDATE.asset = j.assets[PLATFORM];
+        else if (j.asset && PLATFORM === 'darwin-arm64') UPDATE.asset = j.asset;
+        return j.repo;
+      }
     }
   } catch {}
   return UPDATE.repo && !/OWNER/.test(UPDATE.repo) ? UPDATE.repo : null;
@@ -253,7 +260,7 @@ async function checkForUpdates(manual) {
     const r = await fetch('https://api.github.com/repos/' + repo + '/releases/latest', { headers: { accept: 'application/vnd.github+json', 'user-agent': 'RadioHub/' + app.getVersion() } });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const rel = await r.json();
-    const asset = (rel.assets || []).find((a) => a.name === UPDATE.asset) || (rel.assets || []).find((a) => /\.dmg$/i.test(a.name));
+    const asset = (rel.assets || []).find((a) => a.name === UPDATE.asset);
     const version = String(rel.tag_name || '').replace(/^v/, '');
     latestRelease = { version, notes: rel.body || '', date: rel.published_at, url: asset && asset.browser_download_url, size: asset && asset.size, page: rel.html_url };
     const available = !!asset && newer(version, app.getVersion());
@@ -270,7 +277,7 @@ ipcMain.handle('update:check', wrap(() => checkForUpdates(true)));
 ipcMain.handle('update:skip', (_e, version) => { writeSettings({ ...readSettings(), skipVersion: version }); return true; });
 ipcMain.handle('update:download', wrap(async () => {
   if (!latestRelease || !latestRelease.url) throw new Error('Nenhuma atualização disponível.');
-  const dest = path.join(app.getPath('downloads'), 'RadioHub-' + latestRelease.version + '.dmg');
+  const dest = path.join(app.getPath('downloads'), 'RadioHub-' + latestRelease.version + '-' + PLATFORM + path.extname(UPDATE.asset));
   const r = await fetch(latestRelease.url, { headers: { 'user-agent': 'RadioHub/' + app.getVersion() } });
   if (!r.ok || !r.body) throw new Error('Download falhou (HTTP ' + r.status + ').');
   const total = parseInt(r.headers.get('content-length') || latestRelease.size || 0, 10);
@@ -292,9 +299,11 @@ ipcMain.handle('app:quit', () => { app.quit(); });
 
 // ------------------------------------------------------------ window
 function createWindow() {
+  const mac = process.platform === 'darwin';
   win = new BrowserWindow({
     width: 1360, height: 880, minWidth: 1040, minHeight: 680,
-    backgroundColor: '#0F1115', titleBarStyle: 'hiddenInset', title: 'RadioHub',
+    backgroundColor: '#0F1115', title: 'RadioHub',
+    ...(mac ? { titleBarStyle: 'hiddenInset' } : { autoHideMenuBar: true, icon: path.join(__dirname, 'renderer', 'icon.png') }),
     webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: true }
   });
   win.loadFile(path.join(__dirname, 'renderer', 'index.html'));
@@ -306,6 +315,9 @@ app.setAboutPanelOptions({
   credits: 'Desenvolvido por ' + DEV.name + ' · ' + DEV.phone + '\n' + DEV.site.replace('https://', '') + ' · ' + DEV.email + '\nApoio via Pix: ' + DEV.pix + '\n\nDrivers de rádio: CHIRP (GPL v3)',
   copyright: '© 2026 ' + DEV.name
 });
+if (process.platform === 'win32') app.setAppUserModelId('br.radiohub.app');
+if (!app.requestSingleInstanceLock()) app.quit();
+app.on('second-instance', () => { if (win) { if (win.isMinimized()) win.restore(); win.focus(); } });
 app.whenReady().then(() => {
   startEngine(); createWindow();
   setTimeout(() => checkForUpdates(false), 6000);
