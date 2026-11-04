@@ -31,5 +31,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/diegocostadf/radiohub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/diegocostadf/radiohub/issues",
+    "email": "contato@diegocosta.digital"
   }
 }
