@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
-# RadioHub engine: JSON-RPC over stdin/stdout on top of the CHIRP library.
-# Copyright (C) 2026. Licensed under the GNU GPL v3 (same as CHIRP).
+# RadioHub engine: JSON-RPC over stdin/stdout. GPL-3.0-or-later.
+#
+# The engine routes every call to one of the radio providers:
+#   providers/chirp.py  analog radios through the CHIRP library (500+ models)
+#   providers/qdmr.py   DMR radios through qdmr's dmrconf tool
+# Channels always cross this boundary in the unified shape described in
+# providers/base.py, so the app's screens work the same for every radio.
 #
 # Protocol: one JSON object per line.
 #   request  {"id": 1, "method": "list_ports", "params": {}}
@@ -8,7 +13,6 @@
 #   event    {"event": "progress", "cur": 10, "max": 100, "msg": "..."}
 
 import csv
-import datetime
 import io
 import json
 import logging
@@ -32,8 +36,10 @@ builtins.ngettext = gettext.ngettext
 import serial  # noqa: E402
 from serial.tools import list_ports  # noqa: E402
 
-from chirp import chirp_common, directory, errors, import_logic  # noqa: E402
-from chirp.drivers import generic_csv  # noqa: E402
+from chirp import errors  # noqa: E402
+from providers import base  # noqa: E402
+from providers import chirp as chirp_p  # noqa: E402
+from providers import qdmr as qdmr_p  # noqa: E402
 
 _out_lock = threading.Lock()
 
@@ -45,128 +51,16 @@ def emit(obj):
 
 
 class Session:
-    radio = None
-    model_id = None
-    image_path = None
+    provider = None
 
 
 S = Session()
-_drivers_loaded = False
 
 
-def load_drivers():
-    global _drivers_loaded
-    if not _drivers_loaded:
-        directory.import_drivers()
-        _drivers_loaded = True
-
-
-# ---------------------------------------------------------------- helpers
-
-def mhz(hz):
-    return chirp_common.format_freq(int(hz)) if hz is not None else ''
-
-
-def model_info(rclass):
-    return {
-        'id': directory.radio_class_id(rclass),
-        'vendor': rclass.VENDOR,
-        'model': rclass.MODEL,
-        'variant': rclass.VARIANT or '',
-        'label': ('%s %s %s' % (rclass.VENDOR, rclass.MODEL,
-                                rclass.VARIANT or '')).strip(),
-    }
-
-
-def features_info(radio):
-    f = radio.get_features()
-    return {
-        'memory_bounds': list(f.memory_bounds),
-        'valid_modes': list(f.valid_modes),
-        'valid_tmodes': list(f.valid_tmodes),
-        'valid_duplexes': list(f.valid_duplexes),
-        'valid_skips': list(f.valid_skips),
-        'valid_tuning_steps': list(f.valid_tuning_steps),
-        'valid_cross_modes': list(f.valid_cross_modes),
-        'valid_power_levels': [str(p) for p in (f.valid_power_levels or [])],
-        'valid_name_length': f.valid_name_length,
-        'valid_bands': [[a, b] for a, b in (f.valid_bands or [])],
-        'has_settings': bool(f.has_settings),
-        'has_comment': bool(f.has_comment),
-    }
-
-
-def mem_to_json(m):
-    return {
-        'number': m.number,
-        'extd_number': getattr(m, 'extd_number', '') or '',
-        'empty': bool(m.empty),
-        'name': (m.name or '').rstrip(),
-        'freq': mhz(m.freq) if not m.empty else '',
-        'duplex': m.duplex,
-        'offset': mhz(m.offset),
-        'tmode': m.tmode,
-        'rtone': m.rtone,
-        'ctone': m.ctone,
-        'dtcs': m.dtcs,
-        'rx_dtcs': m.rx_dtcs,
-        'dtcs_polarity': m.dtcs_polarity,
-        'cross_mode': m.cross_mode,
-        'mode': m.mode,
-        'tuning_step': m.tuning_step,
-        'skip': m.skip,
-        'power': str(m.power) if m.power else '',
-        'comment': getattr(m, 'comment', '') or '',
-    }
-
-
-def _power_from_str(radio, value):
-    levels = radio.get_features().valid_power_levels or []
-    if not levels:
-        return None
-    if not value:
-        return levels[0]
-    for p in levels:
-        if str(p).lower() == str(value).lower():
-            return p
-    try:
-        watts = float(str(value).lower().replace('w', ''))
-        return import_logic.find_closest_power(watts, levels)
-    except Exception:
-        return levels[0]
-
-
-def json_to_mem(radio, d):
-    m = radio.get_memory(int(d['number']))
-    if d.get('empty'):
-        m = chirp_common.Memory(number=int(d['number']), empty=True)
-        return m
-    m.empty = False
-    m.freq = chirp_common.parse_freq(str(d['freq']))
-    m.name = str(d.get('name', ''))
-    m.duplex = d.get('duplex', '') or ''
-    m.offset = chirp_common.parse_freq(str(d.get('offset') or '0'))
-    m.tmode = d.get('tmode', '') or ''
-    m.rtone = float(d.get('rtone') or 88.5)
-    m.ctone = float(d.get('ctone') or 88.5)
-    m.dtcs = int(d.get('dtcs') or 23)
-    m.rx_dtcs = int(d.get('rx_dtcs') or 23)
-    m.dtcs_polarity = d.get('dtcs_polarity') or 'NN'
-    m.cross_mode = d.get('cross_mode') or 'Tone->Tone'
-    m.mode = d.get('mode') or 'FM'
-    m.tuning_step = float(d.get('tuning_step') or 5.0)
-    m.skip = d.get('skip', '') or ''
-    m.power = _power_from_str(radio, d.get('power'))
-    if hasattr(m, 'comment'):
-        m.comment = d.get('comment', '') or ''
-    return m
-
-
-def need_radio():
-    if S.radio is None:
-        raise errors.RadioError('Nenhum rádio carregado. Baixe do rádio '
-                                'ou abra um arquivo de imagem primeiro.')
-    return S.radio
+def need():
+    if S.provider is None:
+        raise base.ProviderError('Nenhum rádio carregado. Baixe do rádio ou abra um arquivo primeiro.')
+    return S.provider
 
 
 def backups_dir():
@@ -175,164 +69,24 @@ def backups_dir():
     return d
 
 
-def status_cb(status):
-    emit({'event': 'progress', 'cur': status.cur, 'max': status.max,
-          'msg': status.msg})
+def status(cur, mx, msg):
+    emit({'event': 'progress', 'cur': cur, 'max': mx, 'msg': msg})
 
 
-class TraceSerial(serial.Serial):
-    """Serial port with the extras CHIRP drivers expect (same role as
-    chirp.wxui.serialtrace.SerialTrace, without the wx dependency).
-
-    Drivers call pipe.log(); we also keep a short trace of each session in
-    ~/RadioHub/logs (last 10 kept) to help diagnose communication problems.
-    """
-
-    def __init__(self, *a, **k):
-        self._tracef = None
-        self.last_write = None
-        super().__init__(*a, **k)
-
-    def open(self):
-        super().open()
-        try:
-            d = os.path.expanduser('~/RadioHub/logs')
-            os.makedirs(d, exist_ok=True)
-            old = sorted(f for f in os.listdir(d) if f.startswith('trace-'))
-            for f in old[:-9]:
-                try:
-                    os.remove(os.path.join(d, f))
-                except OSError:
-                    pass
-            stamp = datetime.datetime.now().strftime('%Y-%m-%d_%H%M%S')
-            self._tracef = open(os.path.join(d, 'trace-%s.txt' % stamp), 'w')
-            self.log('Porta %s aberta (baud %s)' % (self.port, self.baudrate))
-        except Exception as e:
-            LOG.warning('Sem arquivo de trace: %s', e)
-            self._tracef = None
-
-    def _t(self, kind, data):
-        if self._tracef and data:
-            try:
-                self._tracef.write('%s %4d %s\n' % (kind, len(data),
-                                                     bytes(data[:64]).hex()))
-            except Exception:
-                self._tracef = None
-
-    def write(self, data):
-        self.last_write = (datetime.datetime.now(), len(data))
-        r = super().write(data)
-        self._t('W', data)
-        return r
-
-    def read(self, size=1):
-        self.last_write = None
-        data = super().read(size)
-        self._t('R', data)
-        return data
-
-    def log(self, message):
-        if self._tracef:
-            try:
-                self._tracef.write('# %s\n' % message)
-                self._tracef.flush()
-            except Exception:
-                self._tracef = None
-
-    def close(self):
-        try:
-            super().close()
-        finally:
-            if self._tracef:
-                try:
-                    self._tracef.close()
-                except Exception:
-                    pass
-                self._tracef = None
-
-
-def open_serial(port, rclass):
-    if port.startswith('fake:'):  # developer testing without hardware
-        from chirp.drivers import fake
-        return getattr(fake, port[5:])()
-    pipe = TraceSerial(baudrate=rclass.BAUD_RATE,
-                       rtscts=rclass.HARDWARE_FLOW, timeout=0.25)
-    pipe.rts = rclass.WANTS_RTS
-    pipe.dtr = rclass.WANTS_DTR
-    pipe.port = port
-    pipe.open()
-    return pipe
-
-
-def radio_summary():
-    r = S.radio
-    info = model_info(r.__class__)
-    info['form'] = _form_factor(r.__class__)
-    info['features'] = features_info(r)
-    info['image_path'] = S.image_path
-    md = getattr(r, 'metadata', None) or {}
-    fw = ''
-    for k, v in md.items():
-        if 'firmware' in k.lower() or k.lower().endswith('version'):
-            fw = str(v)
-            break
-    info['firmware'] = fw
-    try:
-        pr = r.get_prompts()
-        info['prompts_pre_upload'] = pr.pre_upload or ''
-    except Exception:
-        info['prompts_pre_upload'] = ''
-    return info
+def is_dmr(model_id):
+    return str(model_id or '').startswith('qdmr:')
 
 
 # ---------------------------------------------------------------- methods
-
 def m_ping(p):
-    return {'ok': True, 'chirp': __import__('chirp').CHIRP_VERSION}
+    return {'ok': True, 'chirp': __import__('chirp').CHIRP_VERSION, 'dmr': qdmr_p.available()}
 
 
 def m_list_ports(p):
-    out = []
-    for port in list_ports.comports():
-        out.append({
-            'device': port.device,
-            'description': port.description or '',
-            'manufacturer': port.manufacturer or '',
-            'vid': port.vid, 'pid': port.pid,
-            'is_usb': port.vid is not None,
-            'is_system': ('Bluetooth' in port.device or
-                          'debug-console' in port.device),
-        })
-    return out
-
-
-import re  # noqa: E402
-
-# Model-name patterns of vehicle/mobile rigs (the rest of VHF/UHF radios are
-# treated as handhelds). Radios covering HF (< 30 MHz) count as base/HF rigs.
-_MOBILE_RE = re.compile(
-    r'(^TM-|^TK-[78]|^TK-[0-9]{4}M|^FT-?[1-9]8[0-9]{2}|^FT-[1-9]9[0-9]{2}|'
-    r'^FT-7[0-9]{3}|^FTM|^FT-2[0-9]{3}|^DR-|^IC-2[0-9]{3}|^IC-V8000|^ID-[45]100|'
-    r'5888|778|779|^KT-|^BJ-[23]18|^TH-?9[0-9]{3}|^AT-5|^AT-7|^D578|'
-    r'^UV-2[05]|^UV-50|^MD-9|^DB25|^DM-9|^BF-9500|^KG-UV9[0-9]{2}|'
-    r'^KG-1000|^QYT|^TYT-9|^TH-7800|^TH-8600|^UV-?5001|^CP-?100|mobile|Mobile)')
-
-
-_BASE_RE = re.compile(
-    r'(^TS-|^IC-7[0-9]{2,3}|^IC-M7|^FT-?8[0-9]{2}(D|DX)?$|^FT-?9[0-9]{2}|'
-    r'^FT-450|^FT-?1000|^HF-|^FT-?710$|^FTDX)')
-
-
-def _form_factor(rclass):
-    model = rclass.MODEL or ''
-    name = ('%s %s' % (model, rclass.VARIANT or '')).lower()
-    if _BASE_RE.search(model):
-        return 'base'
-    if model in ('KT-8R',):
-        return 'handheld'
-    if _MOBILE_RE.search(model) or 'mobile' in name:
-        return 'mobile'
-    return 'handheld'
+    return [{'device': port.device, 'description': port.description or '', 'manufacturer': port.manufacturer or '',
+             'vid': port.vid, 'pid': port.pid, 'is_usb': port.vid is not None,
+             'is_system': ('Bluetooth' in port.device or 'debug-console' in port.device)}
+            for port in list_ports.comports()]
 
 
 _models_cache = None
@@ -340,187 +94,101 @@ _models_cache = None
 
 def m_list_models(p):
     global _models_cache
-    if _models_cache is not None:
-        return _models_cache
-    load_drivers()
-    out = []
-    for rclass in directory.DRV_TO_RADIO.values():
-        if not issubclass(rclass, chirp_common.CloneModeRadio):
-            continue
-        if getattr(rclass, '_DETECTED_BY', None):
-            continue
-        info = model_info(rclass)
-        info['form'] = _form_factor(rclass)
-        out.append(info)
-    out.sort(key=lambda x: x['label'].lower())
-    _models_cache = out
-    return out
+    if _models_cache is None:
+        out = chirp_p.catalog() + qdmr_p.QdmrProvider.catalog()
+        out.sort(key=lambda x: x['label'].lower())
+        _models_cache = out
+    return _models_cache
 
 
 def m_prompts(p):
-    load_drivers()
-    rclass = directory.get_radio(p['model_id'])
-    pr = rclass.get_prompts()
-    return {k: getattr(pr, k, None) for k in
-            ('experimental', 'info', 'pre_download', 'pre_upload')}
+    if is_dmr(p['model_id']):
+        return qdmr_p.QdmrProvider.prompts()
+    return chirp_p.prompts(p['model_id'])
 
 
 def m_download(p):
-    load_drivers()
-    rclass = directory.get_radio(p['model_id'])
-    pipe = open_serial(p['port'], rclass)
-    try:
-        try:
-            rclass = rclass.detect_from_serial(pipe)
-        except NotImplementedError:
-            pass
-        radio = rclass(pipe)
-        radio.status_fn = status_cb
-        radio.sync_in()
-    finally:
-        try:
-            pipe.close()
-        except Exception:
-            pass
-    radio.pipe = None
-    S.radio = radio
-    S.model_id = directory.radio_class_id(rclass)
-    stamp = datetime.datetime.now().strftime('%Y-%m-%d_%H%M%S')
-    fname = '%s_%s_%s.img' % (rclass.VENDOR, rclass.MODEL, stamp)
-    path = os.path.join(backups_dir(), fname.replace(' ', '_'))
-    radio.save(path)
-    S.image_path = path
-    info = radio_summary()
-    info['backup_path'] = path
-    return info
+    mid = p['model_id']
+    if is_dmr(mid):
+        S.provider = qdmr_p.QdmrProvider.download(mid.split(':', 1)[1], p.get('port'), backups_dir(), status)
+    else:
+        S.provider = chirp_p.ChirpProvider.download(mid, p['port'], backups_dir(), status)
+    return S.provider.summary()
 
 
 def m_open_image(p):
-    load_drivers()
-    radio = directory.get_radio_by_image(p['path'])
-    S.radio = radio
-    S.model_id = directory.radio_class_id(radio.__class__)
-    S.image_path = p['path']
-    return radio_summary()
+    path = p['path']
+    if path.lower().endswith(('.yaml', '.yml')):
+        key = (p.get('model_id') or '').split(':', 1)[-1] if is_dmr(p.get('model_id')) else None
+        S.provider = qdmr_p.QdmrProvider.open_file(path, key)
+    else:
+        S.provider = chirp_p.ChirpProvider.open_file(path)
+    return S.provider.summary()
 
 
 def m_info(p):
-    need_radio()
-    return radio_summary()
+    return need().summary()
 
 
 def m_get_memories(p):
-    r = need_radio()
-    lo, hi = r.get_features().memory_bounds
-    out = []
-    for n in range(lo, hi + 1):
-        try:
-            out.append(mem_to_json(r.get_memory(n)))
-        except Exception as e:
-            out.append({'number': n, 'empty': True, 'error': str(e)})
-    return out
-
-
-def _validate(r, m):
-    msgs = r.validate_memory(m)
-    return [str(x) for x in msgs
-            if isinstance(x, chirp_common.ValidationError)], \
-           [str(x) for x in msgs
-            if not isinstance(x, chirp_common.ValidationError)]
+    return need().get_memories()
 
 
 def m_validate(p):
-    r = need_radio()
-    results = []
-    for d in p['memories']:
-        try:
-            m = json_to_mem(r, d)
-            errs, warns = ([], []) if m.empty else _validate(r, m)
-        except Exception as e:
-            errs, warns = [str(e)], []
-        results.append({'number': d['number'], 'errors': errs,
-                        'warnings': warns})
-    return results
+    return need().validate(p['memories'])
 
 
 def m_set_memories(p):
-    r = need_radio()
-    applied, failed = [], []
-    for d in p['memories']:
-        try:
-            m = json_to_mem(r, d)
-            if m.empty:
-                r.erase_memory(m.number)
-            else:
-                errs, _w = _validate(r, m)
-                if errs:
-                    failed.append({'number': d['number'], 'errors': errs})
-                    continue
-                r.set_memory(m)
-            applied.append(d['number'])
-        except Exception as e:
-            failed.append({'number': d.get('number'), 'errors': [str(e)]})
-    return {'applied': applied, 'failed': failed}
+    return need().set_memories(p['memories'])
 
 
 def m_erase_all(p):
-    r = need_radio()
-    lo, hi = r.get_features().memory_bounds
-    for n in range(lo, hi + 1):
-        try:
-            r.erase_memory(n)
-        except Exception:
-            pass
+    need().erase_all()
     return {'ok': True}
 
 
+def m_get_extras(p):
+    return need().get_extras()
+
+
+def m_set_extras(p):
+    return need().set_extras(p.get('extras') or {})
+
+
 def m_parse_csv(p):
-    """Read a CHIRP CSV and convert each row for the loaded radio."""
-    r = need_radio()
-    src = generic_csv.CSVRadio(p['path'])
-    srcf = src.get_features()
-    lo, hi = r.get_features().memory_bounds
-    out, problems = [], []
-    for n in range(srcf.memory_bounds[0], srcf.memory_bounds[1] + 1):
-        sm = src.get_memory(n)
-        if sm.empty:
-            continue
-        if not (lo <= sm.number <= hi):
-            problems.append({'number': sm.number,
-                             'errors': ['Fora da faixa de canais do rádio']})
-            continue
-        try:
-            dm = import_logic.import_mem(r, srcf, sm)
-            out.append(mem_to_json(dm))
-        except import_logic.DestNotCompatible as e:
-            problems.append({'number': sm.number, 'errors': [str(e)]})
-        except Exception as e:
-            problems.append({'number': sm.number, 'errors': [str(e)]})
-    return {'memories': out, 'problems': problems}
+    prov = need()
+    if not hasattr(prov, 'parse_csv'):
+        # DMR radios: read the analog CHIRP CSV rows as FM channels
+        tmp = chirp_p.generic_csv.CSVRadio(p['path'])
+        f = tmp.get_features()
+        mems = [chirp_p.mem_to_json(tmp.get_memory(n)) for n in range(f.memory_bounds[0], f.memory_bounds[1] + 1)]
+        mems = [m for m in mems if not m['empty']]
+        for m in mems:
+            if m['mode'] not in ('FM', 'NFM', 'AM'):
+                m['mode'] = 'FM'
+            m['power'] = 'Padrão'
+        return {'memories': mems, 'problems': []}
+    return prov.parse_csv(p['path'])
 
 
-CSV_FIELDS = ['Location', 'Name', 'Frequency', 'Duplex', 'Offset', 'Tone',
-              'rToneFreq', 'cToneFreq', 'DtcsCode', 'DtcsPolarity',
-              'RxDtcsCode', 'CrossMode', 'Mode', 'TStep', 'Skip', 'Power',
-              'Comment', 'URCALL', 'RPT1CALL', 'RPT2CALL', 'DVCODE']
+CSV_FIELDS = ['Location', 'Name', 'Frequency', 'Duplex', 'Offset', 'Tone', 'rToneFreq', 'cToneFreq', 'DtcsCode',
+              'DtcsPolarity', 'RxDtcsCode', 'CrossMode', 'Mode', 'TStep', 'Skip', 'Power', 'Comment', 'URCALL',
+              'RPT1CALL', 'RPT2CALL', 'DVCODE']
 
 
 def m_export_csv(p):
-    mems = p.get('memories') or m_get_memories({})
+    mems = p.get('memories') or need().get_memories()
     buf = io.StringIO()
     w = csv.writer(buf, lineterminator='\r\n')
     w.writerow(CSV_FIELDS)
     for d in mems:
-        if d.get('empty'):
-            continue
-        w.writerow([d['number'], d['name'], '%.6f' % float(d['freq']),
-                    d['duplex'], '%.6f' % float(d['offset'] or 0),
-                    d['tmode'], '%.1f' % float(d['rtone']),
-                    '%.1f' % float(d['ctone']), '%03d' % int(d['dtcs']),
-                    d['dtcs_polarity'], '%03d' % int(d['rx_dtcs']),
-                    d['cross_mode'], d['mode'],
-                    '%.2f' % float(d['tuning_step']), d['skip'], d['power'],
-                    d.get('comment', ''), '', '', '', ''])
+        if d.get('empty') or d.get('mode') == 'DMR':
+            continue  # the CHIRP CSV format has no DMR fields
+        w.writerow([d['number'], d['name'], '%.6f' % float(d['freq']), d['duplex'], '%.6f' % float(d['offset'] or 0),
+                    d['tmode'], '%.1f' % float(d['rtone']), '%.1f' % float(d['ctone']), '%03d' % int(d['dtcs']),
+                    d['dtcs_polarity'], '%03d' % int(d.get('rx_dtcs') or d['dtcs']), d.get('cross_mode') or 'Tone->Tone',
+                    d['mode'], '%.2f' % float(d.get('tuning_step') or 5), d.get('skip', ''),
+                    '' if d.get('power') == 'Padrão' else d.get('power', ''), d.get('comment', ''), '', '', '', ''])
     if p.get('path'):
         with open(p['path'], 'w', newline='') as fh:
             fh.write(buf.getvalue())
@@ -529,34 +197,22 @@ def m_export_csv(p):
 
 
 def m_save_image(p):
-    r = need_radio()
-    r.save(p['path'])
-    return {'path': p['path']}
+    return {'path': need().save(p['path'])}
 
 
 def m_upload(p):
-    r = need_radio()
-    rclass = r.__class__
-    # safety copy of what is about to be written
-    stamp = datetime.datetime.now().strftime('%Y-%m-%d_%H%M%S')
-    pre = os.path.join(backups_dir(), 'pre-upload_%s.img' % stamp)
-    r.save(pre)
-    pipe = open_serial(p['port'], rclass)
-    try:
-        r.pipe = pipe
-        r.status_fn = status_cb
-        r.sync_out()
-    finally:
-        try:
-            pipe.close()
-        except Exception:
-            pass
-        r.pipe = None
-    return {'ok': True, 'saved_copy': pre}
+    return need().upload(p.get('port'), backups_dir(), status)
+
+
+def m_write_db(p):
+    prov = need()
+    if not isinstance(prov, qdmr_p.QdmrProvider):
+        raise base.ProviderError('A lista de contatos do RadioID só existe em rádios DMR.')
+    return prov.write_db(p.get('ids') or [], p.get('port'), status)
 
 
 METHODS = {k[2:]: v for k, v in globals().items() if k.startswith('m_')}
-SLOW = {'download', 'upload', 'list_models', 'open_image'}
+SLOW = {'download', 'upload', 'list_models', 'open_image', 'write_db'}
 
 
 def handle(req):
@@ -566,16 +222,14 @@ def handle(req):
         if not fn:
             raise ValueError('Método desconhecido: %s' % req.get('method'))
         emit({'id': rid, 'result': fn(req.get('params') or {})})
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         tb = traceback.format_exc()
         LOG.error('%s failed:\n%s', req.get('method'), tb)
-        kind = 'radio' if isinstance(e, errors.RadioError) else (
-            'serial' if isinstance(e, (serial.SerialException, OSError))
-            else 'internal')
-        emit({'id': rid, 'error': {
-            'message': '%s: %s' % (e.__class__.__name__, e) if str(e)
-            else e.__class__.__name__,
-            'kind': kind, 'detail': tb[-3000:]}})
+        kind = ('radio' if isinstance(e, (errors.RadioError, base.ProviderError)) else
+                'serial' if isinstance(e, (serial.SerialException, OSError)) else 'internal')
+        msg = str(e) if isinstance(e, base.ProviderError) else (
+            '%s: %s' % (e.__class__.__name__, e) if str(e) else e.__class__.__name__)
+        emit({'id': rid, 'error': {'message': msg, 'kind': kind, 'detail': tb[-3000:]}})
 
 
 def main():

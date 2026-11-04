@@ -208,12 +208,13 @@ ipcMain.handle('photo:remove', (_e, modelId) => { try { fs.unlinkSync(photoPath(
 
 // ------------------------------------------------------------ files & links
 ipcMain.handle('file:open', async (_e, kind) => {
-  const filters = kind === 'csv' ? [{ name: 'CSV do CHIRP', extensions: ['csv'] }] : [{ name: 'Imagem do rádio', extensions: ['img'] }];
+  const filters = kind === 'csv' ? [{ name: 'CSV do CHIRP', extensions: ['csv'] }]
+    : [{ name: 'Rádio (imagem do CHIRP ou codeplug DMR)', extensions: ['img', 'yaml', 'yml'] }, { name: 'Imagem do CHIRP', extensions: ['img'] }, { name: 'Codeplug DMR (qdmr)', extensions: ['yaml', 'yml'] }];
   const r = await dialog.showOpenDialog(win, { properties: ['openFile'], filters });
   return r.canceled ? null : r.filePaths[0];
 });
 ipcMain.handle('file:save', async (_e, kind, suggested) => {
-  const ext = kind === 'csv' ? 'csv' : 'img';
+  const ext = kind === 'csv' ? 'csv' : kind === 'yaml' ? 'yaml' : 'img';
   const r = await dialog.showSaveDialog(win, { defaultPath: suggested || ('radio.' + ext), filters: [{ name: ext.toUpperCase(), extensions: [ext] }] });
   return r.canceled ? null : r.filePath;
 });
@@ -312,7 +313,7 @@ function createWindow() {
 
 app.setAboutPanelOptions({
   applicationName: 'RadioHub', applicationVersion: app.getVersion(),
-  credits: 'Desenvolvido por ' + DEV.name + ' · ' + DEV.phone + '\n' + DEV.site.replace('https://', '') + ' · ' + DEV.email + '\nApoio via Pix: ' + DEV.pix + '\n\nDrivers de rádio: CHIRP (GPL v3)',
+  credits: 'Desenvolvido por ' + DEV.name + ' · ' + DEV.phone + '\n' + DEV.site.replace('https://', '') + ' · ' + DEV.email + '\nApoio via Pix: ' + DEV.pix + '\n\nDrivers de rádio: CHIRP (GPL v3) e qdmr/dmrconf para DMR (GPL v3)',
   copyright: '© 2026 ' + DEV.name
 });
 if (process.platform === 'win32') app.setAppUserModelId('br.radiohub.app');

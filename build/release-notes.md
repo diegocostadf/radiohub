@@ -1,9 +1,12 @@
-## Novidades da 0.3.0
-- Versões para **Windows 64 bits**, **Windows 32 bits**, **Mac Intel** e **Mac Apple Silicon**
-- Atualização automática: o app avisa quando sai uma versão nova e baixa o instalador certo para o seu sistema
-- Assistente de IA com opções grátis: Groq, Google Gemini, OpenRouter e Ollama (Claude e DeepSeek opcionais)
-- Ilustração do aparelho ao escolher o modelo, com opção de usar a foto do seu rádio
-- Backup automático antes de qualquer alteração
+## Novidades da 0.4.0: rádios DMR
+- **Suporte a rádios DMR** de AnyTone (AT-D868UV, D878UV, D878UVII, D578UV), TYT (MD-390, MD-UV390, MD-2017), Retevis (RT3S, RT8, RT82, RT84), Radioddity (GD-77, GD-73), Baofeng (RD-5R, DM-1701, DR-1801UV, DM-32UV) e firmwares OpenGD77 / OpenUV380
+- Na tabela de canais, os canais DMR ganham **color code, time slot, contato de transmissão e lista de escuta**
+- Novas abas para editar **contatos (talkgroups), listas de grupo, zonas e o seu DMR ID**
+- Abre e salva codeplugs no formato **.yaml do qdmr**
+- O motor do app foi separado em provedores: CHIRP para os mais de 500 rádios analógicos e qdmr para DMR, com o mesmo fluxo de conectar, revisar e gravar
+- Backup automático do codeplug antes de cada gravação
+
+**Observação:** nesta versão o DMR funciona no Mac. No Windows os modelos DMR aparecem na lista, mas a gravação chega numa próxima versão. O suporte DMR usa o qdmr (dm3mat.darc.de/qdmr), software livre GPL v3.
 
 ## Qual baixar
 | Sistema | Arquivo |

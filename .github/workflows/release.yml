@@ -10,7 +10,41 @@ on:
 permissions:
   contents: write
 jobs:
+  # DMR programmer (qdmr's dmrconf) bundled for each Mac architecture.
+  # Intel is best effort: if it fails, the Intel build ships without DMR.
+  dmr:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            runner: macos-14
+          - arch: x64
+            runner: macos-15-intel
+    runs-on: ${{ matrix.runner }}
+    continue-on-error: ${{ matrix.arch == 'x64' }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install qdmr
+        run: brew install qdmr
+      - name: Bundle dmrconf
+        run: bash build/bundle-dmrconf.sh "out/providers"
+      - name: Smoke test
+        run: |
+          curl -fsSL -o potsdam.yaml https://raw.githubusercontent.com/hmatuschek/qdmr/v0.15.1/examples/potsdam.yaml
+          python3 build/dmr-smoke.py "$PWD/out/providers/qdmr/Contents/MacOS/dmrconf" potsdam.yaml
+      # tar keeps the framework symlinks and the executable bit
+      - name: Pack
+        run: tar -czf dmr-darwin-${{ matrix.arch }}.tgz -C out providers
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dmr-darwin-${{ matrix.arch }}
+          path: dmr-darwin-${{ matrix.arch }}.tgz
+
   build:
+    needs: dmr
+    if: ${{ !cancelled() }}
     runs-on: macos-14
     timeout-minutes: 60
     steps:
@@ -37,6 +71,31 @@ jobs:
       - name: Fetch Python runtimes
         if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
         run: bash build/fetch-python.sh
+      - name: DMR programmer (Apple Silicon)
+        if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: dmr-darwin-arm64
+          path: dmr-dl/arm64
+      - name: DMR programmer (Intel)
+        if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: dmr-darwin-x64
+          path: dmr-dl/x64
+      - name: Check DMR bundles
+        if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          for A in arm64 x64; do
+            D=pybuild/darwin-$A/providers
+            rm -rf "$D"; mkdir -p "pybuild/darwin-$A"
+            if [ -f "dmr-dl/$A/dmr-darwin-$A.tgz" ]; then tar -xzf "dmr-dl/$A/dmr-darwin-$A.tgz" -C "pybuild/darwin-$A"; fi
+            mkdir -p "$D"
+            if [ -x "$D/qdmr/Contents/MacOS/dmrconf" ]; then echo "DMR $A: incluído"; else echo "DMR $A: ausente"; echo "Sem programador DMR nesta arquitetura." > "$D/LEIA-ME.txt"; fi
+          done
+          test -x pybuild/darwin-arm64/providers/qdmr/Contents/MacOS/dmrconf
       - name: Package apps
         if: steps.ver.outputs.publish == 'true' || github.event_name == 'workflow_dispatch'
         run: |

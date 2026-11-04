@@ -137,3 +137,18 @@ details.notice summary{list-style:revert}
 .plat-win32 .ai-head{padding-top:18px}
 .plat-win32 .view{padding-top:28px}
 .plat-win32 .update-bar{top:8px}
+/* 0.4 · DMR */
+.pill.acc{background:var(--accbg);color:var(--acc2)}
+.w-cc{width:52px}.w-ts{width:62px}.w-ct{width:150px}.w-gl{width:120px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{background:transparent;border:0;border-bottom:2px solid transparent;color:var(--txt2);padding:10px 14px;font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
+.tab.on{color:var(--acc2);border-bottom-color:var(--acc)}
+.tab:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.checks{display:flex;flex-wrap:wrap;gap:6px 12px;padding:4px 0}
+.check{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--txt2)}
+.check input{accent-color:var(--acc)}
+.model-row .pill{flex:none}
+table.wide td:nth-child(1),table.wide th:nth-child(1){position:sticky;left:0;background:var(--card);z-index:2;min-width:46px}
+table.wide td:nth-child(2),table.wide th:nth-child(2){position:sticky;left:46px;background:var(--card);z-index:2;box-shadow:1px 0 0 var(--line)}
+table.wide th:nth-child(-n+2){z-index:3}
+table.wide tr.new td:nth-child(-n+2){background:#13261F} table.wide tr.chg td:nth-child(-n+2){background:#272112} table.wide tr.err td:nth-child(-n+2){background:#2C1815}

@@ -12,14 +12,14 @@
     { id: 'channels', label: 'Canais e região' },
     { id: 'review', label: 'Revisar e gravar' }
   ];
-  const POPULAR = ['Quansheng UV-K1', 'Quansheng UV-K5', 'Baofeng UV-5R', 'Baofeng BF-888', 'Baofeng UV-82', 'Baofeng UV-17', 'Radioddity GA-510', 'Retevis H777', 'TYT TH-UV88', 'Yaesu FT-60', 'Yaesu FT-65R', 'Kenwood TH-D74 (clone mode)'];
+  const POPULAR = ['Quansheng UV-K1', 'Quansheng UV-K5', 'Baofeng UV-5R', 'Baofeng BF-888', 'Baofeng UV-82', 'Baofeng UV-17', 'Radioddity GA-510', 'Retevis H777', 'TYT TH-UV88', 'Yaesu FT-60', 'Yaesu FT-65R', 'AnyTone AT-D878UV', 'Radioddity GD-77', 'TYT MD-UV390', 'Baofeng DM-1701'];
   const TONES = [67.0, 69.3, 71.9, 74.4, 77.0, 79.7, 82.5, 85.4, 88.5, 91.5, 94.8, 97.4, 100.0, 103.5, 107.2, 110.9, 114.8, 118.8, 123.0, 127.3, 131.8, 136.5, 141.3, 146.2, 151.4, 156.7, 159.8, 162.2, 165.5, 167.9, 171.3, 173.8, 177.3, 179.9, 183.5, 186.2, 189.9, 192.8, 196.6, 199.5, 203.5, 206.5, 210.7, 218.1, 225.7, 229.1, 233.6, 241.8, 250.3, 254.1];
 
   const st = {
     view: 'connect', ports: [], knownPorts: null, newPorts: new Set(), port: null,
     models: [], modelQuery: '', model: null, prompts: null, photos: {},
     busy: false, progress: null, radio: null, original: [], working: [], errors: {},
-    filter: 'Todos', chat: [], aiHistory: null, chatBusy: false,
+    filter: 'Todos', tab: 'channels', extras: null, extrasOrig: null, chat: [], aiHistory: null, chatBusy: false,
     settings: { hasKey: {}, providers: [], models: {}, dev: {} }, done: new Set(), keyWaiting: false, providerModels: {}
   };
 
@@ -79,7 +79,7 @@
   function sameMem(a, b) {
     if (!a || !b) return false;
     if (a.empty && b.empty) return true;
-    return SAME_KEYS.every((k) => String(a[k]) === String(b[k]));
+    return SAME_KEYS.every((k) => String(a[k]) === String(b[k])) && JSON.stringify(a.dmr || null) === JSON.stringify(b.dmr || null);
   }
   function diff() {
     const add = [], chg = [], del = [];
@@ -89,6 +89,13 @@
       if (o.empty && !w.empty) add.push(w); else if (!o.empty && w.empty) del.push(o); else chg.push(w);
     });
     return { add, chg, del };
+  }
+  function isDmr() { return !!(st.radio && st.radio.features && st.radio.features.dmr); }
+  function extrasDirty() { return isDmr() && JSON.stringify(st.extras) !== JSON.stringify(st.extrasOrig); }
+  function extrasChanges() {
+    if (!extrasDirty()) return [];
+    const lbl = { contacts: 'Contatos', groupLists: 'Listas de grupo', zones: 'Zonas', radioIDs: 'IDs do rádio' };
+    return Object.keys(lbl).filter((k) => JSON.stringify(st.extras[k]) !== JSON.stringify(st.extrasOrig[k])).map((k) => lbl[k]);
   }
   function idxOf(number) { return st.working.findIndex((m) => m.number === number); }
   function provider() { return (st.settings.providers || []).find((p) => p.id === st.settings.provider) || { id: 'groq', label: 'Groq', price: 'Grátis' }; }
@@ -100,7 +107,8 @@
       limites_canais: r.features.memory_bounds, modos: r.features.valid_modes, duplex: r.features.valid_duplexes,
       tons: r.features.valid_tmodes, potencias: r.features.valid_power_levels, tamanho_nome: r.features.valid_name_length,
       faixas_mhz: (r.features.valid_bands || []).map((b) => [b[0] / 1e6, b[1] / 1e6]),
-      canais_atuais: st.working.filter((m) => !m.empty).map((m) => [m.number, m.name, m.freq, m.duplex, m.offset, m.tmode, m.rtone, m.mode])
+      canais_atuais: st.working.filter((m) => !m.empty).map((m) => [m.number, m.name, m.freq, m.duplex, m.offset, m.tmode, m.rtone, m.mode].concat(m.dmr ? ['CC' + m.dmr.color_code, m.dmr.time_slot] : [])),
+      dmr: isDmr() ? { contatos: ((st.extras || {}).contacts || []).map((c) => [c.name, c.type, c.number]), aviso: 'Canais DMR usam mode DMR; color code e time slot ficam no canal.' } : undefined
     };
   }
 
@@ -180,9 +188,10 @@
       list = pop.length ? pop : st.models.slice(0, 40);
     } else list = st.models.filter((m) => m.label.toLowerCase().includes(q)).slice(0, 120);
     box.innerHTML = (q ? '' : '<div class="models-head">Mais usados · digite para buscar entre ' + st.models.length + ' modelos</div>') +
-      list.map((m) => '<button type="button" data-model="' + esc(m.id) + '" class="model-row ' + (st.model && st.model.id === m.id ? 'sel' : '') + '"><span class="mini-art" aria-hidden="true">' + window.RadioArt.svg(m, { freq: '' }) + '</span><span style="flex:1;min-width:0"><span style="display:block">' + esc(m.label) + '</span><span class="muted" style="font-size:12px">' + esc(window.RadioArt.formLabel(m.form)) + '</span></span></button>').join('') ||
+      list.map((m) => '<button type="button" data-model="' + esc(m.id) + '" class="model-row ' + (st.model && st.model.id === m.id ? 'sel' : '') + '"><span class="mini-art" aria-hidden="true">' + window.RadioArt.svg(m, { freq: '' }) + '</span><span style="flex:1;min-width:0"><span style="display:block">' + esc(m.label) + '</span><span class="muted" style="font-size:12px">' + esc(window.RadioArt.formLabel(m.form)) + (m.dmr && !m.available ? ' · ' + esc(dmrUnavailable()) : '') + '</span></span>' + (m.dmr ? '<span class="pill ' + (m.available ? 'acc' : 'mute') + '">DMR</span>' : '') + '</button>').join('') ||
       '<div class="muted" style="padding:10px">Nenhum modelo encontrado.</div>';
   }
+  function dmrUnavailable() { return st.settings.platform === 'win32' ? 'DMR disponível no Mac nesta versão' : 'Programador DMR não encontrado nesta instalação'; }
   function vConnect(v) {
     v.innerHTML =
       '<header style="display:flex;flex-direction:column;gap:8px"><span class="eyebrow">Etapa 1 de 4</span><h1>Conecte o seu rádio</h1><p class="lead">Ligue o rádio, conecte o cabo de dados e escolha o modelo. A porta nova aparece sozinha.</p></header>' +
@@ -191,7 +200,7 @@
       '<details class="muted"><summary style="cursor:pointer;color:var(--acc)">Nenhuma porta nova apareceu?</summary><p>O cabo provavelmente só carrega. Teste outro cabo USB-C de dados ou o cabo de 2 pinos na entrada de fone do rádio. Ligue o rádio antes de conectar o cabo.</p></details></section>' +
       '<section class="card" aria-label="Modelo"><div class="spread"><h2>Modelo do rádio</h2><span id="modelSel" class="muted"></span></div><label class="sr" for="mq">Buscar modelo</label><input id="mq" class="input" placeholder="Buscar: UV-K1, UV-5R, Yaesu FT-60…" value="' + esc(st.modelQuery) + '"><div id="models" class="models"></div></section>' +
       '</div><aside id="devicePane" aria-label="Aparelho">' + deviceCard(st.model) + '<div id="prompt"></div></aside></div>' +
-      '<div class="footer"><button type="button" class="btn" id="openImg">Abrir arquivo .img</button><button type="button" class="btn primary" id="toDownload">Baixar do rádio</button></div>';
+      '<div class="footer"><button type="button" class="btn" id="openImg">Abrir arquivo</button><button type="button" class="btn primary" id="toDownload">Baixar do rádio</button></div>';
     renderPorts(); renderModels(); renderPrompt();
     $('#mq').addEventListener('input', (e) => { st.modelQuery = e.target.value; renderModels(); });
     v.querySelector('#ports').addEventListener('change', (e) => { if (e.target.name === 'port') { st.port = e.target.value; renderPorts(); } });
@@ -201,8 +210,9 @@
     });
     $('#openImg').onclick = openImage;
     $('#toDownload').onclick = () => {
-      if (!st.port) return toast('Escolha a porta do rádio.');
       if (!st.model) return toast('Escolha o modelo do rádio.');
+      if (st.model.dmr && !st.model.available) return modal('DMR ainda não disponível aqui', dmrUnavailable() + '. Você ainda pode abrir e editar um codeplug .yaml do qdmr com "Abrir arquivo".', [{ label: 'OK', primary: true }]);
+      if (!st.port && !st.model.dmr) return toast('Escolha a porta do rádio.');
       st.done.add('connect'); go('download'); startDownload();
     };
   }
@@ -225,14 +235,14 @@
     const p = $('#prompt'); if (!p) return;
     const pr = st.prompts || {};
     const parts = [];
-    if (pr.experimental) parts.push('<details class="notice bad"><summary style="cursor:pointer"><strong>Driver experimental do CHIRP</strong>: o backup automático protege o seu rádio. Ver aviso original</summary>\n' + esc(pr.experimental) + '</details>');
+    if (pr.experimental) parts.push('<details class="notice bad"><summary style="cursor:pointer"><strong>' + (st.model && st.model.dmr ? 'Programação DMR (qdmr)' : 'Driver experimental do CHIRP') + '</strong>: o backup automático protege o seu rádio. Ver aviso original</summary>\n' + esc(pr.experimental) + '</details>');
     if (pr.pre_download) parts.push('<details class="notice"><summary style="cursor:pointer"><strong>Instruções do driver</strong> (em inglês)</summary>\n' + esc(pr.pre_download) + '</details>');
     p.innerHTML = parts.join('');
   }
   async function openImage() {
     const path = await rh.openFile('img'); if (!path) return;
     try {
-      st.radio = await call('open_image', { path }); st.port = null;
+      st.radio = await call('open_image', { path, model_id: st.model && st.model.dmr ? st.model.id : null }); st.port = null;
       await loadPhoto(st.radio.id);
       await loadMemories(true);
       st.done.add('connect'); st.done.add('download'); go('channels');
@@ -253,21 +263,24 @@
   async function loadMemories(reset) {
     const mems = await call('get_memories');
     st.working = mems.map((m) => Object.assign({}, m));
-    if (reset) { st.original = mems.map((m) => Object.assign({}, m)); st.errors = {}; }
+    if (reset) { st.original = mems.map((m) => Object.assign({}, m)); st.errors = {}; st.dmrPending = false; }
+    if (isDmr()) {
+      if (reset || !st.extras) { const x = await call('get_extras'); st.extras = JSON.parse(JSON.stringify(x)); st.extrasOrig = JSON.parse(JSON.stringify(x)); }
+    } else { st.extras = null; st.extrasOrig = null; st.tab = 'channels'; }
   }
   function vDownload(v) {
     const r = st.radio, f = r && r.features;
     let body;
     if (st.busy) {
       const p = st.progress || {}; const pct = p.max ? Math.round(100 * p.cur / p.max) : 0;
-      body = '<div class="connect-grid"><section class="card"><div class="spread"><h2>Lendo a memória do rádio</h2><span class="mono">' + pct + '%</span></div><div class="bar" role="progressbar" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100"><div style="width:' + pct + '%"></div></div><span class="muted">' + esc(p.msg || '') + '</span><span class="muted">Não desconecte o cabo nem desligue o rádio.</span></section><aside>' + deviceCard(st.model, { freq: 'LENDO…' }) + '</aside></div>';
+      body = '<div class="connect-grid"><section class="card"><div class="spread"><h2>' + (st.model && st.model.dmr ? 'Lendo o codeplug DMR' : 'Lendo a memória do rádio') + '</h2><span class="mono">' + pct + '%</span></div><div class="bar" role="progressbar" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100"><div style="width:' + pct + '%"></div></div><span class="muted">' + esc(p.msg || '') + '</span><span class="muted">Não desconecte o cabo nem desligue o rádio.</span></section><aside>' + deviceCard(st.model, { freq: 'LENDO…' }) + '</aside></div>';
     } else if (st.error) {
       body = '<div class="connect-grid"><section class="card"><h2>Não foi possível ler o rádio</h2>' + errBox(st.error) + '<div class="muted" style="font-size:13px">Modelo: ' + esc(st.model ? st.model.label : '—') + ' · Porta: <span class="mono">' + esc(st.port || '—') + '</span></div><ul class="muted" style="margin:0;padding-left:18px"><li>Feche o CHIRP se ele estiver aberto.</li><li>Desconecte o cabo, ligue o rádio e conecte de novo.</li><li>Confirme o modelo e a porta.</li></ul><div class="row"><button type="button" class="btn primary" id="retry">Tentar de novo</button><button type="button" class="btn" data-go="connect">Voltar</button></div></section><aside>' + deviceCard(st.model) + '</aside></div>';
     } else if (r) {
       const used = st.working.filter((m) => !m.empty).length;
       const info = '<div class="grid2" style="margin-top:6px"><div><div class="muted" style="font-size:12px">Firmware</div><div class="mono">' + esc(r.firmware || 'não informado') + '</div></div><div><div class="muted" style="font-size:12px">Canais em uso</div><div class="mono">' + used + ' de ' + (f.memory_bounds[1] - f.memory_bounds[0] + 1) + '</div></div><div><div class="muted" style="font-size:12px">Porta</div><div class="mono" style="overflow:hidden;text-overflow:ellipsis">' + esc((st.port || '—').replace('/dev/', '')) + '</div></div><div><div class="muted" style="font-size:12px">Modos</div><div class="mono">' + esc(f.valid_modes.join(' ')) + '</div></div></div><span class="pill ok" style="align-self:flex-start">Leitura concluída</span>';
       body = '<section class="card hero">' + deviceCard(modelFor(r), { html: info, freq: (st.working.find((m) => !m.empty) || {}).freq ? fmtF(st.working.find((m) => !m.empty).freq) : '' }) + '</section>' +
-        '<section class="card"><h2>Backup automático</h2><p class="muted" style="margin:0">Cópia completa salva em <span class="mono" style="color:var(--txt)">' + esc(r.backup_path || r.image_path || '') + '</span>. Dá para voltar a ela a qualquer momento com "Abrir arquivo .img".</p><div><button type="button" class="btn sm" id="reveal">Mostrar no Finder</button></div></section>';
+        '<section class="card"><h2>Backup automático</h2><p class="muted" style="margin:0">Cópia completa salva em <span class="mono" style="color:var(--txt)">' + esc(r.backup_path || r.image_path || '') + '</span>. Dá para voltar a ela a qualquer momento com "Abrir arquivo".</p><div><button type="button" class="btn sm" id="reveal">Mostrar no Finder</button></div></section>';
     } else body = '<div class="muted">Nada lido ainda.</div>';
     v.innerHTML = '<header style="display:flex;flex-direction:column;gap:8px"><span class="eyebrow">Etapa 2 de 4</span><h1>' + (r && !st.busy && !st.error ? 'Encontramos o seu rádio' : 'Identificando o rádio') + '</h1></header>' + body +
       '<div class="footer"><button type="button" class="btn" data-go="connect"' + (st.busy ? ' disabled' : '') + '>Voltar</button><button type="button" class="btn primary" data-go="channels"' + (r && !st.busy ? '' : ' disabled') + '>Ver canais</button></div>';
@@ -289,14 +302,26 @@
       '<td><input class="cell w-f mono" data-k="freq" value="' + esc(fmtF(m.freq)) + '" aria-label="Frequência em MHz"></td>' +
       '<td><select class="cell w-d" data-k="duplex" aria-label="Deslocamento">' + opts(f.valid_duplexes, m.duplex, { off: 'só RX' }) + '</select></td>' +
       '<td><input class="cell w-o mono" data-k="offset" value="' + esc(fmtF(m.offset)) + '" aria-label="Valor do deslocamento"' + (m.duplex === '+' || m.duplex === '-' || m.duplex === 'split' ? '' : ' disabled') + '></td>' +
-      '<td><select class="cell w-t" data-k="tmode" aria-label="Tipo de tom">' + opts(f.valid_tmodes, m.tmode) + '</select></td>' +
-      '<td>' + (m.tmode === 'DTCS' ? '<input class="cell w-tn mono" data-k="dtcs" value="' + esc(String(m.dtcs).padStart(3, '0')) + '" aria-label="Código DCS">' : '<select class="cell w-tn mono" data-k="tone" aria-label="Subtom"' + (m.tmode ? '' : ' disabled') + '>' + opts(TONES, toneVal) + '</select>') + '</td>' +
+      '<td><select class="cell w-t" data-k="tmode" aria-label="Tipo de tom"' + (m.mode === 'DMR' ? ' disabled' : '') + '>' + opts(f.valid_tmodes, m.tmode) + '</select></td>' +
+      '<td>' + (m.mode === 'DMR' ? '<select class="cell w-tn" disabled aria-label="Subtom"><option>—</option></select>' : m.tmode === 'DTCS' ? '<input class="cell w-tn mono" data-k="dtcs" value="' + esc(String(m.dtcs).padStart(3, '0')) + '" aria-label="Código DCS">' : '<select class="cell w-tn mono" data-k="tone" aria-label="Subtom"' + (m.tmode ? '' : ' disabled') + '>' + opts(TONES, toneVal) + '</select>') + '</td>' +
       '<td><select class="cell w-m" data-k="mode" aria-label="Modo">' + opts(f.valid_modes, m.mode) + '</select></td>' +
       '<td><select class="cell w-p" data-k="power" aria-label="Potência">' + opts(f.valid_power_levels, m.power) + '</select></td>' +
+      (f.dmr ? dmrCells(m) : '') +
       '<td><button type="button" class="btn sm icon" data-del="' + i + '" aria-label="Apagar canal ' + m.number + '">✕</button>' + (st.errors[m.number] ? '<div class="errtxt">' + esc(st.errors[m.number].join(' · ')) + '</div>' : '') + '</td></tr>';
   }
+  const CCS = Array.from({ length: 16 }, (_, k) => k);
+  function dmrCells(m) {
+    const d = m.dmr || {}; const on = m.mode === 'DMR'; const dis = on ? '' : ' disabled';
+    const x = st.extras || {};
+    const contacts = [''].concat((x.contacts || []).map((c) => c.id)); const cl = { '': '—' }; (x.contacts || []).forEach((c) => { cl[c.id] = c.name + ' (' + c.number + ')'; });
+    const groups = [''].concat((x.groupLists || []).map((g) => g.id)); const gl = { '': '—' }; (x.groupLists || []).forEach((g) => { gl[g.id] = g.name; });
+    return '<td><select class="cell w-cc mono" data-k="cc" aria-label="Color code"' + dis + '>' + (on ? opts(CCS, d.color_code) : '<option>—</option>') + '</select></td>' +
+      '<td><select class="cell w-ts" data-k="ts" aria-label="Time slot"' + dis + '>' + (on ? opts(['TS1', 'TS2'], d.time_slot) : '<option>—</option>') + '</select></td>' +
+      '<td><select class="cell w-ct" data-k="contact" aria-label="Contato de transmissão"' + dis + '>' + (on ? opts(contacts, d.contact || '', cl) : '<option>—</option>') + '</select></td>' +
+      '<td><select class="cell w-gl" data-k="group_list" aria-label="Lista de grupos para escuta"' + dis + '>' + (on ? opts(groups, d.group_list || '', gl) : '<option>—</option>') + '</select></td>';
+  }
   function updateCounts() {
-    const d = diff(); const n = d.add.length + d.chg.length + d.del.length;
+    const d = diff(); const n = d.add.length + d.chg.length + d.del.length + extrasChanges().length + (st.dmrPending ? 1 : 0);
     const b = $('#toReview'); if (b) b.textContent = 'Revisar alterações (' + n + ')';
   }
   function vChannels(v) {
@@ -304,18 +329,96 @@
     const total = Object.values(groups).reduce((a, b) => a + b, 0);
     if (st.filter !== 'Todos' && !groups[st.filter]) st.filter = 'Todos';
     const rows = st.working.map((m, i) => ({ m, i })).filter(({ m }) => !m.empty && (st.filter === 'Todos' || groupOf(m) === st.filter));
+    const dmr = isDmr(); if (!dmr) st.tab = 'channels';
+    const x = st.extras || {};
+    const tabs = dmr ? '<div class="tabs" role="tablist" aria-label="Partes do codeplug">' + [['channels', 'Canais', total], ['contacts', 'Contatos', (x.contacts || []).length], ['groupLists', 'Listas de grupo', (x.groupLists || []).length], ['zones', 'Zonas', (x.zones || []).length], ['radioIDs', 'IDs do rádio', (x.radioIDs || []).length]].map((t) => '<button type="button" role="tab" aria-selected="' + (st.tab === t[0]) + '" class="tab ' + (st.tab === t[0] ? 'on' : '') + '" data-tab="' + t[0] + '">' + t[1] + ' <span class="muted">' + t[2] + '</span></button>').join('') + '</div>' : '';
+    if (st.tab !== 'channels') {
+      v.innerHTML = '<header class="spread" style="align-items:flex-end"><div style="display:flex;flex-direction:column;gap:6px"><span class="eyebrow">Etapa 3 de 4 · DMR</span><h1>Codeplug</h1></div><div class="row"><button type="button" class="btn sm" id="saveImg">Salvar codeplug</button></div></header>' + tabs +
+        '<div class="tablebox" id="extras">' + extrasHtml(st.tab) + '</div>' +
+        '<div class="footer"><button type="button" class="btn" data-go="download">Voltar</button><button type="button" class="btn primary" id="toReview" data-go="review">Revisar alterações</button></div>';
+      updateCounts();
+      v.querySelector('.tabs').onclick = onTab; $('#saveImg').onclick = saveImage;
+      const box = $('#extras'); box.addEventListener('change', onExtraChange); box.addEventListener('click', onExtraClick);
+      return;
+    }
     v.innerHTML =
-      '<header class="spread" style="align-items:flex-end"><div style="display:flex;flex-direction:column;gap:6px"><span class="eyebrow">Etapa 3 de 4</span><h1>Canais</h1></div><div class="row"><button type="button" class="btn sm" id="impCsv">Importar CSV</button><button type="button" class="btn sm" id="expCsv">Exportar CSV</button><button type="button" class="btn sm" id="saveImg">Salvar imagem</button><button type="button" class="btn sm" id="addCh">+ Canal</button></div></header>' +
+      '<header class="spread" style="align-items:flex-end"><div style="display:flex;flex-direction:column;gap:6px"><span class="eyebrow">Etapa 3 de 4</span><h1>Canais</h1></div><div class="row"><button type="button" class="btn sm" id="impCsv">Importar CSV</button><button type="button" class="btn sm" id="expCsv">Exportar CSV</button><button type="button" class="btn sm" id="saveImg">' + (dmr ? 'Salvar codeplug' : 'Salvar imagem') + '</button><button type="button" class="btn sm" id="addCh">+ Canal</button></div></header>' + tabs +
       '<div class="chips" role="group" aria-label="Filtrar por grupo">' + ['Todos'].concat(Object.keys(groups).sort()).map((g) => '<button type="button" class="chip ' + (st.filter === g ? 'on' : '') + '" data-filter="' + esc(g) + '">' + esc(g) + ' · ' + (g === 'Todos' ? total : groups[g]) + '</button>').join('') + '</div>' +
-      '<div class="tablebox"><table><thead><tr><th>Nº</th><th>Nome</th><th>Frequência</th><th>Desloc.</th><th>Valor</th><th>Tom</th><th>Subtom</th><th>Modo</th><th>Potência</th><th><span class="sr">Ações</span></th></tr></thead><tbody>' +
+      '<div class="tablebox"><table' + (dmr ? ' class="wide"' : '') + '><thead><tr><th>Nº</th><th>Nome</th><th>Frequência</th><th>Desloc.</th><th>Valor</th><th>Tom</th><th>Subtom</th><th>Modo</th><th>Potência</th>' + (dmr ? '<th title="Color code">CC</th><th title="Time slot">TS</th><th>Contato TX</th><th>Lista RX</th>' : '') + '<th><span class="sr">Ações</span></th></tr></thead><tbody>' +
       rows.map(({ i }) => rowHtml(i)).join('') + '</tbody></table>' + (rows.length ? '' : '<div class="muted" style="padding:20px">Nenhum canal neste grupo. Use "+ Canal" ou peça ao assistente.</div>') + '</div>' +
       '<div class="footer"><button type="button" class="btn" data-go="download">Voltar</button><button type="button" class="btn primary" id="toReview" data-go="review">Revisar alterações</button></div>';
     updateCounts();
     v.querySelector('.chips').onclick = (e) => { const g = e.target.getAttribute('data-filter'); if (g) { st.filter = g; render(); } };
+    if (dmr) v.querySelector('.tabs').onclick = onTab;
     const tb = v.querySelector('tbody');
     tb.addEventListener('change', onCellChange);
     tb.addEventListener('click', (e) => { const i = e.target.getAttribute('data-del'); if (i !== null) { const m = st.working[+i]; st.working[+i] = { number: m.number, empty: true }; delete st.errors[m.number]; e.target.closest('tr').remove(); updateCounts(); } });
     $('#addCh').onclick = addChannel; $('#impCsv').onclick = importCsv; $('#expCsv').onclick = exportCsv; $('#saveImg').onclick = saveImage;
+  }
+  function onTab(e) { const t = e.target.closest('[data-tab]'); if (t) { st.tab = t.getAttribute('data-tab'); render(); } }
+  const CTYPES = { GroupCall: 'Grupo (talkgroup)', PrivateCall: 'Privado', AllCall: 'Todos' };
+  function ranges(nums) {
+    const a = (nums || []).slice().sort((p, q) => p - q); const out = [];
+    for (let k = 0; k < a.length; k++) { let j = k; while (j + 1 < a.length && a[j + 1] === a[j] + 1) j++; out.push(j > k ? a[k] + '-' + a[j] : String(a[k])); k = j; }
+    return out.join(', ');
+  }
+  function parseRanges(t) {
+    const out = [];
+    String(t || '').split(/[,;\s]+/).forEach((p) => { const m = p.match(/^(\d+)(?:-(\d+))?$/); if (!m) return; const a = +m[1], b = m[2] ? +m[2] : a; for (let n = Math.min(a, b); n <= Math.max(a, b) && out.length < 4000; n++) if (!out.includes(n)) out.push(n); });
+    return out;
+  }
+  function extrasHtml(tab) {
+    const x = st.extras || {}; const list = x[tab] || [];
+    const del = (j) => '<td><button type="button" class="btn sm icon" data-xdel="' + j + '" aria-label="Remover">✕</button></td>';
+    const nm = (e, j) => '<td><input class="cell w-name" data-x="name" data-j="' + j + '" maxlength="16" value="' + esc(e.name) + '" aria-label="Nome"></td>';
+    let head = '', rows = '', add = '', help = '';
+    if (tab === 'contacts') {
+      head = '<th>Nome</th><th>Tipo</th><th>Número</th><th></th>';
+      rows = list.map((c, j) => '<tr>' + nm(c, j) + '<td><select class="cell" data-x="type" data-j="' + j + '" aria-label="Tipo">' + opts(Object.keys(CTYPES), c.type, CTYPES) + '</select></td><td><input class="cell w-f mono" data-x="number" data-j="' + j + '" inputmode="numeric" value="' + esc(c.number) + '" aria-label="Número"></td>' + del(j) + '</tr>').join('');
+      add = '+ Contato'; help = 'Talkgroups e contatos privados. Ex.: Brasil 724, Distrito Federal 7246 (Brandmeister).';
+    } else if (tab === 'radioIDs') {
+      head = '<th>Indicativo</th><th>DMR ID</th><th></th>';
+      rows = list.map((r, j) => '<tr>' + nm(r, j) + '<td><input class="cell w-f mono" data-x="number" data-j="' + j + '" inputmode="numeric" value="' + esc(r.number) + '" aria-label="DMR ID"></td>' + del(j) + '</tr>').join('');
+      add = '+ ID'; help = 'O seu DMR ID vem do cadastro gratuito em radioid.net. O primeiro da lista é o padrão do rádio.';
+    } else if (tab === 'groupLists') {
+      head = '<th>Nome</th><th>Talkgroups que o rádio escuta</th><th></th>';
+      rows = list.map((g, j) => '<tr>' + nm(g, j) + '<td><div class="checks">' + (x.contacts || []).filter((c) => c.type === 'GroupCall').map((c) => '<label class="check"><input type="checkbox" data-x="gc" data-j="' + j + '" value="' + esc(c.id) + '"' + ((g.contacts || []).includes(c.id) ? ' checked' : '') + '>' + esc(c.name) + '</label>').join('') + '</div></td>' + del(j) + '</tr>').join('');
+      add = '+ Lista'; help = 'Uma lista de grupos define quais talkgroups você ouve em um canal DMR.';
+    } else if (tab === 'zones') {
+      head = '<th>Nome</th><th>Canais (A)</th><th>Canais (B)</th><th></th>';
+      rows = list.map((z, j) => '<tr>' + nm(z, j) + '<td><input class="cell mono" style="width:220px" data-x="A" data-j="' + j + '" value="' + esc(ranges(z.A)) + '" placeholder="1-10, 15" aria-label="Canais do lado A"></td><td><input class="cell mono" style="width:160px" data-x="B" data-j="' + j + '" value="' + esc(ranges(z.B)) + '" aria-label="Canais do lado B"></td>' + del(j) + '</tr>').join('');
+      add = '+ Zona'; help = 'Zonas agrupam canais para trocar rápido no rádio. Use números de canal, como 1-10, 15.';
+    }
+    return '<div class="spread" style="padding:12px 16px"><span class="muted" style="font-size:13px">' + esc(help) + '</span><button type="button" class="btn sm" data-xadd="' + tab + '">' + add + '</button></div>' +
+      '<table><thead><tr>' + head + '</tr></thead><tbody>' + rows + '</tbody></table>' + (list.length ? '' : '<div class="muted" style="padding:20px">Nada aqui ainda.</div>');
+  }
+  function onExtraChange(e) {
+    const k = e.target.getAttribute('data-x'); const j = e.target.getAttribute('data-j'); if (!k || j === null) return;
+    const it = st.extras[st.tab][+j];
+    if (k === 'number') it.number = parseInt(String(e.target.value).replace(/\D/g, ''), 10) || 0;
+    else if (k === 'A' || k === 'B') { it[k] = parseRanges(e.target.value); e.target.value = ranges(it[k]); }
+    else if (k === 'gc') { const set = new Set(it.contacts || []); if (e.target.checked) set.add(e.target.value); else set.delete(e.target.value); it.contacts = (st.extras.contacts || []).map((c) => c.id).filter((id) => set.has(id)); }
+    else it[k] = e.target.value;
+    updateCounts();
+  }
+  function onExtraClick(e) {
+    const a = e.target.getAttribute('data-xadd');
+    if (a) {
+      const blank = { contacts: { name: 'Novo TG', type: 'GroupCall', number: 0 }, radioIDs: { name: 'MEU INDICATIVO', number: 0 }, groupLists: { name: 'Nova lista', contacts: [] }, zones: { name: 'Nova zona', A: [], B: [] } }[a];
+      st.extras[a] = (st.extras[a] || []).concat([blank]); render();
+      const ins = document.querySelectorAll('#extras input[data-x="name"]'); const last = ins[ins.length - 1]; if (last) { last.focus(); last.select(); }
+      return;
+    }
+    const d = e.target.getAttribute('data-xdel');
+    if (d !== null) {
+      const gone = st.extras[st.tab][+d]; st.extras[st.tab].splice(+d, 1);
+      if (gone && gone.id && (st.tab === 'contacts' || st.tab === 'groupLists')) { // references go away with it
+        const key = st.tab === 'contacts' ? 'contact' : 'group_list';
+        st.working.forEach((m, i) => { if (m.dmr && m.dmr[key] === gone.id) st.working[i] = Object.assign({}, m, { dmr: Object.assign({}, m.dmr, { [key]: '' }) }); });
+        if (st.tab === 'contacts') (st.extras.groupLists || []).forEach((g) => { g.contacts = (g.contacts || []).filter((c) => c !== gone.id); });
+      }
+      render();
+    }
   }
   // Edits re-render only the edited row, so focus and scroll stay where they are.
   function onCellChange(e) {
@@ -323,6 +426,14 @@
     const i = +tr.getAttribute('data-i'); const m = Object.assign({}, st.working[i]); let val = e.target.value;
     if (k === 'tone') { if (m.tmode === 'TSQL') { m.ctone = parseFloat(val); m.rtone = parseFloat(val); } else m.rtone = parseFloat(val); }
     else if (k === 'dtcs') { m.dtcs = parseInt(val, 10) || 23; m.rx_dtcs = m.dtcs; }
+    else if (k === 'cc' || k === 'ts' || k === 'contact' || k === 'group_list') {
+      const key = { cc: 'color_code', ts: 'time_slot' }[k] || k;
+      m.dmr = Object.assign({}, m.dmr, { [key]: k === 'cc' ? parseInt(val, 10) : val });
+    } else if (k === 'mode') {
+      m.mode = val;
+      if (val === 'DMR') { m.tmode = ''; if (!m.dmr) { const c = ((st.extras || {}).contacts || [])[0]; const g = ((st.extras || {}).groupLists || [])[0]; m.dmr = { color_code: 1, time_slot: 'TS1', contact: c ? c.id : '', group_list: g ? g.id : '', radio_id: '' }; } }
+      else delete m.dmr;
+    }
     else if (k === 'freq' || k === 'offset') { val = val.replace(',', '.'); const n = parseFloat(val); m[k] = isNaN(n) ? m[k] : n.toFixed(6); }
     else m[k] = val;
     if (k === 'duplex' && (val === '+' || val === '-') && !(parseFloat(m.offset) > 0)) m.offset = parseFloat(m.freq) > 300 ? '5.000000' : '0.600000';
@@ -364,14 +475,34 @@
     try { await call('export_csv', { path, memories: st.working }); toast('CSV salvo.'); } catch (e) { toast(e.message); }
   }
   async function saveImage() {
-    const path = await rh.saveFile('img', (st.radio.model || 'radio').replace(/\W+/g, '_') + '.img'); if (!path) return;
-    try { await syncToEngine(); await call('save_image', { path }); toast('Imagem salva.'); } catch (e) { toast(e.message); }
+    const ext = isDmr() ? 'yaml' : 'img';
+    const path = await rh.saveFile(ext, (st.radio.model || 'radio').replace(/\W+/g, '_') + '.' + ext); if (!path) return;
+    try { await syncToEngine(); await call('save_image', { path }); if (isDmr()) render(); toast(isDmr() ? 'Codeplug salvo. Ainda não foi gravado no rádio.' : 'Imagem salva.'); } catch (e) { toast(e.message); }
   }
   async function syncToEngine() {
+    // DMR: contacts and group lists go first, so new channels can point to them
+    if (extrasDirty()) {
+      const x = await call('set_extras', { extras: { contacts: st.extras.contacts, groupLists: st.extras.groupLists, radioIDs: st.extras.radioIDs } });
+      st.extras.contacts = x.contacts; st.extras.groupLists = x.groupLists; st.extras.radioIDs = x.radioIDs;
+    }
     const d = diff(); const mems = d.add.concat(d.chg).concat(d.del.map((o) => ({ number: o.number, empty: true })));
-    if (!mems.length) return { applied: [], failed: [] };
-    const r = await call('set_memories', { memories: mems });
-    r.failed.forEach((f) => { st.errors[f.number] = f.errors; });
+    let r = { applied: [], failed: [] };
+    if (mems.length) {
+      r = await call('set_memories', { memories: mems });
+      r.failed.forEach((f) => { st.errors[f.number] = f.errors; });
+    }
+    if (isDmr()) {
+      // The codeplug keeps channels as a list, so deleting one shifts the numbers after it.
+      // Zones are written after the channels, with their numbers moved the same way.
+      const bad = new Set(r.failed.map((f) => f.number));
+      const present = st.working.filter((m, i) => (!m.empty && (!bad.has(m.number) || !st.original[i].empty)) || (m.empty && bad.has(m.number) && !st.original[i].empty)).map((m) => m.number).sort((a, b) => a - b);
+      const moved = {}; present.forEach((n, k) => { moved[n] = k + 1; });
+      const zones = (st.extras.zones || []).map((z) => Object.assign({}, z, { A: (z.A || []).map((n) => moved[n]).filter(Boolean), B: (z.B || []).map((n) => moved[n]).filter(Boolean) }));
+      const changed = mems.length || extrasDirty();
+      await call('set_extras', { extras: { zones } });
+      await loadMemories(true);
+      if (changed) st.dmrPending = true;
+    }
     return r;
   }
 
@@ -445,6 +576,7 @@
       });
       if (m.duplex && !f.valid_duplexes.includes(m.duplex)) m.duplex = '';
       if (!f.valid_modes.includes(m.mode)) m.mode = f.valid_modes.includes('FM') ? 'FM' : f.valid_modes[0];
+      if (m.mode === 'DMR') { m.tmode = ''; m.dmr = Object.assign({ color_code: 1, time_slot: 'TS1', contact: '', group_list: '', radio_id: '' }, base.dmr || {}, o.color_code !== undefined ? { color_code: +o.color_code } : {}, o.time_slot ? { time_slot: o.time_slot } : {}); } else delete m.dmr;
       if (m.tmode && !f.valid_tmodes.includes(m.tmode)) m.tmode = '';
       st.working[i] = m; touched.push(m);
     });
@@ -459,20 +591,23 @@
     const d = diff(); const errs = Object.keys(st.errors).length; const p = st.progress;
     const pct = p && p.max ? Math.round(100 * p.cur / p.max) : 0;
     const item = (sym, color, m) => '<div class="spread" style="padding:10px 16px;border-bottom:1px solid var(--line)"><span class="row"><span style="color:' + color + ';font-weight:700;width:18px">' + sym + '</span><span class="mono muted">' + String(m.number).padStart(3, '0') + '</span>' + esc(m.name || '') + '</span><span class="mono muted">' + esc(fmtF(m.freq)) + (m.duplex === '+' || m.duplex === '-' ? ' ' + m.duplex + fmtF(m.offset) : '') + ' ' + esc(m.mode || '') + '</span></div>';
-    const list = d.add.map((m) => item('+', 'var(--ok)', m)).concat(d.chg.map((m) => item('~', 'var(--warn)', m))).concat(d.del.map((m) => item('−', 'var(--bad)', m)));
+    const list = d.add.map((m) => item('+', 'var(--ok)', m)).concat(d.chg.map((m) => item('~', 'var(--warn)', m))).concat(d.del.map((m) => item('−', 'var(--bad)', m)))
+      .concat(st.dmrPending ? ['<div class="spread" style="padding:10px 16px;border-bottom:1px solid var(--line)"><span class="row"><span style="color:var(--warn);font-weight:700;width:18px">~</span>Codeplug editado e salvo</span><span class="muted">ainda não gravado no rádio</span></div>'] : [])
+      .concat(extrasChanges().map((t) => '<div class="spread" style="padding:10px 16px;border-bottom:1px solid var(--line)"><span class="row"><span style="color:var(--warn);font-weight:700;width:18px">~</span>' + esc(t) + '</span><span class="muted">codeplug DMR</span></div>'));
     v.innerHTML = '<header style="display:flex;flex-direction:column;gap:8px"><span class="eyebrow">Etapa 4 de 4</span><h1>Revise antes de gravar</h1><p class="lead">' + (st.radio.backup_path ? 'O backup de hoje já está salvo. Dá para voltar ao estado anterior a qualquer momento.' : 'Uma cópia do que será gravado é salva antes do envio.') + '</p></header>' +
       '<section class="grid3"><div class="card"><span class="muted">Adicionados</span><span class="stat" style="color:var(--ok)">+' + d.add.length + '</span></div><div class="card"><span class="muted">Alterados</span><span class="stat" style="color:var(--warn)">' + d.chg.length + '</span></div><div class="card"><span class="muted">Removidos</span><span class="stat" style="color:var(--bad)">−' + d.del.length + '</span></div></section>' +
       (errs ? '<div class="notice bad">' + errs + ' canais têm erro e precisam ser corrigidos antes de gravar.</div>' : '') +
       '<section class="card" style="padding:0;overflow:hidden;max-height:320px;overflow-y:auto">' + (list.join('') || '<div class="muted" style="padding:16px">Nenhuma alteração em relação ao que foi lido do rádio.</div>') + '</section>' +
       (p ? '<section class="card"><div class="spread"><strong>Gravando no rádio</strong><span class="mono">' + pct + '%</span></div><div class="bar" role="progressbar" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100"><div style="width:' + pct + '%"></div></div><span class="muted">Não desconecte o cabo nem desligue o rádio. ' + esc(p.msg || '') + '</span></section>' : '') +
-      (!st.port && st.radio ? '<section class="card"><h2>Porta para gravar</h2><label class="sr" for="upPort">Porta</label><select id="upPort" class="input">' + st.ports.map((x) => '<option>' + esc(x.device) + '</option>').join('') + '</select></section>' : '') +
+      (isDmr() ? '<section class="card"><h2>Porta para gravar</h2><label class="sr" for="upPort">Porta</label><select id="upPort" class="input"><option value="">Detectar o rádio sozinho (recomendado)</option>' + st.ports.filter((x) => !x.is_system).map((x) => '<option' + (x.device === st.port ? ' selected' : '') + '>' + esc(x.device) + '</option>').join('') + '</select></section>' : '') +
+      (!st.port && st.radio && !isDmr() ? '<section class="card"><h2>Porta para gravar</h2><label class="sr" for="upPort">Porta</label><select id="upPort" class="input">' + st.ports.map((x) => '<option>' + esc(x.device) + '</option>').join('') + '</select></section>' : '') +
       (st.radio.prompts_pre_upload ? '<details class="notice"><summary style="cursor:pointer"><strong>Instruções do driver para gravar</strong> (em inglês)</summary>\n' + esc(st.radio.prompts_pre_upload) + '</details>' : '') +
       '<div class="footer"><button type="button" class="btn" data-go="channels"' + (st.busy ? ' disabled' : '') + '>Voltar e ajustar</button><div class="row"><button type="button" class="btn" id="expCsv2"' + (st.busy ? ' disabled' : '') + '>Exportar CSV</button><button type="button" class="btn primary" id="upload"' + (st.busy || errs || !list.length ? ' disabled' : '') + '>Gravar no rádio</button></div></div>';
     $('#expCsv2').onclick = exportCsv; $('#upload').onclick = doUpload;
   }
   async function doUpload() {
-    const port = st.port || ($('#upPort') && $('#upPort').value);
-    if (!port) return toast('Conecte o rádio e escolha a porta.');
+    const port = isDmr() ? ($('#upPort') ? $('#upPort').value : '') : (st.port || ($('#upPort') && $('#upPort').value));
+    if (!port && !isDmr()) return toast('Conecte o rádio e escolha a porta.');
     const ok = await modal('Gravar no rádio?', 'As alterações vão substituir os canais do rádio. Mantenha o rádio ligado e o cabo conectado até o fim.', [{ label: 'Cancelar', value: false }, { label: 'Gravar', value: true, primary: true }]);
     if (!ok) return;
     st.busy = true; st.progress = { cur: 0, max: 1, msg: 'Preparando…' }; render();
@@ -480,7 +615,7 @@
       const r = await syncToEngine();
       if (r.failed.length) throw new Error(r.failed.length + ' canais foram recusados pelo driver. Corrija os que estão em vermelho.');
       const up = await call('upload', { port });
-      await loadMemories(true);
+      await loadMemories(true); st.dmrPending = false;
       st.busy = false; st.progress = null; render();
       modal('Gravação concluída', 'Os canais já estão no rádio. Uma cópia do que foi enviado ficou em:\n' + up.saved_copy, [{ label: 'OK', primary: true }]);
     } catch (e) {
@@ -565,7 +700,7 @@
     const payload = pixPayload(d.pix || '', d.name || '', 'Brasilia');
     let qr = '';
     try { const q = window.qrcode(0, 'M'); q.addData(payload); q.make(); qr = q.createSvgTag({ cellSize: 5, margin: 2, scalable: true }); } catch (e) {}
-    v.innerHTML = '<header style="display:flex;flex-direction:column;gap:8px"><span class="eyebrow">Sobre</span><h1>RadioHub</h1><p class="lead">Versão ' + esc(st.settings.version || '') + '. Gestão de rádios com os drivers do CHIRP e assistente de frequências com IA.</p></header>' +
+    v.innerHTML = '<header style="display:flex;flex-direction:column;gap:8px"><span class="eyebrow">Sobre</span><h1>RadioHub</h1><p class="lead">Versão ' + esc(st.settings.version || '') + '. Gestão de rádios analógicos e DMR, com assistente de frequências com IA.</p></header>' +
       '<div class="about-grid"><section class="card"><h2>Desenvolvido por</h2><strong style="font-size:22px">' + esc(d.name) + '</strong>' +
       '<div class="contact"><span class="muted">WhatsApp</span><a href="#" data-url="' + esc(d.whatsapp) + '">' + esc(d.phone) + '</a></div>' +
       '<div class="contact"><span class="muted">Site</span><a href="#" data-url="' + esc(d.site) + '">' + esc((d.site || '').replace('https://', '')) + '</a></div>' +
@@ -573,7 +708,7 @@
       '<section class="card pix"><h2>Apoie o projeto</h2><p class="muted" style="margin:0">Se o RadioHub te ajudou, um Pix de qualquer valor ajuda a manter o desenvolvimento.</p><div class="qr" aria-label="QR Code Pix">' + qr + '</div>' +
       '<div class="contact"><span class="muted">Chave Pix</span><span class="mono">' + esc(d.pix) + '</span></div><div class="row"><button type="button" class="btn primary sm" id="cpKey">Copiar chave Pix</button><button type="button" class="btn sm" id="cpCode">Copiar Pix copia e cola</button></div></section></div>' +
       '<section class="card"><div class="spread"><h2>Atualizações</h2><button type="button" class="btn sm" id="chkUpd">Verificar agora</button></div><span class="muted" id="updState">O RadioHub verifica sozinho ao abrir e a cada 6 horas, e avisa quando sair uma versão nova. Versões e novidades em radiohub.diegocosta.digital.</span></section>' +
-      '<section class="card"><h2>Créditos</h2><span class="muted">Drivers de rádio: CHIRP (chirpmyradio.com), software livre sob a licença GPL v3. O RadioHub também é GPL v3. Ilustrações dos rádios são genéricas, feitas para o app. Backups em ~/RadioHub/backups e registros em ~/RadioHub/logs.</span></section>' +
+      '<section class="card"><h2>Créditos</h2><span class="muted">Rádios analógicos: CHIRP (chirpmyradio.com). Rádios DMR: qdmr/dmrconf, de Hannes Matuschek DM3MAT (dm3mat.darc.de/qdmr). Ambos são software livre sob a licença GPL v3. O RadioHub também é GPL v3. Ilustrações dos rádios são genéricas, feitas para o app. Backups em ~/RadioHub/backups e registros em ~/RadioHub/logs.</span></section>' +
       '<div class="footer"><button type="button" class="btn" id="back">Voltar</button></div>';
     v.onclick = (e) => { const u = e.target.getAttribute('data-url'); if (u) { e.preventDefault(); rh.openUrl(u); } };
     $('#chkUpd').onclick = async () => {
